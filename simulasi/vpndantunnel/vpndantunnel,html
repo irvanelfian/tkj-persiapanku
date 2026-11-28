@@ -1,0 +1,595 @@
+
+<div id="wan-vpn-lab">
+<style>
+#wan-vpn-lab{
+ --bg:#100b20;--panel:#1b1430;--panel2:#261b3d;--line:#49345f;
+ --purple:#c084fc;--pink:#f472b6;--teal:#2dd4bf;--text:#f5edff;
+ --muted:#b9a9ce;--yellow:#facc15;--red:#fb7185;
+ font-family:Arial,sans-serif;color:var(--text);background:var(--bg);
+ border-radius:20px;overflow:hidden;line-height:1.65;
+}
+#wan-vpn-lab *{box-sizing:border-box}
+#wan-vpn-lab button{font:inherit;cursor:pointer}
+#wan-vpn-lab .hero{
+ padding:34px 24px;background:
+ radial-gradient(circle at 85% 15%,#713c9b88,transparent 35%),
+ linear-gradient(135deg,#241039,#10172e 70%);
+ position:relative;overflow:hidden
+}
+#wan-vpn-lab .eyebrow{color:var(--teal);font-size:12px;font-weight:bold;letter-spacing:2px}
+#wan-vpn-lab h1{font-size:clamp(25px,5vw,38px);line-height:1.2;margin:10px 0}
+#wan-vpn-lab h2{font-size:23px;margin:0 0 12px}
+#wan-vpn-lab h3{font-size:17px;margin:0 0 8px}
+#wan-vpn-lab p{color:var(--muted);margin:8px 0}
+#wan-vpn-lab .hero p{max-width:720px}
+#wan-vpn-lab .hero-art{max-width:680px;margin:22px auto 0}
+#wan-vpn-lab .hero-art svg{width:100%;height:auto}
+#wan-vpn-lab .shell{padding:20px}
+#wan-vpn-lab .progress-wrap{height:6px;background:#38264d;border-radius:20px;overflow:hidden;margin-bottom:15px}
+#wan-vpn-lab .progress{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--pink),var(--teal));transition:.35s}
+#wan-vpn-lab .navline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+#wan-vpn-lab .counter{font-size:12px;color:var(--muted)}
+#wan-vpn-lab .navbtn,#wan-vpn-lab .action{
+ border:1px solid var(--line);background:#281b40;color:var(--text);
+ padding:10px 16px;border-radius:10px;font-weight:bold;transition:.2s
+}
+#wan-vpn-lab .navbtn:hover,#wan-vpn-lab .action:hover{border-color:var(--teal);transform:translateY(-2px)}
+#wan-vpn-lab .navbtn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#wan-vpn-lab .action.primary{background:linear-gradient(100deg,#9333ea,#c026d3);border:0}
+#wan-vpn-lab .action.teal{background:#0f766e;border:0}
+#wan-vpn-lab .slide{display:none;animation:vpnIn .35s ease}
+#wan-vpn-lab .slide.active{display:block}
+@keyframes vpnIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#wan-vpn-lab .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+#wan-vpn-lab .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#wan-vpn-lab .three{grid-template-columns:repeat(3,minmax(0,1fr))}
+#wan-vpn-lab .tile{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:15px}
+#wan-vpn-lab .tile strong{display:block;color:var(--text);margin-bottom:5px}
+#wan-vpn-lab .tag{display:inline-block;font-size:11px;padding:4px 9px;border-radius:20px;background:#493064;color:#e9d5ff;margin:3px}
+#wan-vpn-lab .teal-text{color:var(--teal)!important}
+#wan-vpn-lab .pink-text{color:var(--pink)!important}
+#wan-vpn-lab .purple-text{color:var(--purple)!important}
+#wan-vpn-lab .analogy{border-left:4px solid var(--teal);background:#12312f66;padding:14px 16px;border-radius:0 12px 12px 0;margin:14px 0}
+#wan-vpn-lab .analogy b{color:var(--teal)}
+#wan-vpn-lab .diagram{background:#100d20;border:1px solid #3d2c54;border-radius:14px;padding:12px;margin:14px 0;overflow:hidden}
+#wan-vpn-lab .diagram svg{display:block;width:100%;height:auto}
+#wan-vpn-lab .node{fill:#291b42;stroke:#a78bfa;stroke-width:2}
+#wan-vpn-lab .node2{fill:#123b3b;stroke:#2dd4bf;stroke-width:2}
+#wan-vpn-lab .svglabel{fill:#f5edff;font-size:13px;font-weight:bold}
+#wan-vpn-lab .svgsmall{fill:#b9a9ce;font-size:10px}
+#wan-vpn-lab .road{stroke:#77638e;stroke-width:5;stroke-dasharray:8 7;fill:none}
+#wan-vpn-lab .tunnel{stroke:#2dd4bf;stroke-width:13;stroke-linecap:round;opacity:.25;fill:none}
+#wan-vpn-lab .tunnel-line{stroke:#2dd4bf;stroke-width:3;stroke-dasharray:7 8;fill:none;animation:vpnFlow 1s linear infinite}
+@keyframes vpnFlow{to{stroke-dashoffset:-30}}
+#wan-vpn-lab .packet{fill:#f472b6;stroke:#fff;stroke-width:1}
+#wan-vpn-lab .packet-run{animation:vpnMove 4s linear infinite}
+@keyframes vpnMove{0%{transform:translateX(0)}100%{transform:translateX(430px)}}
+#wan-vpn-lab .switchrow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#wan-vpn-lab .switch{width:54px;height:29px;border:0;border-radius:30px;background:#59476c;padding:3px;transition:.2s}
+#wan-vpn-lab .switch span{display:block;width:23px;height:23px;border-radius:50%;background:white;transition:.2s}
+#wan-vpn-lab .switch.on{background:#0d9488}
+#wan-vpn-lab .switch.on span{transform:translateX(25px)}
+#wan-vpn-lab .status{font-weight:bold;color:var(--red)}
+#wan-vpn-lab .status.on{color:var(--teal)}
+#wan-vpn-lab .choice{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
+#wan-vpn-lab .choice button{background:#281b40;color:var(--text);border:1px solid var(--line);padding:9px 13px;border-radius:9px}
+#wan-vpn-lab .choice button.selected{border-color:var(--teal);background:#12413d}
+#wan-vpn-lab .output{background:#0b1722;border:1px solid #28534f;border-radius:12px;padding:14px;color:#a7f3d0;white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere;min-height:70px}
+#wan-vpn-lab .step{display:flex;gap:12px;align-items:flex-start;margin:12px 0}
+#wan-vpn-lab .num{flex:0 0 30px;height:30px;border-radius:50%;background:#713c9b;display:grid;place-items:center;font-weight:bold}
+#wan-vpn-lab .quiz-option{display:block;width:100%;text-align:left;padding:12px;margin:8px 0;border-radius:10px;border:1px solid var(--line);background:#211832;color:var(--text)}
+#wan-vpn-lab .quiz-option:hover{border-color:var(--purple)}
+#wan-vpn-lab .quiz-option.correct{background:#12413d;border-color:var(--teal)}
+#wan-vpn-lab .quiz-option.wrong{background:#48202e;border-color:var(--red)}
+#wan-vpn-lab .feedback{padding:12px;border-radius:10px;background:#302344;color:#e9d5ff;margin-top:10px;display:none}
+#wan-vpn-lab .feedback.show{display:block}
+#wan-vpn-lab .footer{padding:18px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+@media(max-width:650px){
+ #wan-vpn-lab .grid,#wan-vpn-lab .three{grid-template-columns:1fr}
+ #wan-vpn-lab .shell{padding:14px}
+ #wan-vpn-lab .hero{padding:26px 17px}
+ #wan-vpn-lab .panel{padding:14px}
+}
+</style>
+
+<section class="hero">
+ <div class="eyebrow">SIMULASI WAN • MATERI 05</div>
+ <h1>VPN & Tunneling<br>pada Jaringan WAN</h1>
+ <p>Bagaimana dua kantor yang berjauhan bisa berkomunikasi melalui internet dengan jalur komunikasi yang lebih terlindungi? Mari kita bangun terowongan digitalnya!</p>
+ <div class="hero-art">
+  <svg viewBox="0 0 680 190" role="img" aria-label="Ilustrasi dua jaringan yang terhubung melalui VPN tunnel">
+   <path d="M95 105 Q340 175 585 105" class="road"/>
+   <path d="M95 105 Q340 175 585 105" class="tunnel"/>
+   <path d="M95 105 Q340 175 585 105" class="tunnel-line"/>
+   <rect x="25" y="43" width="135" height="83" rx="12" class="node"/>
+   <rect x="520" y="43" width="135" height="83" rx="12" class="node2"/>
+   <g fill="#c084fc"><rect x="48" y="63" width="26" height="20" rx="3"/><rect x="84" y="63" width="26" height="20" rx="3"/><rect x="120" y="63" width="20" height="20" rx="3"/></g>
+   <g fill="#2dd4bf"><rect x="543" y="63" width="26" height="20" rx="3"/><rect x="579" y="63" width="26" height="20" rx="3"/><rect x="615" y="63" width="20" height="20" rx="3"/></g>
+   <text x="92" y="100" text-anchor="middle" class="svglabel">KANTOR A</text>
+   <text x="587" y="100" text-anchor="middle" class="svglabel">KANTOR B</text>
+   <text x="340" y="38" text-anchor="middle" class="svglabel">VPN TUNNEL</text>
+   <text x="340" y="178" text-anchor="middle" class="svgsmall">INTERNET / JARINGAN PUBLIK</text>
+   <circle cx="190" cy="123" r="6" class="packet"/>
+   <circle cx="220" cy="132" r="6" class="packet"/>
+   <circle cx="250" cy="139" r="6" class="packet"/>
+   <circle cx="280" cy="145" r="6" class="packet"/>
+  </svg>
+ </div>
+</section>
+
+<div class="shell">
+ <div class="progress-wrap"><div class="progress" id="vpnProgress"></div></div>
+ <div class="navline">
+  <button class="navbtn" id="vpnPrev">← Sebelumnya</button>
+  <span class="counter" id="vpnCounter">Bagian 1 dari 8</span>
+  <button class="navbtn" id="vpnNext">Berikutnya →</button>
+ </div>
+
+ <!-- SLIDE 1 -->
+ <section class="slide active">
+  <span class="tag">01 • KONSEP DASAR</span>
+  <h2>Apa itu VPN?</h2>
+  <p>VPN adalah singkatan dari <b>Virtual Private Network</b>. VPN memungkinkan perangkat atau jaringan saling terhubung melalui jaringan lain, seperti internet, menggunakan koneksi yang dirancang lebih aman.</p>
+  <div class="analogy">
+   <b>Bayangkan sebuah kota besar.</b>
+   <p>Ada jalan raya umum yang dilewati banyak kendaraan. Perusahaan ingin mengirim dokumen penting dari kantor A ke kantor B. Mereka membuat terowongan khusus yang dilindungi di sepanjang jalan umum tersebut.</p>
+   <p>Jalan raya = internet. Terowongan = VPN tunnel. Dokumen = data yang dikirim.</p>
+  </div>
+  <div class="diagram">
+   <svg viewBox="0 0 620 205">
+    <path d="M105 110 H515" class="road"/>
+    <path d="M105 110 H515" class="tunnel"/>
+    <path d="M105 110 H515" class="tunnel-line"/>
+    <rect x="20" y="58" width="120" height="95" rx="12" class="node"/>
+    <rect x="480" y="58" width="120" height="95" rx="12" class="node2"/>
+    <text x="80" y="91" text-anchor="middle" class="svglabel">KANTOR A</text>
+    <text x="80" y="112" text-anchor="middle" class="svgsmall">Router VPN</text>
+    <text x="540" y="91" text-anchor="middle" class="svglabel">KANTOR B</text>
+    <text x="540" y="112" text-anchor="middle" class="svgsmall">Router VPN</text>
+    <text x="310" y="83" text-anchor="middle" class="svglabel">TUNNEL</text>
+    <text x="310" y="145" text-anchor="middle" class="svgsmall">Jaringan publik</text>
+    <circle cx="180" cy="110" r="7" class="packet"/>
+    <circle cx="240" cy="110" r="7" class="packet"/>
+    <circle cx="300" cy="110" r="7" class="packet"/>
+    <circle cx="360" cy="110" r="7" class="packet"/>
+    <circle cx="420" cy="110" r="7" class="packet"/>
+   </svg>
+  </div>
+  <div class="grid">
+   <div class="tile"><strong class="purple-text">Virtual</strong><p>Terowongan dibentuk secara logis melalui jaringan yang sudah ada, bukan menggali kabel atau jalur fisik baru.</p></div>
+   <div class="tile"><strong class="teal-text">Private</strong><p>Komunikasi dibatasi dan dilindungi menggunakan mekanisme keamanan seperti enkripsi dan autentikasi.</p></div>
+   <div class="tile"><strong class="pink-text">Network</strong><p>Perangkat atau jaringan berbeda dapat berkomunikasi seolah-olah berada dalam jaringan privat yang terhubung.</p></div>
+   <div class="tile"><strong>VPN bukan internet baru</strong><p>VPN menggunakan koneksi jaringan yang sudah tersedia, misalnya internet.</p></div>
+  </div>
+  <div class="analogy"><b>Ingat:</b> VPN tidak membuat internet menjadi sepenuhnya anonim atau otomatis aman. Keamanan bergantung pada protokol, konfigurasi, autentikasi, dan perangkat yang digunakan.</div>
+ </section>
+
+ <!-- SLIDE 2 -->
+ <section class="slide">
+  <span class="tag">02 • MEMAHAMI TUNNEL</span>
+  <h2>Apa itu VPN Tunnel?</h2>
+  <p>VPN tunnel adalah jalur komunikasi logis yang membawa paket data melalui jaringan perantara. Data asli biasanya dibungkus dalam paket baru (*encapsulation*), dan pada VPN yang terenkripsi, isi komunikasinya dilindungi agar tidak mudah dibaca pihak lain.</p>
+  <div class="analogy">
+   <b>Analogi paket kiriman:</b>
+   <p>Kamu memasukkan surat ke dalam amplop, lalu memasukkan amplop itu ke dalam kotak pengiriman yang terkunci. Kotak luar membawa kiriman melewati jalan umum. Penerima yang memiliki akses dan kunci yang sesuai dapat membuka perlindungan tersebut.</p>
+  </div>
+  <div class="diagram">
+   <h3>Animasi perjalanan paket data</h3>
+   <svg viewBox="0 0 620 230">
+    <rect x="12" y="66" width="112" height="96" rx="12" class="node"/>
+    <text x="68" y="96" text-anchor="middle" class="svglabel">DATA ASLI</text>
+    <rect x="38" y="110" width="60" height="28" rx="5" fill="#f472b6"/>
+    <text x="68" y="129" text-anchor="middle" fill="#1b1430" font-size="11">HELLO</text>
+    <path d="M124 113 H195" stroke="#a78bfa" stroke-width="3" stroke-dasharray="5 5"/>
+    <path d="M187 105 L198 113 L187 121" fill="none" stroke="#a78bfa" stroke-width="3"/>
+    <rect x="200" y="52" width="190" height="125" rx="12" class="node2"/>
+    <rect x="222" y="78" width="146" height="72" rx="8" fill="#0b5550" stroke="#2dd4bf"/>
+    <rect x="238" y="94" width="114" height="40" rx="5" fill="#f472b6"/>
+    <text x="295" y="118" text-anchor="middle" fill="#1b1430" font-size="12" font-weight="bold">DATA TERBUNGKUS</text>
+    <text x="295" y="166" text-anchor="middle" class="svgsmall">Encapsulation + enkripsi*</text>
+    <path d="M390 113 H480" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="5 5"/>
+    <path d="M472 105 L483 113 L472 121" fill="none" stroke="#2dd4bf" stroke-width="3"/>
+    <rect x="486" y="66" width="122" height="96" rx="12" class="node"/>
+    <text x="547" y="98" text-anchor="middle" class="svglabel">PENERIMA</text>
+    <text x="547" y="121" text-anchor="middle" class="svgsmall">Buka paket</text>
+    <text x="310" y="25" text-anchor="middle" class="svgsmall">ILUSTRASI KONSEP, BUKAN FORMAT PAKET SEBENARNYA</text>
+    <text x="310" y="211" text-anchor="middle" class="svgsmall">*Enkripsi bergantung pada protokol dan konfigurasi VPN</text>
+   </svg>
+  </div>
+  <div class="grid">
+   <div class="tile"><strong>1. Encapsulation</strong><p>Paket asli dibungkus dengan informasi tambahan agar dapat dibawa melalui tunnel.</p></div>
+   <div class="tile"><strong>2. Enkripsi</strong><p>Isi data diubah menjadi bentuk yang tidak mudah dibaca tanpa kunci yang sesuai.</p></div>
+   <div class="tile"><strong>3. Autentikasi</strong><p>Memastikan pihak yang terhubung memiliki identitas atau kredensial yang sah.</p></div>
+   <div class="tile"><strong>4. Decapsulation</strong><p>Paket pembungkus dilepas di sisi penerima sehingga data dapat diproses kembali.</p></div>
+  </div>
+  <div class="analogy"><b>Catatan penting:</b> Tunneling dan enkripsi bukan hal yang sama. Tunneling adalah cara membawa paket melalui jalur logis, sedangkan enkripsi melindungi kerahasiaan data. Tidak semua tunnel otomatis terenkripsi.</div>
+ </section>
+
+ <!-- SLIDE 3 -->
+ <section class="slide">
+  <span class="tag">03 • KAPAN VPN DIGUNAKAN?</span>
+  <h2>Mengapa kita membutuhkan VPN?</h2>
+  <p>VPN digunakan ketika komunikasi perlu melewati jaringan perantara, tetapi akses dan perlindungan data tetap harus dikendalikan.</p>
+  <div class="grid">
+   <div class="tile">
+    <strong class="purple-text">Menghubungkan cabang kantor</strong>
+    <p>Kantor pusat di Medan perlu mengakses server di kantor cabang di Padang Tualang.</p>
+    <span class="tag">Site-to-Site VPN</span>
+   </div>
+   <div class="tile">
+    <strong class="teal-text">Kerja dari rumah</strong>
+    <p>Karyawan mengakses aplikasi internal kantor dari laptop melalui koneksi internet.</p>
+    <span class="tag">Remote Access VPN</span>
+   </div>
+   <div class="tile">
+    <strong class="pink-text">Administrasi jarak jauh</strong>
+    <p>Administrator mengelola router atau server dari lokasi lain melalui koneksi yang telah diamankan.</p>
+    <span class="tag">Remote Administration</span>
+   </div>
+   <div class="tile">
+    <strong class="purple-text">Menghubungkan jaringan berbeda</strong>
+    <p>Dua jaringan lokal di lokasi terpisah dapat saling mengakses layanan yang diizinkan.</p>
+    <span class="tag">Interconnection</span>
+   </div>
+  </div>
+  <div class="analogy">
+   <b>Contoh di lingkungan sekolah:</b>
+   <p>Sekolah memiliki server aplikasi dan file pembelajaran. Guru sedang berada di luar sekolah, tetapi perlu mengakses file internal. Dengan Remote Access VPN, guru dapat masuk ke jaringan sekolah setelah autentikasi berhasil dan hak akses diberikan.</p>
+  </div>
+  <h3>Apakah VPN selalu dibutuhkan?</h3>
+  <div class="choice" id="vpnNeedChoices">
+   <button data-answer="yes">Mengakses server internal dari luar sekolah</button>
+   <button data-answer="no">Membuka situs publik biasa</button>
+   <button data-answer="yes">Menghubungkan dua kantor melalui internet</button>
+  </div>
+  <div class="panel" id="vpnNeedResult"><p>Pilih salah satu situasi untuk melihat penjelasannya.</p></div>
+ </section>
+
+ <!-- SLIDE 4 -->
+ <section class="slide">
+  <span class="tag">04 • JENIS VPN</span>
+  <h2>Dua model penggunaan VPN</h2>
+  <p>VPN dapat dibangun untuk menghubungkan jaringan dengan jaringan lain, atau menghubungkan satu perangkat pengguna ke jaringan privat.</p>
+  <div class="panel">
+   <h3 class="purple-text">A. Site-to-Site VPN</h3>
+   <p>Menghubungkan dua atau lebih jaringan lokal melalui perangkat VPN di masing-masing lokasi.</p>
+   <div class="diagram">
+    <svg viewBox="0 0 620 190">
+     <rect x="10" y="48" width="150" height="95" rx="10" class="node"/>
+     <text x="85" y="75" text-anchor="middle" class="svglabel">LAN KANTOR A</text>
+     <text x="85" y="97" text-anchor="middle" class="svgsmall">PC • Server</text>
+     <text x="85" y="119" text-anchor="middle" class="svgsmall">192.168.10.0/24</text>
+     <rect x="225" y="48" width="170" height="95" rx="10" class="node2"/>
+     <text x="310" y="78" text-anchor="middle" class="svglabel">VPN TUNNEL</text>
+     <text x="310" y="100" text-anchor="middle" class="svgsmall">Internet</text>
+     <text x="310" y="120" text-anchor="middle" class="svgsmall">Router A ↔ Router B</text>
+     <rect x="460" y="48" width="150" height="95" rx="10" class="node"/>
+     <text x="535" y="75" text-anchor="middle" class="svglabel">LAN KANTOR B</text>
+     <text x="535" y="97" text-anchor="middle" class="svgsmall">PC • Server</text>
+     <text x="535" y="119" text-anchor="middle" class="svgsmall">192.168.20.0/24</text>
+     <path d="M160 95 H225 M395 95 H460" stroke="#2dd4bf" stroke-width="4" stroke-dasharray="6 5"/>
+    </svg>
+   </div>
+   <p><b>Analogi:</b> Dua gedung memiliki terowongan penghubung sendiri. Pengguna di jaringan A dapat mengakses layanan jaringan B sesuai aturan yang dibuat.</p>
+  </div>
+  <div class="panel">
+   <h3 class="teal-text">B. Remote Access VPN</h3>
+   <p>Menghubungkan satu perangkat pengguna ke jaringan privat dari lokasi berbeda.</p>
+   <div class="diagram">
+    <svg viewBox="0 0 620 180">
+     <rect x="10" y="47" width="145" height="90" rx="10" class="node"/>
+     <text x="82" y="78" text-anchor="middle" class="svglabel">LAPTOP</text>
+     <text x="82" y="100" text-anchor="middle" class="svgsmall">Pengguna</text>
+     <text x="82" y="118" text-anchor="middle" class="svgsmall">VPN Client</text>
+     <rect x="220" y="47" width="170" height="90" rx="10" class="node2"/>
+     <text x="305" y="78" text-anchor="middle" class="svglabel">VPN TUNNEL</text>
+     <text x="305" y="103" text-anchor="middle" class="svgsmall">Internet</text>
+     <rect x="455" y="47" width="155" height="90" rx="10" class="node"/>
+     <text x="532" y="78" text-anchor="middle" class="svglabel">JARINGAN</text>
+     <text x="532" y="99" text-anchor="middle" class="svglabel">SEKOLAH</text>
+     <text x="532" y="119" text-anchor="middle" class="svgsmall">VPN Server</text>
+     <path d="M155 92 H220 M390 92 H455" stroke="#2dd4bf" stroke-width="4" stroke-dasharray="6 5"/>
+    </svg>
+   </div>
+   <p><b>Analogi:</b> Satu orang memiliki kartu akses khusus untuk melewati gerbang menuju gedung kantor.</p>
+  </div>
+  <div class="analogy"><b>Perbedaan utama:</b> Site-to-Site menghubungkan jaringan dengan jaringan. Remote Access menghubungkan perangkat pengguna dengan jaringan privat.</div>
+ </section>
+
+ <!-- SLIDE 5 -->
+ <section class="slide">
+  <span class="tag">05 • DI MANA VPN DIATUR?</span>
+  <h2>Di mana VPN dikonfigurasi?</h2>
+  <p>VPN tidak hanya diatur di satu tempat. Lokasi konfigurasi bergantung pada jenis VPN, perangkat, dan arsitektur jaringan.</p>
+  <div class="grid three">
+   <div class="tile"><strong class="purple-text">Router</strong><p>Contoh: MikroTik, Cisco, dan router bisnis. Umumnya dipakai untuk Site-to-Site atau akses jarak jauh.</p></div>
+   <div class="tile"><strong class="teal-text">Firewall</strong><p>Perangkat keamanan jaringan dapat menangani VPN, autentikasi, serta aturan akses.</p></div>
+   <div class="tile"><strong class="pink-text">Server VPN</strong><p>Server khusus menjalankan layanan seperti WireGuard atau OpenVPN.</p></div>
+   <div class="tile"><strong class="purple-text">Komputer / Ponsel</strong><p>Aplikasi VPN Client dipasang untuk membuat koneksi ke server VPN.</p></div>
+   <div class="tile"><strong class="teal-text">Cloud</strong><p>Layanan cloud dapat menyediakan gateway VPN untuk menghubungkan jaringan lokal dengan cloud.</p></div>
+   <div class="tile"><strong class="pink-text">Sistem operasi</strong><p>Windows, Linux, Android, dan iOS dapat memiliki pengaturan atau aplikasi VPN client.</p></div>
+  </div>
+  <div class="analogy">
+   <b>Analogi gerbang gedung:</b>
+   <p>VPN Server atau router VPN adalah gerbang masuk. VPN Client adalah kartu akses milik pengguna. Firewall adalah petugas keamanan yang menentukan ruangan mana yang boleh dimasuki.</p>
+  </div>
+  <h3>Kenali peran setiap perangkat</h3>
+  <div class="choice" id="vpnDeviceChoices">
+   <button data-device="router">Router VPN</button>
+   <button data-device="server">Server VPN</button>
+   <button data-device="client">VPN Client</button>
+   <button data-device="firewall">Firewall</button>
+  </div>
+  <div class="panel" id="vpnDeviceInfo"><p>Pilih perangkat untuk mengetahui perannya.</p></div>
+  <div class="analogy"><b>Contoh praktik:</b> Pada Site-to-Site, konfigurasi tunnel dapat dibuat di router kantor A dan router kantor B. Pada Remote Access, konfigurasi server dilakukan di router/server tujuan, sedangkan laptop atau ponsel dipasangi konfigurasi client.</div>
+ </section>
+
+ <!-- SLIDE 6 -->
+ <section class="slide">
+  <span class="tag">06 • PROTOKOL VPN</span>
+  <h2>Teknologi pembentuk VPN</h2>
+  <p>Protokol VPN menentukan bagaimana koneksi dibentuk, bagaimana pihak yang terhubung dikenali, dan bagaimana data dilindungi.</p>
+  <div class="grid">
+   <div class="tile">
+    <strong class="teal-text">WireGuard</strong>
+    <p>Protokol VPN modern dengan desain relatif sederhana dan performa yang baik. Menggunakan pasangan kunci publik dan privat.</p>
+    <span class="tag">Modern</span><span class="tag">Ringkas</span>
+   </div>
+   <div class="tile">
+    <strong class="purple-text">IPsec</strong>
+    <p>Kumpulan protokol untuk mengamankan komunikasi IP. Sering digunakan untuk Site-to-Site VPN.</p>
+    <span class="tag">Site-to-Site</span><span class="tag">Enterprise</span>
+   </div>
+   <div class="tile">
+    <strong class="pink-text">OpenVPN</strong>
+    <p>Solusi VPN berbasis TLS yang fleksibel dan didukung banyak sistem operasi serta perangkat.</p>
+    <span class="tag">Fleksibel</span><span class="tag">Multi-platform</span>
+   </div>
+   <div class="tile">
+    <strong>SSL/TLS VPN</strong>
+    <p>Istilah umum untuk solusi akses VPN yang memanfaatkan TLS. Implementasinya bergantung pada produk yang digunakan.</p>
+    <span class="tag">Remote Access</span>
+   </div>
+  </div>
+  <div class="panel">
+   <h3>Bandingkan protokol</h3>
+   <div class="choice" id="vpnProtocolChoices">
+    <button data-protocol="wg">WireGuard</button>
+    <button data-protocol="ipsec">IPsec</button>
+    <button data-protocol="ovpn">OpenVPN</button>
+   </div>
+   <div id="vpnProtocolInfo"><p>Pilih protokol untuk melihat gambaran penggunaannya.</p></div>
+  </div>
+  <div class="analogy"><b>Catatan keamanan:</b> Hindari PPTP untuk penerapan baru karena memiliki kelemahan keamanan yang sudah lama diketahui. Pilih protokol modern dan konfigurasi yang masih didukung pembuat perangkat lunak.</div>
+ </section>
+
+ <!-- SLIDE 7 -->
+ <section class="slide">
+  <span class="tag">07 • PRAKTIK KONSEP</span>
+  <h2>Membangun VPN Tunnel Sederhana</h2>
+  <p>Kita akan membuat simulasi Site-to-Site antara dua kantor. Ini adalah simulasi konsep, bukan konfigurasi yang langsung diterapkan ke router sungguhan.</p>
+  <div class="grid">
+   <div class="tile"><strong>Kantor A</strong><p>LAN: 192.168.10.0/24</p><p>Gateway: 192.168.10.1</p><p>Router VPN A</p></div>
+   <div class="tile"><strong>Kantor B</strong><p>LAN: 192.168.20.0/24</p><p>Gateway: 192.168.20.1</p><p>Router VPN B</p></div>
+  </div>
+  <div class="diagram">
+   <svg viewBox="0 0 620 210">
+    <rect x="10" y="55" width="145" height="105" rx="12" class="node"/>
+    <text x="82" y="82" text-anchor="middle" class="svglabel">KANTOR A</text>
+    <text x="82" y="105" text-anchor="middle" class="svgsmall">192.168.10.0/24</text>
+    <text x="82" y="127" text-anchor="middle" class="svgsmall">Router VPN A</text>
+    <rect x="225" y="42" width="170" height="130" rx="18" class="node2"/>
+    <text x="310" y="75" text-anchor="middle" class="svglabel">VPN TUNNEL</text>
+    <text x="310" y="100" text-anchor="middle" class="svgsmall">Internet</text>
+    <text x="310" y="121" text-anchor="middle" class="svgsmall" id="vpnTunnelSvgStatus">BELUM AKTIF</text>
+    <path id="vpnTunnelPath" d="M155 105 H225 M395 105 H465" stroke="#77638e" stroke-width="5" stroke-dasharray="7 7" fill="none"/>
+    <rect x="465" y="55" width="145" height="105" rx="12" class="node"/>
+    <text x="537" y="82" text-anchor="middle" class="svglabel">KANTOR B</text>
+    <text x="537" y="105" text-anchor="middle" class="svgsmall">192.168.20.0/24</text>
+    <text x="537" y="127" text-anchor="middle" class="svgsmall">Router VPN B</text>
+    <circle cx="180" cy="105" r="7" class="packet" id="vpnPacket1"/>
+    <circle cx="440" cy="105" r="7" class="packet" id="vpnPacket2"/>
+   </svg>
+  </div>
+  <div class="panel">
+   <div class="switchrow">
+    <div><b>Aktifkan VPN Tunnel</b><p>Simulasikan koneksi antara router A dan B.</p></div>
+    <button class="switch" id="vpnToggle" aria-label="Aktifkan atau nonaktifkan VPN"><span></span></button>
+   </div>
+   <p>Status: <span class="status" id="vpnStatus">DISCONNECTED</span></p>
+   <div class="switchrow">
+    <b>Uji koneksi antarjaringan (Ping)</b>
+    <button class="action teal" id="vpnPing">Jalankan Ping</button>
+   </div>
+   <div class="output" id="vpnPingOutput">Menunggu koneksi VPN...</div>
+  </div>
+  <h3>Langkah konfigurasi secara konsep</h3>
+  <div class="step"><span class="num">1</span><div><b>Siapkan perangkat VPN</b><p>Router atau server VPN pada kedua lokasi harus mendukung protokol yang dipilih.</p></div></div>
+  <div class="step"><span class="num">2</span><div><b>Atur identitas dan autentikasi</b><p>Contohnya pertukaran kunci WireGuard atau parameter keamanan IPsec.</p></div></div>
+  <div class="step"><span class="num">3</span><div><b>Tentukan jaringan tujuan</b><p>Masukkan subnet LAN yang akan dihubungkan pada kedua sisi.</p></div></div>
+  <div class="step"><span class="num">4</span><div><b>Atur routing dan firewall</b><p>Pastikan rute menuju jaringan seberang tersedia dan aturan firewall mengizinkan trafik yang diperlukan.</p></div></div>
+  <div class="step"><span class="num">5</span><div><b>Uji koneksi</b><p>Periksa status tunnel, routing, firewall, lalu uji konektivitas dari satu LAN ke LAN lain.</p></div></div>
+  <div class="analogy"><b>Mengapa ping bisa gagal meskipun VPN aktif?</b><p>Tunnel yang aktif belum tentu berarti semua jaringan dapat saling berkomunikasi. Routing, subnet yang diizinkan, firewall, dan konfigurasi di kedua sisi juga harus benar.</p></div>
+ </section>
+
+ <!-- SLIDE 8 -->
+ <section class="slide">
+  <span class="tag">08 • EVALUASI</span>
+  <h2>Uji Pemahamanmu!</h2>
+  <p>Jawab lima pertanyaan berikut untuk menguji pemahaman tentang VPN dan tunneling.</p>
+  <div class="panel" id="vpnQuiz">
+   <div class="counter" id="vpnQuizCount">Pertanyaan 1 dari 5</div>
+   <h3 id="vpnQuestion" style="margin-top:12px"></h3>
+   <div id="vpnOptions"></div>
+   <div class="feedback" id="vpnFeedback"></div>
+   <div class="navline" style="margin-top:15px">
+    <span class="counter" id="vpnScore">Skor: 0</span>
+    <button class="action primary" id="vpnQuizNext" disabled>Berikutnya →</button>
+   </div>
+  </div>
+  <div class="panel" id="vpnQuizResult" style="display:none;text-align:center">
+   <h2>Evaluasi Selesai!</h2>
+   <div style="font-size:42px;font-weight:bold;color:var(--teal)" id="vpnFinalScore">0/5</div>
+   <p id="vpnFinalMessage"></p>
+   <button class="action primary" id="vpnRestart">Ulangi Evaluasi</button>
+  </div>
+  <div class="analogy">
+   <b>Kesimpulan:</b>
+   <p>VPN tunnel adalah jalur komunikasi logis yang menghubungkan perangkat atau jaringan melalui jaringan perantara. VPN membantu melindungi komunikasi dan mengatur akses, tetapi tetap memerlukan konfigurasi protokol, autentikasi, routing, dan firewall yang tepat.</p>
+  </div>
+  <div class="panel" style="text-align:center">
+   <h3 class="teal-text">Kamu sudah mengenal VPN!</h3>
+   <p>Teknologi jaringan bukan hanya tentang menghubungkan perangkat, tetapi juga memastikan komunikasi berlangsung dengan aman dan terkontrol.</p>
+   <span class="tag">TKJ Persiapan</span>
+   <span class="tag">Learn • Explore • Practice</span>
+  </div>
+ </section>
+</div>
+<div class="footer">SIMULASI PEMBELAJARAN WAN • TKJ PERSIAPAN</div>
+
+<script>
+(()=>{
+ const root=document.getElementById('wan-vpn-lab');
+ if(!root || root.dataset.ready==='1') return;
+ root.dataset.ready='1';
+ const $=id=>root.querySelector('#'+id);
+ const slides=[...root.querySelectorAll('.slide')];
+ let current=0;
+ function showSlide(n){
+  current=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  $('vpnCounter').textContent=`Bagian ${current+1} dari ${slides.length}`;
+  $('vpnProgress').style.width=((current+1)/slides.length*100)+'%';
+  $('vpnPrev').disabled=current===0;
+  $('vpnNext').textContent=current===slides.length-1?'Kembali ke awal ↺':'Berikutnya →';
+ }
+ $('vpnPrev').addEventListener('click',()=>showSlide(current-1));
+ $('vpnNext').addEventListener('click',()=>showSlide(current===slides.length-1?0:current+1));
+
+ // Need VPN decision
+ const needInfo={
+  yes:'VPN dapat menjadi solusi yang tepat. Akses ke jaringan privat atau komunikasi antarlokasi dapat dilindungi dengan autentikasi dan enkripsi, sesuai kebutuhan serta konfigurasi.',
+  no:'Untuk membuka situs publik biasa, VPN tidak selalu diperlukan. VPN dapat digunakan karena alasan keamanan atau kebijakan tertentu, tetapi bukan syarat untuk mengakses setiap situs.'
+ };
+ root.querySelectorAll('#vpnNeedChoices button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('#vpnNeedChoices button').forEach(b=>b.classList.remove('selected'));
+   btn.classList.add('selected');
+   $('vpnNeedResult').innerHTML='<p>'+needInfo[btn.dataset.answer]+'</p>';
+  });
+ });
+
+ // Device roles
+ const deviceInfo={
+  router:['Router VPN','Membentuk tunnel dan menghubungkan jaringan lokal dengan jaringan di lokasi lain. Contohnya router di kantor pusat dan cabang.'],
+  server:['Server VPN','Menjalankan layanan VPN, mengelola koneksi pengguna, serta memverifikasi autentikasi sesuai konfigurasi.'],
+  client:['VPN Client','Aplikasi atau fitur pada laptop dan ponsel yang digunakan untuk terhubung ke server atau gateway VPN.'],
+  firewall:['Firewall','Mengatur lalu lintas yang boleh masuk dan keluar, termasuk membatasi akses pengguna VPN ke jaringan internal.']
+ };
+ root.querySelectorAll('#vpnDeviceChoices button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('#vpnDeviceChoices button').forEach(b=>b.classList.remove('selected'));
+   btn.classList.add('selected');
+   const d=deviceInfo[btn.dataset.device];
+   $('vpnDeviceInfo').innerHTML='<h3 class="teal-text">'+d[0]+'</h3><p>'+d[1]+'</p>';
+  });
+ });
+
+ // Protocol details
+ const protocolInfo={
+  wg:['WireGuard','Cocok untuk koneksi modern yang relatif sederhana. Menggunakan pasangan public key dan private key. Administrator perlu mengatur peer, alamat tunnel, endpoint, serta jaringan yang diizinkan.'],
+  ipsec:['IPsec','Sering digunakan untuk menghubungkan jaringan kantor. Konfigurasi umumnya melibatkan peer, autentikasi, algoritma keamanan, parameter pertukaran kunci, serta kebijakan trafik.'],
+  ovpn:['OpenVPN','Banyak digunakan untuk akses jarak jauh. Membutuhkan server, sertifikat atau metode autentikasi yang sesuai, profil client, dan aturan routing serta firewall.']
+ };
+ root.querySelectorAll('#vpnProtocolChoices button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('#vpnProtocolChoices button').forEach(b=>b.classList.remove('selected'));
+   btn.classList.add('selected');
+   const p=protocolInfo[btn.dataset.protocol];
+   $('vpnProtocolInfo').innerHTML='<h3 class="teal-text">'+p[0]+'</h3><p>'+p[1]+'</p>';
+  });
+ });
+
+ // VPN tunnel simulator
+ let tunnelOn=false;
+ function setTunnel(on){
+  tunnelOn=on;
+  $('vpnToggle').classList.toggle('on',on);
+  $('vpnStatus').textContent=on?'CONNECTED':'DISCONNECTED';
+  $('vpnStatus').classList.toggle('on',on);
+  $('vpnTunnelSvgStatus').textContent=on?'TUNNEL AKTIF':'BELUM AKTIF';
+  $('vpnTunnelPath').setAttribute('stroke',on?'#2dd4bf':'#77638e');
+  $('vpnTunnelPath').setAttribute('stroke-dasharray',on?'5 5':'7 7');
+  $('vpnPingOutput').textContent=on
+   ?'Tunnel berhasil dibentuk pada simulasi.\nJaringan A dan B siap diuji.\nCatatan: status ini hanya simulasi konsep.'
+   :'Tunnel belum aktif.\nAktifkan VPN sebelum menjalankan ping.';
+ }
+ $('vpnToggle').addEventListener('click',()=>setTunnel(!tunnelOn));
+ $('vpnPing').addEventListener('click',()=>{
+  $('vpnPingOutput').textContent=tunnelOn
+   ?'PING 192.168.20.10 dari 192.168.10.10\nReply: simulasi paket berhasil melewati VPN tunnel.\nStatus: SUCCESS (SIMULASI)\n\nKoneksi nyata tetap membutuhkan routing, firewall, dan konfigurasi kedua sisi yang benar.'
+   :'PING 192.168.20.10 dari 192.168.10.10\nRequest timed out.\nStatus: FAILED\nPenyebab pada simulasi: VPN tunnel belum aktif.';
+ });
+
+ // Quiz
+ const questions=[
+  {q:'Apa kepanjangan VPN?',o:['Virtual Private Network','Visual Protocol Node','Variable Public Network','Virtual Program Number'],a:0,e:'VPN adalah Virtual Private Network, yaitu jaringan privat virtual.'},
+  {q:'Apa analogi paling tepat untuk VPN tunnel?',o:['Jalan raya tanpa aturan','Terowongan khusus di atas jalan umum','Kabel listrik rumah','Antena pemancar radio'],a:1,e:'VPN tunnel seperti terowongan logis yang membawa komunikasi melalui jaringan perantara.'},
+  {q:'VPN Site-to-Site umumnya digunakan untuk...',o:['Menghubungkan dua jaringan kantor','Mengganti sistem operasi','Mempercepat semua situs web','Menghubungkan keyboard ke komputer'],a:0,e:'Site-to-Site menghubungkan jaringan di lokasi berbeda, misalnya kantor pusat dan cabang.'},
+  {q:'Di mana VPN dapat dikonfigurasi?',o:['Hanya di komputer','Hanya di ponsel','Router, firewall, server, atau perangkat client','Hanya di switch biasa'],a:2,e:'Lokasi konfigurasi bergantung pada arsitektur VPN. Bisa di router, firewall, server, cloud, atau client.'},
+  {q:'Mengapa ping antarlokasi bisa gagal meskipun tunnel VPN aktif?',o:['Karena VPN tidak bisa membawa data','Karena routing atau firewall belum benar','Karena semua VPN wajib menggunakan satelit','Karena IP address tidak dibutuhkan'],a:1,e:'Tunnel aktif saja tidak cukup. Routing, firewall, subnet yang diizinkan, dan konfigurasi kedua sisi harus sesuai.'}
+ ];
+ let qIndex=0,score=0,answered=false;
+ function renderQuestion(){
+  const q=questions[qIndex];answered=false;
+  $('vpnQuizCount').textContent=`Pertanyaan ${qIndex+1} dari ${questions.length}`;
+  $('vpnQuestion').textContent=q.q;
+  $('vpnOptions').innerHTML='';
+  $('vpnFeedback').classList.remove('show');
+  $('vpnFeedback').textContent='';
+  $('vpnQuizNext').disabled=true;
+  q.o.forEach((opt,i)=>{
+   const b=document.createElement('button');
+   b.className='quiz-option';b.textContent=String.fromCharCode(65+i)+'. '+opt;
+   b.addEventListener('click',()=>{
+    if(answered)return;
+    answered=true;
+    const buttons=[...$('vpnOptions').children];
+    buttons.forEach((x,j)=>{
+     x.disabled=true;
+     if(j===q.a)x.classList.add('correct');
+    });
+    if(i===q.a)score++;
+    else b.classList.add('wrong');
+    $('vpnScore').textContent='Skor: '+score;
+    $('vpnFeedback').textContent=(i===q.a?'Benar! ':'Belum tepat. ')+q.e;
+    $('vpnFeedback').classList.add('show');
+    $('vpnQuizNext').disabled=false;
+    $('vpnQuizNext').textContent=qIndex===questions.length-1?'Lihat Hasil':'Berikutnya →';
+   });
+   $('vpnOptions').appendChild(b);
+  });
+ }
+ $('vpnQuizNext').addEventListener('click',()=>{
+  if(!answered)return;
+  if(qIndex<questions.length-1){qIndex++;renderQuestion();}
+  else{
+   $('vpnQuiz').style.display='none';
+   $('vpnQuizResult').style.display='block';
+   $('vpnFinalScore').textContent=score+'/'+questions.length;
+   $('vpnFinalMessage').textContent=score===5?'Luar biasa! Semua jawaban benar.':score>=3?'Bagus! Pelajari kembali bagian yang belum dikuasai.':'Ayo pelajari kembali materi VPN dan coba sekali lagi.';
+  }
+ });
+ $('vpnRestart').addEventListener('click',()=>{
+  qIndex=0;score=0;
+  $('vpnScore').textContent='Skor: 0';
+  $('vpnQuiz').style.display='block';
+  $('vpnQuizResult').style.display='none';
+  $('vpnQuizNext').textContent='Berikutnya →';
+  renderQuestion();
+ });
+ renderQuestion();
+ showSlide(0);
+})();
+</script>
+</div>
