@@ -1,1 +1,626 @@
 
+<div id="tkj-about">
+<style>
+#tkj-about{
+ --bg:#07110f;
+ --panel:#10201b;
+ --panel2:#142a22;
+ --green:#4ade80;
+ --green2:#22c55e;
+ --purple:#a78bfa;
+ --text:#e8f5ed;
+ --muted:#9bb5a5;
+ --line:rgba(148,190,164,.15);
+ font-family:Arial,Helvetica,sans-serif;
+ color:var(--text);
+ background:var(--bg);
+ line-height:1.7;
+ overflow:hidden;
+ border-radius:18px;
+ position:relative;
+}
+#tkj-about *{box-sizing:border-box}
+#tkj-about a{color:inherit;text-decoration:none}
+#tkj-about .about-wrap{max-width:1120px;margin:auto;padding:0 22px}
+#tkj-about .about-section{padding:78px 0;position:relative}
+#tkj-about .about-label{
+ display:inline-flex;align-items:center;gap:8px;
+ color:var(--green);font-size:12px;font-weight:800;
+ letter-spacing:2px;text-transform:uppercase;
+ margin-bottom:15px
+}
+#tkj-about .about-label:before{
+ content:"";width:22px;height:2px;background:var(--green)
+}
+#tkj-about h1,#tkj-about h2,#tkj-about h3,#tkj-about p{margin-top:0}
+#tkj-about h2{
+ font-size:clamp(27px,4vw,39px);line-height:1.2;
+ margin-bottom:16px;letter-spacing:-1px
+}
+#tkj-about .section-intro{
+ color:var(--muted);max-width:680px;font-size:15px
+}
+#tkj-about .gradient-text{
+ background:linear-gradient(90deg,var(--green),#b7f7ce,var(--purple));
+ -webkit-background-clip:text;background-clip:text;color:transparent
+}
+#tkj-about .about-hero{
+ min-height:520px;display:flex;align-items:center;
+ position:relative;padding:85px 0 75px;
+ background:
+ radial-gradient(ellipse at 80% 25%,rgba(167,139,250,.13),transparent 38%),
+ radial-gradient(ellipse at 15% 80%,rgba(34,197,94,.12),transparent 40%),
+ linear-gradient(135deg,#08140f,#0a1914 55%,#101426);
+}
+#tkj-about .hero-grid{
+ display:grid;grid-template-columns:1.15fr .85fr;
+ gap:35px;align-items:center
+}
+#tkj-about .hero-badge{
+ display:inline-flex;align-items:center;gap:9px;
+ padding:8px 13px;border:1px solid rgba(74,222,128,.25);
+ background:rgba(74,222,128,.07);border-radius:30px;
+ color:#a7f3c1;font-size:12px;margin-bottom:23px
+}
+#tkj-about .hero-dot{
+ width:7px;height:7px;border-radius:50%;
+ background:var(--green);box-shadow:0 0 12px var(--green)
+}
+#tkj-about .hero-title{
+ font-size:clamp(42px,7vw,76px);line-height:1.02;
+ letter-spacing:-3px;margin:0 0 22px;font-weight:900
+}
+#tkj-about .hero-desc{
+ color:#afc4b7;font-size:16px;max-width:550px;margin-bottom:28px
+}
+#tkj-about .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+#tkj-about .about-btn{
+ display:inline-flex;align-items:center;gap:9px;
+ padding:12px 18px;border-radius:10px;
+ font-size:13px;font-weight:700;transition:.25s;
+ cursor:pointer
+}
+#tkj-about .btn-green{
+ background:var(--green);color:#092015!important;
+ box-shadow:0 8px 25px rgba(34,197,94,.15)
+}
+#tkj-about .btn-green:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(34,197,94,.25)}
+#tkj-about .btn-outline{
+ border:1px solid var(--line);color:var(--text)
+}
+#tkj-about .btn-outline:hover{border-color:var(--purple);transform:translateY(-3px)}
+#tkj-about .hero-art{
+ min-height:330px;display:flex;align-items:center;justify-content:center;
+ position:relative
+}
+#tkj-about .orbit{
+ width:275px;height:275px;border:1px solid rgba(74,222,128,.25);
+ border-radius:50%;position:absolute;animation:aboutSpin 22s linear infinite
+}
+#tkj-about .orbit:before,.orbit:after{
+ content:"";position:absolute;width:11px;height:11px;border-radius:50%;
+ background:var(--green);box-shadow:0 0 18px var(--green)
+}
+#tkj-about .orbit:before{top:25px;left:38px}
+#tkj-about .orbit:after{bottom:35px;right:20px;background:var(--purple);box-shadow:0 0 18px var(--purple)}
+#tkj-about .orbit.orbit-two{
+ width:215px;height:215px;border-color:rgba(167,139,250,.3);
+ animation:aboutSpin 15s linear infinite reverse
+}
+#tkj-about .orbit.orbit-two:before{background:var(--purple);top:20px;right:35px;left:auto}
+#tkj-about .orbit.orbit-two:after{display:none}
+#tkj-about .hero-core{
+ width:135px;height:135px;border-radius:35px;
+ display:grid;place-items:center;
+ background:linear-gradient(145deg,#173d2b,#18233d);
+ border:1px solid rgba(74,222,128,.3);
+ box-shadow:0 0 65px rgba(34,197,94,.13),inset 0 0 25px rgba(167,139,250,.1);
+ position:relative;z-index:2
+}
+#tkj-about .hero-core svg{width:75px;height:75px}
+#tkj-about .floating-tag{
+ position:absolute;z-index:3;padding:9px 12px;
+ border-radius:9px;background:#14271f;border:1px solid var(--line);
+ color:#ccebd6;font-size:11px;box-shadow:0 10px 25px #0005
+}
+#tkj-about .tag-one{top:48px;right:0}
+#tkj-about .tag-two{bottom:43px;left:0}
+@keyframes aboutSpin{to{transform:rotate(360deg)}}
+#tkj-about .about-stats{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:14px;margin-top:-1px;position:relative;z-index:2
+}
+#tkj-about .stat{
+ padding:21px;background:rgba(16,32,27,.9);
+ border:1px solid var(--line);text-align:center;border-radius:13px
+}
+#tkj-about .stat strong{
+ display:block;font-size:19px;color:var(--green);margin-bottom:3px
+}
+#tkj-about .stat span{font-size:11px;color:var(--muted)}
+#tkj-about .creator-grid{
+ display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:stretch
+}
+#tkj-about .creator-card{
+ padding:28px;border-radius:18px;
+ background:linear-gradient(145deg,#142b21,#101b1a);
+ border:1px solid rgba(74,222,128,.18);
+ position:relative;overflow:hidden
+}
+#tkj-about .creator-card:after{
+ content:"";position:absolute;width:180px;height:180px;
+ border-radius:50%;background:rgba(74,222,128,.07);
+ right:-70px;bottom:-90px
+}
+#tkj-about .creator-icon{
+ width:70px;height:70px;border-radius:20px;
+ display:grid;place-items:center;
+ background:rgba(74,222,128,.1);color:var(--green);
+ margin-bottom:22px
+}
+#tkj-about .creator-icon svg{width:38px;height:38px}
+#tkj-about .creator-card h3{font-size:24px;margin-bottom:4px}
+#tkj-about .creator-role{color:var(--green);font-size:12px;font-weight:700}
+#tkj-about .creator-note{
+ color:#c2d5c9;font-size:14px;margin-top:20px;
+ padding-top:18px;border-top:1px solid var(--line)
+}
+#tkj-about .creator-copy{
+ padding:12px 5px;display:flex;flex-direction:column;justify-content:center
+}
+#tkj-about .creator-copy p{font-size:14px;color:var(--muted);margin-bottom:15px}
+#tkj-about .school-chip{
+ display:inline-flex;align-items:center;gap:10px;
+ padding:11px 14px;border-radius:10px;
+ background:rgba(167,139,250,.08);
+ border:1px solid rgba(167,139,250,.2);
+ color:#d8c9ff;font-size:12px;font-weight:700;
+ width:fit-content;margin-top:7px
+}
+#tkj-about .school-chip svg{width:20px;height:20px;flex-shrink:0}
+#tkj-about .collab-section{
+ background:linear-gradient(180deg,rgba(17,34,27,.45),rgba(13,24,24,.8));
+ border-top:1px solid var(--line);border-bottom:1px solid var(--line)
+}
+#tkj-about .group-tabs{
+ display:flex;gap:10px;margin:27px 0 18px;flex-wrap:wrap
+}
+#tkj-about .group-tab{
+ border:1px solid var(--line);background:#102019;color:var(--muted);
+ padding:11px 19px;border-radius:10px;font-weight:700;
+ cursor:pointer;transition:.25s;font-size:13px
+}
+#tkj-about .group-tab.active{
+ background:rgba(74,222,128,.12);border-color:var(--green);
+ color:var(--green)
+}
+#tkj-about .group-panel{
+ display:none;padding:27px;border:1px solid var(--line);
+ background:linear-gradient(135deg,#12251c,#111b25);
+ border-radius:16px;animation:aboutFade .35s ease
+}
+#tkj-about .group-panel.active{display:block}
+#tkj-about .group-panel h3{font-size:23px;margin-bottom:8px}
+#tkj-about .group-panel p{color:var(--muted);font-size:14px;max-width:700px;margin-bottom:0}
+#tkj-about .group-symbol{
+ width:48px;height:48px;border-radius:14px;
+ display:grid;place-items:center;margin-bottom:17px;
+ background:rgba(74,222,128,.12);color:var(--green)
+}
+#tkj-about .group-symbol svg{width:27px;height:27px}
+#tkj-about .group-panel[data-group="b"] .group-symbol{
+ background:rgba(167,139,250,.13);color:var(--purple)
+}
+#tkj-about .values-grid{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:14px;margin-top:32px
+}
+#tkj-about .value-card{
+ padding:22px 18px;border-radius:14px;
+ background:var(--panel);border:1px solid var(--line);
+ transition:.3s;min-height:190px
+}
+#tkj-about .value-card:hover{
+ transform:translateY(-6px);border-color:rgba(74,222,128,.45);
+ background:#14291f
+}
+#tkj-about .value-icon{
+ width:43px;height:43px;border-radius:12px;
+ display:grid;place-items:center;color:var(--green);
+ background:rgba(74,222,128,.1);margin-bottom:17px
+}
+#tkj-about .value-icon svg{width:23px;height:23px}
+#tkj-about .value-card:nth-child(even) .value-icon{
+ color:var(--purple);background:rgba(167,139,250,.1)
+}
+#tkj-about .value-card h3{font-size:15px;margin-bottom:7px}
+#tkj-about .value-card p{font-size:12px;color:var(--muted);margin:0}
+#tkj-about .vision-grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:30px
+}
+#tkj-about .vision-card{
+ padding:27px;border-radius:16px;
+ background:linear-gradient(145deg,#12271e,#111b23);
+ border:1px solid var(--line)
+}
+#tkj-about .vision-card h3{
+ display:flex;align-items:center;gap:10px;font-size:19px;margin-bottom:15px
+}
+#tkj-about .vision-card h3 svg{width:23px;height:23px;color:var(--green)}
+#tkj-about .vision-card p,#tkj-about .vision-card li{
+ color:var(--muted);font-size:13px
+}
+#tkj-about .vision-card ul{padding-left:19px;margin:0}
+#tkj-about .vision-card li{padding:5px 0}
+#tkj-about .quote-section{
+ padding:85px 20px;text-align:center;
+ background:
+ radial-gradient(ellipse at 50% 100%,rgba(74,222,128,.13),transparent 60%),
+ #091510;
+ border-top:1px solid var(--line)
+}
+#tkj-about .quote-mark{
+ font-size:65px;line-height:1;color:var(--green);font-family:Georgia
+}
+#tkj-about .quote-text{
+ max-width:780px;margin:10px auto 22px;
+ font-size:clamp(21px,3.5vw,32px);line-height:1.45;
+ font-weight:800;letter-spacing:-.5px
+}
+#tkj-about .quote-credit{font-size:12px;color:var(--muted)}
+#tkj-about .about-footer{
+ padding:24px;text-align:center;border-top:1px solid var(--line);
+ color:#789183;font-size:11px;background:#07100d
+}
+#tkj-about .about-footer strong{color:#b5d7c1}
+#tkj-about .reveal{
+ opacity:0;transform:translateY(25px);
+ transition:opacity .7s ease,transform .7s ease
+}
+#tkj-about .reveal.show{opacity:1;transform:translateY(0)}
+@keyframes aboutFade{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:760px){
+ #tkj-about .about-section{padding:57px 0}
+ #tkj-about .hero-grid{grid-template-columns:1fr;text-align:center}
+ #tkj-about .hero-desc{margin-left:auto;margin-right:auto}
+ #tkj-about .hero-actions{justify-content:center}
+ #tkj-about .hero-art{min-height:290px;grid-row:1}
+ #tkj-about .hero-title{letter-spacing:-2px}
+ #tkj-about .creator-grid{grid-template-columns:1fr}
+ #tkj-about .values-grid{grid-template-columns:repeat(2,1fr)}
+ #tkj-about .vision-grid{grid-template-columns:1fr}
+ #tkj-about .about-stats{gap:8px}
+ #tkj-about .stat{padding:15px 7px}
+ #tkj-about .stat strong{font-size:16px}
+ #tkj-about .stat span{font-size:10px}
+}
+@media(max-width:430px){
+ #tkj-about .about-wrap{padding:0 15px}
+ #tkj-about .hero-art{min-height:250px}
+ #tkj-about .orbit{width:225px;height:225px}
+ #tkj-about .orbit.orbit-two{width:175px;height:175px}
+ #tkj-about .hero-core{width:110px;height:110px}
+ #tkj-about .floating-tag{font-size:10px}
+ #tkj-about .values-grid{gap:9px}
+ #tkj-about .value-card{padding:17px 13px;min-height:180px}
+ #tkj-about .group-panel{padding:21px}
+}
+@media(prefers-reduced-motion:reduce){
+ #tkj-about *,#tkj-about *:before,#tkj-about *:after{
+  animation:none!important;transition:none!important;scroll-behavior:auto!important
+ }
+}
+</style>
+
+<!-- HERO -->
+<section class="about-hero">
+ <div class="about-wrap hero-grid">
+  <div class="hero-content reveal">
+   <div class="hero-badge"><span class="hero-dot"></span> RUANG BELAJAR DAN LITERASI DIGITAL</div>
+   <h1 class="hero-title">Belajar.<br><span class="gradient-text">Berkembang.</span><br>Melangkah.</h1>
+   <p class="hero-desc">
+    Sebuah ruang belajar digital yang lahir dari gagasan sederhana:
+    mengajak semua orang melihat bahwa pendidikan itu penting,
+    semakin mudah dijangkau, dan selalu terbuka untuk siapa saja.
+   </p>
+   <div class="hero-actions">
+    <a href="#about-creator" class="about-btn btn-green">
+     Kenali Kami
+     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#about-values" class="about-btn btn-outline">Jelajahi Tujuan</a>
+   </div>
+  </div>
+  <div class="hero-art reveal">
+   <div class="orbit"></div>
+   <div class="orbit orbit-two"></div>
+   <div class="hero-core">
+    <svg viewBox="0 0 100 100" fill="none">
+     <path d="M50 13 82 31v38L50 87 18 69V31L50 13Z" stroke="#4ade80" stroke-width="2"/>
+     <path d="M34 39h32M34 50h32M34 61h19" stroke="#a7f3c1" stroke-width="4" stroke-linecap="round"/>
+     <path d="m65 61 5 5 10-12" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+   </div>
+   <div class="floating-tag tag-one">✦ Digital Learning</div>
+   <div class="floating-tag tag-two">⌘ Think & Create</div>
+  </div>
+ </div>
+</section>
+
+<div class="about-wrap">
+ <div class="about-stats reveal">
+  <div class="stat"><strong>Belajar</strong><span>Tanpa batas ruang</span></div>
+  <div class="stat"><strong>Berkembang</strong><span>Tanpa henti</span></div>
+  <div class="stat"><strong>Bersama</strong><span>Saling menguatkan</span></div>
+ </div>
+</div>
+
+<!-- CREATOR -->
+<section class="about-section" id="about-creator">
+ <div class="about-wrap">
+  <div class="about-label reveal">DIBALIK GAGASAN INI</div>
+  <div class="creator-grid">
+   <div class="creator-card reveal">
+    <div class="creator-icon">
+     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="24" cy="16" r="8"/>
+      <path d="M9 41c0-8 6-14 15-14s15 6 15 14"/>
+      <path d="M18 16h.1M30 16h.1"/>
+      <path d="M20 21c2 2 6 2 8 0"/>
+     </svg>
+    </div>
+    <h3>Irvan Elfian</h3>
+    <div class="creator-role">PENGGAGAS DAN PENGEMBANG</div>
+    <p class="creator-note">
+     "Hanya manusia biasa, dengan gagasan sederhana dan keinginan untuk terus belajar serta berbagi."
+    </p>
+   </div>
+   <div class="creator-copy reveal">
+    <h2>Bermula dari <span class="gradient-text">sebuah keinginan.</span></h2>
+    <p>
+     TKJ Persiapan dibuat oleh Irvan Elfian, seorang manusia biasa yang ingin
+     mengajak semua orang untuk memandang betapa pentingnya pendidikan
+     dan betapa mudahnya kesempatan belajar di era sekarang.
+    </p>
+    <p>
+     Kami percaya bahwa belajar tidak harus selalu rumit. Dengan bantuan
+     teknologi, pengetahuan dapat dibagikan lebih luas, pengalaman belajar
+     dapat dibuat lebih menarik, dan setiap orang memiliki kesempatan
+     untuk mengembangkan dirinya.
+    </p>
+    <p>
+     Namun, menjadi melek teknologi bukan sekadar mampu menggunakan
+     perangkat digital. Kita juga perlu berpikir kritis, memeriksa kebenaran
+     informasi, dan memahami dampak dari setiap teknologi yang digunakan.
+    </p>
+    <div class="school-chip">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M6 11v6c4 3 8 3 12 0v-6M21 9v7"/>
+     </svg>
+     SMK PERSIAPAN PADANG TUALANG
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- COLLABORATION -->
+<section class="about-section collab-section">
+ <div class="about-wrap">
+  <div class="about-label reveal">TUMBUH DAN BERKARYA BERSAMA</div>
+  <h2 class="reveal">Belajar tidak harus <span class="gradient-text">sendirian.</span></h2>
+  <p class="section-intro reveal">
+   Dalam proses pengembangannya, TKJ Persiapan melibatkan siswa-siswi
+   Kelas XI TKJ Tahun Ajaran 2026–2027. Dua kelompok, satu semangat:
+   terus belajar dan berkembang.
+  </p>
+  <div class="group-tabs reveal" role="tablist" aria-label="Kelompok pembelajaran">
+   <button class="group-tab active" type="button" data-tab="m" role="tab" aria-selected="true">Grup M · Mahir</button>
+   <button class="group-tab" type="button" data-tab="b" role="tab" aria-selected="false">Grup B · Berkembang</button>
+  </div>
+  <div class="group-panel active" data-group="m" role="tabpanel">
+   <div class="group-symbol">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+     <path d="m12 3 2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5L12 3Z"/>
+     <path d="m19 15 1.2 2.8L23 19l-2.8 1.2L19 23l-1.2-2.8L15 19l2.8-1.2L19 15Z"/>
+    </svg>
+   </div>
+   <h3>Grup M — Mahir</h3>
+   <p>
+    Kelompok yang didorong untuk terus mengeksplorasi kemampuan,
+    memperdalam pemahaman, menyelesaikan tantangan, dan mengembangkan
+    kreativitas melalui praktik serta pengalaman belajar.
+   </p>
+  </div>
+  <div class="group-panel" data-group="b" role="tabpanel" data-group="b">
+   <div class="group-symbol">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+     <path d="M12 22V12"/>
+     <path d="M12 15C4 15 3 9 3 5c6 0 10 3 9 10Z"/>
+     <path d="M12 18c0-6 3-10 9-10 0 5-2 10-9 10Z"/>
+    </svg>
+   </div>
+   <h3>Grup B — Berkembang</h3>
+   <p>
+    Kelompok yang terus bertumbuh melalui proses belajar, latihan,
+    penguatan dasar, dan keberanian mencoba hal-hal baru.
+    Setiap langkah kecil adalah bagian dari perkembangan.
+   </p>
+  </div>
+  <p class="section-intro reveal" style="margin-top:20px;font-size:12px">
+   Tidak ada proses belajar yang sia-sia. Setiap orang memiliki perjalanan,
+   kecepatan, dan potensi untuk berkembang.
+  </p>
+ </div>
+</section>
+
+<!-- VALUES -->
+<section class="about-section" id="about-values">
+ <div class="about-wrap">
+  <div class="about-label reveal">APA YANG KAMI PERCAYAI</div>
+  <h2 class="reveal">Teknologi bukan sekadar <span class="gradient-text">digunakan.</span></h2>
+  <p class="section-intro reveal">
+   Teknologi perlu dipahami, dimanfaatkan, dan disikapi dengan bijak.
+   Inilah nilai-nilai yang ingin kami tumbuhkan melalui ruang belajar ini.
+  </p>
+  <div class="values-grid">
+   <div class="value-card reveal">
+    <div class="value-icon">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="11" cy="11" r="7"/><path d="m16 16 5 5M8 11h6M11 8v6"/>
+     </svg>
+    </div>
+    <h3>Berpikir Kritis</h3>
+    <p>Belajar menganalisis, bertanya, dan memeriksa kebenaran informasi sebelum mempercayainya.</p>
+   </div>
+   <div class="value-card reveal">
+    <div class="value-icon">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/>
+      <path d="m9 12 2 2 4-4"/>
+     </svg>
+    </div>
+    <h3>Bijak Digital</h3>
+    <p>Menggunakan teknologi secara aman, bertanggung jawab, dan terhindar dari dampak negatifnya.</p>
+   </div>
+   <div class="value-card reveal">
+    <div class="value-icon">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="m12 3 2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3Z"/>
+     </svg>
+    </div>
+    <h3>Kreatif & Inovatif</h3>
+    <p>Tidak hanya menjadi pengguna teknologi, tetapi juga pencipta ide dan pemecah masalah.</p>
+   </div>
+   <div class="value-card reveal">
+    <div class="value-icon">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M20 8v6M23 11h-6"/>
+     </svg>
+    </div>
+    <h3>Belajar Bersama</h3>
+    <p>Menjadi ruang terbuka bagi siswa, guru, dan siapa saja yang ingin terus menambah pengetahuan.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- VISION MISSION -->
+<section class="about-section collab-section">
+ <div class="about-wrap">
+  <div class="about-label reveal">ARAH DAN TUJUAN</div>
+  <h2 class="reveal">Bukan hanya tentang hari ini.</h2>
+  <p class="section-intro reveal">
+   Kami ingin menjadi bagian kecil dari perjalanan pendidikan dan
+   perkembangan literasi digital.
+  </p>
+  <div class="vision-grid">
+   <div class="vision-card reveal">
+    <h3>
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+      <circle cx="12" cy="12" r="3"/>
+     </svg>
+     Visi
+    </h3>
+    <p>
+     Menjadi ruang belajar digital yang terbuka dan inspiratif untuk
+     membangun generasi yang melek teknologi, berpikir kritis, kreatif,
+     serta bijak dan bertanggung jawab dalam memanfaatkan perkembangan
+     teknologi digital.
+    </p>
+   </div>
+   <div class="vision-card reveal">
+    <h3>
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
+      <path d="M8 7h8M8 11h8"/>
+     </svg>
+     Misi
+    </h3>
+    <ul>
+     <li>Meningkatkan literasi digital bagi siswa, guru, dan masyarakat.</li>
+     <li>Mendorong kebiasaan berpikir kritis dan memeriksa informasi.</li>
+     <li>Mengajak penggunaan teknologi yang aman dan bertanggung jawab.</li>
+     <li>Menyediakan materi, simulasi, dan evaluasi pembelajaran.</li>
+     <li>Mendorong kreativitas, kolaborasi, dan semangat belajar sepanjang hayat.</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- CLOSING QUOTE -->
+<section class="quote-section">
+ <div class="reveal">
+  <div class="quote-mark">“</div>
+  <p class="quote-text">
+   Pendidikan bukan hanya tentang siapa yang paling pintar,
+   tetapi tentang siapa yang tidak berhenti belajar.
+  </p>
+  <p class="quote-credit">Sebuah gagasan sederhana dari TKJ Persiapan</p>
+ </div>
+</section>
+
+<footer class="about-footer">
+ <strong>TKJ PERSIAPAN</strong> · SMK Persiapan Padang Tualang
+ <br>
+ <span>Belajar, Berkembang, dan Menjadi Lebih Bijak di Era Digital.</span>
+ <br><br>
+ © <span id="about-year">2026</span> · Digagas oleh Irvan Elfian
+</footer>
+
+<script>
+(function(){
+ const root=document.getElementById('tkj-about');
+ if(!root || root.dataset.initialized==='true') return;
+ root.dataset.initialized='true';
+
+ // Tab Grup M dan Grup B
+ const tabs=root.querySelectorAll('.group-tab');
+ const panels=root.querySelectorAll('.group-panel');
+
+ tabs.forEach(function(tab){
+  tab.addEventListener('click',function(){
+   const target=tab.getAttribute('data-tab');
+   tabs.forEach(function(item){
+    const active=item===tab;
+    item.classList.toggle('active',active);
+    item.setAttribute('aria-selected',active?'true':'false');
+   });
+   panels.forEach(function(panel){
+    panel.classList.toggle('active',panel.getAttribute('data-group')===target);
+   });
+  });
+ });
+
+ // Animasi elemen ketika masuk layar
+ const revealItems=root.querySelectorAll('.reveal');
+ if('IntersectionObserver' in window){
+  const observer=new IntersectionObserver(function(entries){
+   entries.forEach(function(entry){
+    if(entry.isIntersecting){
+     entry.target.classList.add('show');
+     observer.unobserve(entry.target);
+    }
+   });
+  },{threshold:0.12});
+  revealItems.forEach(function(item){observer.observe(item);});
+ }else{
+  revealItems.forEach(function(item){item.classList.add('show');});
+ }
+
+ // Tahun otomatis
+ const year=root.querySelector('#about-year');
+ if(year) year.textContent=new Date().getFullYear();
+
+})();
+</script>
+</div>
+
