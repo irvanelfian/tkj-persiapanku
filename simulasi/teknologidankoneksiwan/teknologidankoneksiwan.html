@@ -1,0 +1,668 @@
+
+<div id="wan-tech-lab">
+<style>
+#wan-tech-lab{
+ --bg:#100d1c;--panel:#1b1630;--panel2:#261e3d;
+ --accent:#f59e0b;--accent2:#fb7185;--cyan:#67e8f9;
+ --purple:#a78bfa;--text:#f4efff;--muted:#b6accb;
+ --line:#403454;--good:#4ade80;--bad:#fb7185;
+ font-family:Arial,sans-serif;color:var(--text);
+ background:var(--bg);border-radius:18px;overflow:hidden;
+ line-height:1.6;box-sizing:border-box;
+}
+#wan-tech-lab *{box-sizing:border-box}
+#wan-tech-lab button{font:inherit;cursor:pointer}
+#wan-tech-lab .hero{
+ padding:30px 22px;background:
+ radial-gradient(circle at 80% 20%,#7041a544,transparent 35%),
+ linear-gradient(135deg,#211533,#17152c 65%,#332047);
+ position:relative;overflow:hidden;
+}
+#wan-tech-lab .hero:after{
+ content:"";position:absolute;width:220px;height:220px;
+ border:1px solid #f59e0b44;border-radius:50%;
+ right:-65px;top:-80px;box-shadow:0 0 0 25px #f59e0b0b,0 0 0 55px #f59e0b08;
+}
+#wan-tech-lab .eyebrow{
+ color:var(--accent);font-size:11px;font-weight:bold;
+ letter-spacing:2px;text-transform:uppercase;
+}
+#wan-tech-lab h1{font-size:clamp(25px,5vw,38px);line-height:1.2;margin:10px 0}
+#wan-tech-lab h2{font-size:22px;margin:0 0 8px}
+#wan-tech-lab h3{font-size:16px;margin:0 0 7px}
+#wan-tech-lab p{margin:7px 0;color:var(--muted)}
+#wan-tech-lab .hero p{max-width:650px}
+#wan-tech-lab .hero-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}
+#wan-tech-lab .tag{
+ font-size:11px;border:1px solid #ffffff25;border-radius:20px;
+ padding:5px 10px;color:#e9d5ff;background:#ffffff09;
+}
+#wan-tech-lab .progress-wrap{padding:13px 20px;background:#171226;border-bottom:1px solid var(--line)}
+#wan-tech-lab .progress-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+#wan-tech-lab .progress{height:6px;background:#352a48;border-radius:20px;overflow:hidden}
+#wan-tech-lab .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.4s}
+#wan-tech-lab .stage{padding:24px 20px;min-height:390px}
+#wan-tech-lab .slide{display:none;animation:wanFade .35s ease}
+#wan-tech-lab .slide.active{display:block}
+@keyframes wanFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#wan-tech-lab .kicker{font-size:11px;color:var(--accent);font-weight:bold;letter-spacing:1.5px;margin-bottom:6px}
+#wan-tech-lab .diagram{
+ background:linear-gradient(145deg,#211a35,#171428);
+ border:1px solid var(--line);border-radius:15px;padding:15px;
+ margin:16px 0;overflow:hidden;
+}
+#wan-tech-lab svg{max-width:100%;height:auto;display:block;margin:auto}
+#wan-tech-lab .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:15px 0}
+#wan-tech-lab .tech-card{
+ background:var(--panel);border:1px solid var(--line);border-radius:13px;
+ padding:14px;text-align:left;color:var(--text);width:100%;
+ transition:.2s;min-width:0;
+}
+#wan-tech-lab .tech-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+#wan-tech-lab .tech-card.selected{border:1px solid var(--accent);background:#49301855;box-shadow:0 0 0 2px #f59e0b18}
+#wan-tech-lab .tech-icon{font-size:25px;margin-bottom:5px}
+#wan-tech-lab .tech-card small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+#wan-tech-lab .detail{
+ background:#2b203d;border-left:3px solid var(--accent);
+ border-radius:8px;padding:14px;margin-top:12px;min-height:80px;
+}
+#wan-tech-lab .analogy{
+ background:#302342;border:1px dashed #a78bfa88;border-radius:12px;
+ padding:13px;margin:12px 0;color:#e9ddff;
+}
+#wan-tech-lab .analogy strong{color:#fbbf24}
+#wan-tech-lab .nav{
+ display:flex;justify-content:space-between;gap:10px;
+ padding:15px 20px;background:#171226;border-top:1px solid var(--line);
+}
+#wan-tech-lab .btn{
+ border:0;border-radius:9px;padding:10px 17px;font-weight:bold;
+ background:var(--accent);color:#241605;
+}
+#wan-tech-lab .btn.secondary{background:#352a48;color:var(--text);border:1px solid var(--line)}
+#wan-tech-lab .btn:disabled{opacity:.35;cursor:not-allowed}
+#wan-tech-lab .btn:hover:not(:disabled){filter:brightness(1.12)}
+#wan-tech-lab .muted{color:var(--muted);font-size:13px}
+#wan-tech-lab .device-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:15px 0}
+#wan-tech-lab .device{
+ padding:12px 7px;background:var(--panel);border:1px solid var(--line);
+ border-radius:11px;color:var(--text);text-align:center;
+}
+#wan-tech-lab .device.active{border-color:var(--cyan);background:#16404a55}
+#wan-tech-lab .device span{display:block;font-size:24px}
+#wan-tech-lab .device b{font-size:12px}
+#wan-tech-lab .compare{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}
+#wan-tech-lab .compare th,#wan-tech-lab .compare td{
+ border:1px solid var(--line);padding:9px;text-align:left;vertical-align:top
+}
+#wan-tech-lab .compare th{background:#352746;color:#fbbf24}
+#wan-tech-lab .compare td{background:#1b1630;color:#ddd4ed}
+#wan-tech-lab .compare-wrap{overflow-x:auto;border-radius:10px}
+#wan-tech-lab .choice{
+ display:block;width:100%;text-align:left;padding:12px;
+ border:1px solid var(--line);border-radius:10px;
+ background:var(--panel);color:var(--text);margin:8px 0;
+}
+#wan-tech-lab .choice.selected{border-color:var(--accent);background:#49301866}
+#wan-tech-lab .feedback{padding:12px;border-radius:10px;margin-top:12px;display:none;font-size:13px}
+#wan-tech-lab .feedback.show{display:block}
+#wan-tech-lab .feedback.correct{background:#14532d55;border:1px solid #4ade8066;color:#bbf7d0}
+#wan-tech-lab .feedback.wrong{background:#7f1d1d44;border:1px solid #fb718566;color:#fecaca}
+#wan-tech-lab .scenario{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:13px;padding:15px;margin:12px 0;
+}
+#wan-tech-lab .scenario select{
+ width:100%;padding:11px;background:#171226;color:var(--text);
+ border:1px solid var(--line);border-radius:8px;margin:8px 0;
+}
+#wan-tech-lab .result{
+ padding:15px;border:1px solid #f59e0b66;background:#49301844;
+ border-radius:12px;margin-top:12px;display:none;
+}
+#wan-tech-lab .result.show{display:block;animation:wanFade .3s}
+#wan-tech-lab .quiz-option{
+ width:100%;text-align:left;padding:12px;border-radius:9px;
+ margin:6px 0;background:var(--panel);border:1px solid var(--line);color:var(--text);
+}
+#wan-tech-lab .quiz-option.correct{border-color:var(--good);background:#14532d55}
+#wan-tech-lab .quiz-option.wrong{border-color:var(--bad);background:#7f1d1d55}
+#wan-tech-lab .quiz-option:disabled{cursor:default}
+#wan-tech-lab .quiz-status{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:10px}
+#wan-tech-lab .footer-note{text-align:center;padding:15px;color:var(--muted);font-size:11px;background:#171226}
+#wan-tech-lab .pulse{animation:wanPulse 2s infinite}
+@keyframes wanPulse{50%{opacity:.45}}
+@media(max-width:520px){
+ #wan-tech-lab .stage{padding:18px 13px}
+ #wan-tech-lab .cards{grid-template-columns:1fr}
+ #wan-tech-lab .device-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #wan-tech-lab .nav{padding:12px}
+ #wan-tech-lab .btn{padding:9px 13px;font-size:13px}
+}
+</style>
+
+<div class="hero">
+ <div class="eyebrow">TKJ • KELAS XII • INTERACTIVE LAB</div>
+ <h1>Teknologi &<br>Koneksi WAN</h1>
+ <p>Bagaimana dua jaringan yang berjauhan dapat saling terhubung? Kenali teknologi, media transmisi, dan perangkat yang membuat komunikasi jarak jauh menjadi mungkin.</p>
+ <div class="hero-tags">
+  <span class="tag">WAN Technology</span>
+  <span class="tag">Transmission Media</span>
+  <span class="tag">Network Devices</span>
+  <span class="tag">Case Study</span>
+ </div>
+</div>
+
+<div class="progress-wrap">
+ <div class="progress-top">
+  <span id="wanStepText">Materi 1 dari 8</span>
+  <span id="wanPercent">13%</span>
+ </div>
+ <div class="progress"><span id="wanProgress"></span></div>
+</div>
+
+<div class="stage">
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+ <div class="kicker">01 • PEMBUKAAN</div>
+ <h2>Menghubungkan Jarak yang Berbeda</h2>
+ <p>Bayangkan sekolah kita ingin terhubung dengan kantor cabang yang berada di kota lain. Bagaimana data dapat berpindah dari satu lokasi ke lokasi lainnya?</p>
+ <div class="diagram">
+  <svg viewBox="0 0 650 250" role="img" aria-label="Ilustrasi koneksi WAN">
+   <defs>
+    <linearGradient id="wanLine" x1="0" x2="1"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+   </defs>
+   <path d="M125 116 Q325 -10 525 116" fill="none" stroke="url(#wanLine)" stroke-width="4" stroke-dasharray="9 7">
+    <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2s" repeatCount="indefinite"/>
+   </path>
+   <path d="M125 116 Q325 230 525 116" fill="none" stroke="#67e8f9" stroke-width="2" stroke-dasharray="5 8" opacity=".7"/>
+   <g transform="translate(55 80)">
+    <rect x="0" y="0" width="140" height="100" rx="12" fill="#342548" stroke="#f59e0b"/>
+    <path d="M22 33h96M22 48h96M22 63h70" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <text x="70" y="88" text-anchor="middle" fill="#fff" font-size="12">SEKOLAH A</text>
+   </g>
+   <g transform="translate(455 80)">
+    <rect x="0" y="0" width="140" height="100" rx="12" fill="#342548" stroke="#a78bfa"/>
+    <path d="M22 33h96M22 48h96M22 63h70" stroke="#a78bfa" stroke-width="4" stroke-linecap="round"/>
+    <text x="70" y="88" text-anchor="middle" fill="#fff" font-size="12">CABANG B</text>
+   </g>
+   <g>
+    <circle cx="325" cy="116" r="31" fill="#493018" stroke="#fbbf24" stroke-width="2"/>
+    <path d="M311 116h28m-14-14v28" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <text x="325" y="163" text-anchor="middle" fill="#fbbf24" font-size="12">JARINGAN WAN</text>
+    <circle r="5" fill="#fff">
+     <animateMotion dur="3s" repeatCount="indefinite" path="M125 116 Q325 -10 525 116"/>
+    </circle>
+   </g>
+  </svg>
+ </div>
+ <div class="analogy">
+  <strong>Analogi:</strong> WAN seperti jalan raya antarkota. Rumah atau gedung adalah jaringan lokal, sedangkan jalan raya menghubungkan lokasi-lokasi yang berjauhan.
+ </div>
+ <p><b>Pertanyaan pemantik:</b> Apakah semua lokasi harus dihubungkan menggunakan kabel?</p>
+ <p class="muted">Jawabannya: tidak. Ada koneksi melalui kabel, gelombang radio, satelit, hingga jaringan seluler.</p>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+ <div class="kicker">02 • TEKNOLOGI KONEKSI WAN</div>
+ <h2>Mengenal Lima Teknologi Utama</h2>
+ <p>Pilih setiap kartu untuk melihat cara kerja, karakteristik, dan contoh penggunaannya.</p>
+ <div class="cards" id="wanTechCards">
+  <button class="tech-card selected" data-tech="leased">
+   <div class="tech-icon">🔗</div><b>Leased Line</b>
+   <small>Jalur komunikasi khusus</small>
+  </button>
+  <button class="tech-card" data-tech="fiber">
+   <div class="tech-icon">💡</div><b>Fiber Optik</b>
+   <small>Data melalui cahaya</small>
+  </button>
+  <button class="tech-card" data-tech="wireless">
+   <div class="tech-icon">📡</div><b>Wireless</b>
+   <small>Gelombang radio</small>
+  </button>
+  <button class="tech-card" data-tech="vsat">
+   <div class="tech-icon">🛰️</div><b>VSAT</b>
+   <small>Komunikasi satelit</small>
+  </button>
+  <button class="tech-card" data-tech="cellular">
+   <div class="tech-icon">📱</div><b>Seluler</b>
+   <small>4G / 5G</small>
+  </button>
+ </div>
+ <div class="detail" id="wanTechDetail">
+  <h3>🔗 Leased Line</h3>
+  <p>Leased line adalah layanan jalur komunikasi yang disewa dari penyedia layanan telekomunikasi untuk menghubungkan dua lokasi. Jalurnya bersifat khusus bagi pelanggan sesuai layanan yang disepakati.</p>
+  <p><b>Contoh:</b> Menghubungkan kantor pusat dengan kantor cabang menggunakan layanan koneksi dedicated.</p>
+ </div>
+ <div class="analogy"><strong>Analogi:</strong> Leased line seperti menyewa satu jalur transportasi khusus untuk perjalanan rutin. Kita tidak perlu berbagi jalur tersebut dengan pengguna umum seperti pada layanan internet biasa, sesuai karakteristik layanan yang diberikan.</div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+ <div class="kicker">03 • MEDIA TRANSMISI</div>
+ <h2>Bagaimana Data Melakukan Perjalanan?</h2>
+ <p>Media transmisi adalah sarana yang membawa sinyal atau data dari pengirim menuju penerima.</p>
+ <div class="cards">
+  <button class="tech-card selected" data-medium="wired">
+   <div class="tech-icon">🧵</div><b>Media Kabel</b>
+   <small>Fiber optik dan kabel tembaga</small>
+  </button>
+  <button class="tech-card" data-medium="wire">
+   <div class="tech-icon">📶</div><b>Media Nirkabel</b>
+   <small>Radio, microwave, satelit, seluler</small>
+  </button>
+ </div>
+ <div class="diagram" id="wanMediumDiagram">
+  <svg viewBox="0 0 600 190">
+   <rect x="15" y="52" width="115" height="80" rx="10" fill="#352746" stroke="#f59e0b"/>
+   <text x="72" y="98" text-anchor="middle" fill="white" font-size="13">PENGIRIM</text>
+   <rect x="470" y="52" width="115" height="80" rx="10" fill="#352746" stroke="#a78bfa"/>
+   <text x="527" y="98" text-anchor="middle" fill="white" font-size="13">PENERIMA</text>
+   <path d="M130 92 H470" stroke="#fbbf24" stroke-width="7" stroke-linecap="round"/>
+   <path d="M130 92 H470" stroke="white" stroke-width="2" stroke-dasharray="9 9">
+    <animate attributeName="stroke-dashoffset" from="0" to="-36" dur="1.5s" repeatCount="indefinite"/>
+   </path>
+   <text x="300" y="70" fill="#fbbf24" font-size="12" text-anchor="middle">KABEL FIBER OPTIK</text>
+  </svg>
+ </div>
+ <div class="detail" id="wanMediumDetail">
+  <h3>Media Kabel</h3>
+  <p>Data dikirim melalui media fisik. Fiber optik membawa data dalam bentuk pulsa cahaya melalui serat kaca atau plastik khusus. Kabel tembaga membawa sinyal listrik.</p>
+  <p><b>Kelebihan fiber:</b> kapasitas tinggi, jangkauan jauh dengan perangkat yang sesuai, dan tidak terpengaruh interferensi elektromagnetik seperti kabel tembaga.</p>
+ </div>
+ <div class="analogy"><strong>Analogi:</strong> Media transmisi seperti jalur pengiriman barang. Kabel adalah jalur fisik, sedangkan nirkabel seperti pengiriman melalui udara tanpa harus membangun kabel langsung di antara dua lokasi.</div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide">
+ <div class="kicker">04 • PERBANDINGAN TEKNOLOGI</div>
+ <h2>Mana yang Paling Sesuai?</h2>
+ <p>Setiap teknologi memiliki karakteristik dan kebutuhan infrastruktur yang berbeda. Tidak ada satu teknologi yang selalu paling baik untuk semua kondisi.</p>
+ <div class="compare-wrap">
+  <table class="compare">
+   <thead><tr><th>Teknologi</th><th>Media</th><th>Karakteristik</th><th>Contoh Penggunaan</th></tr></thead>
+   <tbody>
+    <tr><td><b>Leased Line</b></td><td>Umumnya kabel atau jalur operator khusus</td><td>Koneksi khusus, performa dan SLA sesuai kontrak</td><td>Antarkantor perusahaan</td></tr>
+    <tr><td><b>Fiber Optik</b></td><td>Cahaya pada serat optik</td><td>Kapasitas tinggi, cocok untuk jarak jauh</td><td>Backbone dan internet antarkota</td></tr>
+    <tr><td><b>Wireless</b></td><td>Gelombang radio / microwave</td><td>Tanpa kabel langsung, dipengaruhi kondisi jalur radio</td><td>Antargedung atau antarlokasi</td></tr>
+    <tr><td><b>VSAT</b></td><td>Satelit</td><td>Menjangkau lokasi terpencil, latensi bergantung sistem satelit</td><td>Daerah sulit dijangkau</td></tr>
+    <tr><td><b>Seluler</b></td><td>Radio jaringan operator</td><td>Fleksibel, bergantung cakupan dan kapasitas jaringan</td><td>Internet cadangan / lokasi bergerak</td></tr>
+   </tbody>
+  </table>
+ </div>
+ <div class="analogy"><strong>Analogi:</strong> Memilih teknologi WAN seperti memilih kendaraan. Kereta cocok untuk mengangkut banyak penumpang pada jalur tertentu, pesawat cocok untuk jarak jauh, sedangkan sepeda motor lebih fleksibel untuk perjalanan tertentu.</div>
+ <p class="muted">Catatan: leased line adalah jenis layanan konektivitas, bukan nama satu media transmisi tertentu. Layanan leased line dapat menggunakan infrastruktur fisik yang disediakan operator.</p>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+ <div class="kicker">05 • PERANGKAT WAN</div>
+ <h2>Perangkat di Balik Koneksi WAN</h2>
+ <p>Pilih perangkat untuk mengetahui fungsi dan perannya dalam jaringan.</p>
+ <div class="device-grid" id="wanDevices">
+  <button class="device active" data-device="router"><span>🛣️</span><b>Router</b></button>
+  <button class="device" data-device="modem"><span>📟</span><b>Modem</b></button>
+  <button class="device" data-device="ont"><span>📦</span><b>ONT / ONU</b></button>
+  <button class="device" data-device="switch"><span>🔀</span><b>Switch</b></button>
+  <button class="device" data-device="antenna"><span>📡</span><b>Antena</b></button>
+  <button class="device" data-device="satellite"><span>🛰️</span><b>Antena VSAT</b></button>
+  <button class="device" data-device="firewall"><span>🛡️</span><b>Firewall</b></button>
+  <button class="device" data-device="media"><span>🧵</span><b>Media</b></button>
+  <button class="device" data-device="isp"><span>🌐</span><b>Jaringan ISP</b></button>
+ </div>
+ <div class="detail" id="wanDeviceDetail">
+  <h3>🛣️ Router</h3>
+  <p>Router menghubungkan jaringan yang berbeda dan meneruskan paket data berdasarkan informasi routing. Router dapat menjadi perangkat utama penghubung LAN ke WAN.</p>
+  <p><b>Contoh:</b> Router MikroTik menghubungkan jaringan komputer sekolah ke jaringan ISP.</p>
+ </div>
+ <div class="analogy"><strong>Analogi:</strong> Router seperti petugas pengatur lalu lintas yang menentukan ke mana kendaraan harus diarahkan. Switch seperti pengatur lalu lintas di dalam satu kawasan atau gedung.</div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+ <div class="kicker">06 • ALUR KONEKSI</div>
+ <h2>Simulasikan Perjalanan Data</h2>
+ <p>Tekan tombol di bawah untuk melihat bagaimana data dari komputer sekolah dapat menuju server di lokasi lain.</p>
+ <div class="diagram">
+  <svg viewBox="0 0 620 180" id="wanJourneySvg">
+   <g fill="#352746" stroke="#a78bfa">
+    <rect x="8" y="50" width="105" height="70" rx="9"/>
+    <rect x="175" y="50" width="105" height="70" rx="9"/>
+    <rect x="342" y="50" width="105" height="70" rx="9"/>
+    <rect x="509" y="50" width="105" height="70" rx="9"/>
+   </g>
+   <g fill="#fff" font-size="12" text-anchor="middle">
+    <text x="60" y="91">PC SEKOLAH</text>
+    <text x="227" y="91">ROUTER</text>
+    <text x="394" y="91">ISP</text>
+    <text x="561" y="91">SERVER</text>
+   </g>
+   <g stroke="#fbbf24" stroke-width="3" fill="none">
+    <path d="M113 85H175M280 85H342M447 85H509"/>
+   </g>
+   <circle id="wanDataPacket" cx="60" cy="35" r="8" fill="#fbbf24" opacity="0"/>
+  </svg>
+ </div>
+ <div class="detail" id="wanJourneyDetail">
+  <h3>Siap mengirim data?</h3>
+  <p>Tekan tombol mulai untuk menjalankan simulasi perjalanan paket data.</p>
+ </div>
+ <button class="btn" id="wanJourneyStart">▶ Mulai Perjalanan Data</button>
+ <button class="btn secondary" id="wanJourneyReset">↻ Ulangi</button>
+ <p class="muted">Ilustrasi ini disederhanakan. Pada jaringan nyata, paket dapat melewati banyak router dan jaringan perantara.</p>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide">
+ <div class="kicker">07 • STUDI KASUS</div>
+ <h2>Pilih Teknologi WAN yang Tepat</h2>
+ <p>Sekarang kamu berperan sebagai teknisi jaringan. Tentukan teknologi yang paling sesuai dengan kebutuhan berikut.</p>
+ <div class="scenario">
+  <h3>🏢 Kasus 1 — Kantor Pusat dan Cabang</h3>
+  <p>Sebuah perusahaan memiliki kantor pusat dan kantor cabang di kota lain. Perusahaan membutuhkan koneksi khusus yang stabil dan memiliki jaminan layanan sesuai kontrak.</p>
+  <select id="wanCase1">
+   <option value="">-- Pilih teknologi --</option>
+   <option value="leased">Leased Line</option>
+   <option value="vsat">VSAT</option>
+   <option value="cellular">Jaringan Seluler</option>
+   <option value="wireless">Wireless Point-to-Point</option>
+  </select>
+  <div id="wanCase1Result" class="result"></div>
+ </div>
+ <div class="scenario">
+  <h3>🏞️ Kasus 2 — Sekolah di Daerah Terpencil</h3>
+  <p>Sekolah berada di daerah yang belum terjangkau kabel fiber dan jaringan seluler sangat lemah. Dibutuhkan koneksi dari lokasi yang sulit dijangkau infrastruktur darat.</p>
+  <select id="wanCase2">
+   <option value="">-- Pilih teknologi --</option>
+   <option value="fiber">Fiber Optik</option>
+   <option value="vsat">VSAT</option>
+   <option value="leased">Leased Line</option>
+   <option value="wireless">Wireless Point-to-Point</option>
+  </select>
+  <div id="wanCase2Result" class="result"></div>
+ </div>
+ <div class="scenario">
+  <h3>📱 Kasus 3 — Koneksi Cadangan Bergerak</h3>
+  <p>Petugas lapangan membutuhkan internet yang dapat digunakan di berbagai tempat selama tersedia cakupan jaringan operator.</p>
+  <select id="wanCase3">
+   <option value="">-- Pilih teknologi --</option>
+   <option value="cellular">Jaringan Seluler 4G/5G</option>
+   <option value="fiber">Fiber Optik</option>
+   <option value="leased">Leased Line</option>
+   <option value="vsat">VSAT</option>
+  </select>
+  <div id="wanCase3Result" class="result"></div>
+ </div>
+ <div class="analogy"><strong>Ingat:</strong> Teknologi terbaik bukan yang paling mahal atau paling canggih, melainkan yang paling sesuai dengan kebutuhan, lokasi, kapasitas, anggaran, dan ketersediaan infrastruktur.</div>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide">
+ <div class="kicker">08 • EVALUASI</div>
+ <h2>Uji Pemahamanmu!</h2>
+ <p>Jawablah lima pertanyaan berikut untuk mengukur pemahaman tentang teknologi dan koneksi WAN.</p>
+ <div class="quiz-status"><span id="wanQuizNumber">Pertanyaan 1 / 5</span><span id="wanQuizScore">Skor: 0</span></div>
+ <div class="progress"><span id="wanQuizProgress"></span></div>
+ <div style="margin-top:18px">
+  <h3 id="wanQuizQuestion">Teknologi yang menggunakan gelombang radio untuk menghubungkan dua lokasi tanpa kabel langsung disebut...</h3>
+  <div id="wanQuizOptions"></div>
+  <div id="wanQuizFeedback" class="feedback"></div>
+  <button class="btn" id="wanQuizNext" disabled style="margin-top:12px">Pertanyaan Berikutnya →</button>
+  <button class="btn secondary" id="wanQuizRestart" style="display:none;margin-top:12px">↻ Ulangi Evaluasi</button>
+ </div>
+ <div id="wanQuizFinal" class="result"></div>
+</section>
+
+</div>
+
+<div class="nav">
+ <button class="btn secondary" id="wanPrev" disabled>← Sebelumnya</button>
+ <button class="btn" id="wanNext">Berikutnya →</button>
+</div>
+<div class="footer-note">
+ TKJ PERSIAPAN • RUANG BELAJAR DAN LITERASI DIGITAL
+</div>
+
+<script>
+(function(){
+ const root=document.getElementById('wan-tech-lab');
+ if(!root || root.dataset.ready==='1')return;
+ root.dataset.ready='1';
+ const $=id=>root.querySelector('#'+id);
+ const slides=[...root.querySelectorAll('.slide')];
+ let current=0;
+
+ function showSlide(n){
+  current=Math.max(0,Math.min(n,slides.length-1));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  $('wanStepText').textContent='Materi '+(current+1)+' dari '+slides.length;
+  $('wanPercent').textContent=Math.round((current+1)/slides.length*100)+'%';
+  $('wanProgress').style.width=((current+1)/slides.length*100)+'%';
+  $('wanPrev').disabled=current===0;
+  $('wanNext').style.display=current===slides.length-1?'none':'inline-block';
+  root.scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ $('wanPrev').addEventListener('click',()=>showSlide(current-1));
+ $('wanNext').addEventListener('click',()=>showSlide(current+1));
+
+ // TECHNOLOGY CARDS
+ const tech={
+  leased:{
+   title:'🔗 Leased Line',
+   text:'Leased line adalah layanan jalur komunikasi yang disewa dari penyedia layanan telekomunikasi untuk menghubungkan dua lokasi. Jalurnya bersifat khusus bagi pelanggan sesuai layanan yang disepakati.',
+   example:'Menghubungkan kantor pusat dengan kantor cabang menggunakan layanan koneksi dedicated.',
+   analogy:'Seperti menyewa jalur transportasi khusus untuk perjalanan rutin.'
+  },
+  fiber:{
+   title:'💡 Fiber Optik',
+   text:'Fiber optik mengirimkan data dalam bentuk pulsa cahaya melalui serat kaca atau plastik khusus. Teknologi ini mendukung kapasitas tinggi dan komunikasi jarak jauh.',
+   example:'Backbone jaringan ISP, koneksi antarkota, dan internet berkecepatan tinggi.',
+   analogy:'Seperti mengirim pesan menggunakan kilatan cahaya yang bergerak di dalam jalur khusus.'
+  },
+  wireless:{
+   title:'📡 Wireless',
+   text:'Wireless WAN menggunakan gelombang radio untuk menghubungkan lokasi tanpa kabel fisik langsung. Salah satu contohnya adalah radio point-to-point atau microwave link.',
+   example:'Menghubungkan dua gedung atau lokasi yang memiliki jalur pandang radio memadai.',
+   analogy:'Seperti berbicara menggunakan walkie-talkie, tetapi menggunakan perangkat dan protokol jaringan.'
+  },
+  vsat:{
+   title:'🛰️ VSAT',
+   text:'VSAT (Very Small Aperture Terminal) menggunakan antena parabola kecil untuk berkomunikasi melalui satelit. Teknologi ini dapat menjangkau lokasi yang sulit dijangkau jaringan kabel.',
+   example:'Kantor, sekolah, atau fasilitas layanan di daerah terpencil.',
+   analogy:'Seperti mengirim pesan ke menara penghubung yang berada jauh di angkasa, lalu diteruskan ke lokasi tujuan.'
+  },
+  cellular:{
+   title:'📱 Jaringan Seluler',
+   text:'Jaringan seluler seperti 4G dan 5G menggunakan gelombang radio dan infrastruktur operator seluler untuk menyediakan konektivitas data.',
+   example:'Internet untuk perangkat bergerak, router SIM, dan koneksi cadangan kantor.',
+   analogy:'Seperti menggunakan jaringan jalan yang memiliki banyak menara penghubung di berbagai wilayah.'
+  }
+ };
+ root.querySelectorAll('[data-tech]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('[data-tech]').forEach(b=>b.classList.remove('selected'));
+   btn.classList.add('selected');
+   const t=tech[btn.dataset.tech];
+   $('wanTechDetail').innerHTML='<h3>'+t.title+'</h3><p>'+t.text+'</p><p><b>Contoh:</b> '+t.example+'</p><p><b>Analogi:</b> '+t.analogy+'</p>';
+  });
+ });
+
+ // TRANSMISSION MEDIA
+ const medium={
+  wired:{
+   title:'Media Kabel',
+   desc:'Data dikirim melalui media fisik. Fiber optik membawa data sebagai pulsa cahaya, sedangkan kabel tembaga membawa sinyal listrik. Fiber optik cocok untuk kapasitas tinggi dan jarak jauh.',
+   label:'KABEL FIBER OPTIK',
+   color:'#fbbf24'
+  },
+  wire:{
+   title:'Media Nirkabel',
+   desc:'Data dikirim menggunakan gelombang elektromagnetik melalui udara atau ruang bebas. Contohnya radio microwave, komunikasi satelit, serta jaringan seluler.',
+   label:'GELOMBANG RADIO',
+   color:'#67e8f9'
+  }
+ };
+ root.querySelectorAll('[data-medium]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('[data-medium]').forEach(b=>b.classList.remove('selected'));
+   btn.classList.add('selected');
+   const m=medium[btn.dataset.medium];
+   $('wanMediumDetail').innerHTML='<h3>'+m.title+'</h3><p>'+m.desc+'</p>';
+   const svg=$('wanMediumDiagram').querySelector('svg');
+   const path=svg.querySelector('path');
+   path.setAttribute('stroke',m.color);
+   svg.querySelector('text').textContent=m.label;
+   svg.querySelector('text').setAttribute('fill',m.color);
+  });
+ });
+
+ // DEVICES
+ const devices={
+  router:['🛣️ Router','Router menghubungkan jaringan yang berbeda dan meneruskan paket data berdasarkan informasi routing. Router dapat menjadi perangkat utama penghubung LAN ke WAN.','Contoh: Router MikroTik menghubungkan jaringan komputer sekolah ke jaringan ISP.'],
+  modem:['📟 Modem','Modem melakukan modulasi dan demodulasi sinyal sesuai teknologi akses yang digunakan. Pada beberapa layanan, fungsi modem dapat terintegrasi dalam perangkat lain.','Contoh: Modem pada layanan koneksi tertentu untuk menghubungkan pelanggan ke jaringan operator.'],
+  ont:['📦 ONT / ONU','ONT atau ONU mengubah sinyal optik dari jaringan fiber menjadi antarmuka yang dapat digunakan perangkat jaringan pelanggan.','Contoh: ONT pada layanan FTTH untuk menyediakan koneksi Ethernet.'],
+  switch:['🔀 Switch','Switch menghubungkan banyak perangkat dalam jaringan lokal dan meneruskan frame berdasarkan alamat MAC.','Contoh: Menghubungkan komputer, printer, dan access point dalam LAN sekolah.'],
+  antenna:['📡 Antena','Antena mengirimkan dan menerima gelombang radio pada koneksi wireless. Kinerja koneksi dapat dipengaruhi arah, jarak, frekuensi, dan penghalang.','Contoh: Antena directional untuk koneksi wireless point-to-point.'],
+  satellite:['🛰️ Antena VSAT','Antena parabola VSAT mengirim dan menerima sinyal dari satelit melalui perangkat pendukung seperti BUC dan LNB.','Contoh: Terminal satelit pada lokasi terpencil.'],
+  firewall:['🛡️ Firewall','Firewall mengontrol lalu lintas jaringan berdasarkan aturan keamanan untuk melindungi jaringan dari akses yang tidak diizinkan.','Contoh: Membatasi akses dari jaringan luar ke server internal.'],
+  media:['🧵 Media Transmisi','Media transmisi membawa sinyal data, misalnya serat optik, kabel tembaga, atau gelombang radio.','Contoh: Kabel fiber optik sebagai jalur koneksi WAN.'],
+  isp:['🌐 Jaringan ISP','ISP menyediakan layanan akses dan konektivitas ke jaringan lain, termasuk internet atau jaringan privat sesuai layanan.','Contoh: ISP menghubungkan router sekolah ke jaringan internet.']
+ };
+ root.querySelectorAll('[data-device]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('[data-device]').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   const d=devices[btn.dataset.device];
+   $('wanDeviceDetail').innerHTML='<h3>'+d[0]+'</h3><p>'+d[1]+'</p><p><b>Contoh:</b> '+d[2]+'</p>';
+  });
+ });
+
+ // DATA JOURNEY
+ const journey=[
+  ['Komputer sekolah','Komputer membuat permintaan data, misalnya membuka sebuah situs web.'],
+  ['Router sekolah','Router meneruskan paket ke jaringan berikutnya berdasarkan tabel routing dan konfigurasi yang tersedia.'],
+  ['Jaringan ISP','Paket diteruskan melalui jaringan penyedia layanan internet.'],
+  ['Server tujuan','Server menerima permintaan dan mengirimkan respons kembali melalui jaringan.']
+ ];
+ let journeyTimer=null;
+ $('wanJourneyStart').addEventListener('click',()=>{
+  clearInterval(journeyTimer);
+  let i=0;
+  const packet=$('wanDataPacket');
+  packet.setAttribute('opacity','1');
+  $('wanJourneyStart').disabled=true;
+  function step(){
+   if(i>=journey.length){
+    $('wanJourneyDetail').innerHTML='<h3>✓ Data sampai ke tujuan!</h3><p>Permintaan dari komputer sekolah telah mencapai server tujuan. Respons kemudian dikirim kembali melalui jaringan.</p>';
+    packet.setAttribute('opacity','0');
+    $('wanJourneyStart').disabled=false;
+    clearInterval(journeyTimer);
+    return;
+   }
+   $('wanJourneyDetail').innerHTML='<h3>Langkah '+(i+1)+': '+journey[i][0]+'</h3><p>'+journey[i][1]+'</p>';
+   packet.setAttribute('cx',[60,227,394,561][i]);
+   packet.setAttribute('cy','35');
+   i++;
+  }
+  step();
+  journeyTimer=setInterval(step,1800);
+ });
+ $('wanJourneyReset').addEventListener('click',()=>{
+  clearInterval(journeyTimer);
+  $('wanDataPacket').setAttribute('opacity','0');
+  $('wanJourneyStart').disabled=false;
+  $('wanJourneyDetail').innerHTML='<h3>Siap mengirim data?</h3><p>Tekan tombol mulai untuk menjalankan simulasi perjalanan paket data.</p>';
+ });
+
+ // CASE STUDY
+ const caseAnswers={
+  wanCase1:{answer:'leased',correct:'Tepat! Leased line dapat menyediakan jalur koneksi khusus antarlokasi dengan tingkat layanan sesuai kontrak penyedia.',wrong:'Belum tepat. Perhatikan kebutuhan koneksi khusus dan jaminan layanan yang disepakati. Leased line merupakan pilihan yang sesuai.'},
+  wanCase2:{answer:'vsat',correct:'Tepat! VSAT dapat menjangkau wilayah yang sulit dilayani infrastruktur kabel atau jaringan darat.',wrong:'Belum tepat. Lokasi terpencil tanpa infrastruktur darat yang memadai dapat menggunakan koneksi satelit seperti VSAT.'},
+  wanCase3:{answer:'cellular',correct:'Tepat! Jaringan seluler cocok untuk konektivitas bergerak selama tersedia cakupan operator.',wrong:'Belum tepat. Kebutuhan utamanya adalah koneksi fleksibel dan dapat digunakan di berbagai lokasi.'}
+ };
+ Object.keys(caseAnswers).forEach(id=>{
+  $(id).addEventListener('change',()=>{
+   const data=caseAnswers[id];
+   const out=$(id+'Result');
+   out.className='result show';
+   if($(id).value===data.answer){
+    out.innerHTML='✓ '+data.correct;
+    out.style.borderColor='#4ade80';
+   }else{
+    out.innerHTML='↻ '+data.wrong;
+    out.style.borderColor='#fb7185';
+   }
+  });
+ });
+
+ // QUIZ
+ const questions=[
+  {q:'Teknologi yang menggunakan gelombang radio untuk menghubungkan dua lokasi tanpa kabel langsung disebut...',o:['Fiber optik','Wireless','Leased line','Switch'],a:1,e:'Wireless menggunakan gelombang radio sebagai media komunikasi tanpa kabel fisik langsung.'},
+  {q:'Teknologi yang menggunakan pulsa cahaya melalui serat kaca atau plastik khusus adalah...',o:['VSAT','Seluler','Fiber optik','Wireless'],a:2,e:'Fiber optik mengirimkan informasi menggunakan cahaya di dalam serat optik.'},
+  {q:'Perangkat yang berfungsi menghubungkan jaringan berbeda dan meneruskan paket data adalah...',o:['Switch','Router','Antena','ONT'],a:1,e:'Router melakukan routing paket ant jaringan yang berbeda.'},
+  {q:'Sekolah di daerah terpencil sulit dijangkau jaringan kabel. Salah satu solusi koneksi WAN yang dapat dipertimbangkan adalah...',o:['VSAT','Switch','Kabel LAN pendek','Printer jaringan'],a:0,e:'VSAT menggunakan komunikasi satelit sehingga dapat menjangkau lokasi terpencil.'},
+  {q:'Perusahaan membutuhkan koneksi khusus antarkantor dengan jaminan layanan sesuai kontrak. Teknologi yang paling sesuai adalah...',o:['Wi-Fi rumah','Leased line','Bluetooth','Hotspot pribadi'],a:1,e:'Leased line merupakan layanan koneksi khusus yang dapat menyediakan SLA sesuai kontrak.'}
+ ];
+ let qi=0,score=0,answered=false;
+ function renderQuiz(){
+  const q=questions[qi];
+  $('wanQuizNumber').textContent='Pertanyaan '+(qi+1)+' / '+questions.length;
+  $('wanQuizScore').textContent='Skor: '+score;
+  $('wanQuizProgress').style.width=((qi+1)/questions.length*100)+'%';
+  $('wanQuizQuestion').textContent=q.q;
+  $('wanQuizOptions').innerHTML='';
+  $('wanQuizFeedback').className='feedback';
+  $('wanQuizFeedback').textContent='';
+  $('wanQuizNext').disabled=true;
+  $('wanQuizNext').textContent=qi===questions.length-1?'Lihat Hasil':'Pertanyaan Berikutnya →';
+  answered=false;
+  q.o.forEach((option,index)=>{
+   const btn=document.createElement('button');
+   btn.className='quiz-option';
+   btn.textContent=String.fromCharCode(65+index)+'. '+option;
+   btn.addEventListener('click',()=>{
+    if(answered)return;
+    answered=true;
+    const correct=index===q.a;
+    if(correct)score+=20;
+    [...$('wanQuizOptions').children].forEach((b,i)=>{
+     b.disabled=true;
+     if(i===q.a)b.classList.add('correct');
+     if(i===index&&!correct)b.classList.add('wrong');
+    });
+    $('wanQuizScore').textContent='Skor: '+score;
+    $('wanQuizFeedback').className='feedback show '+(correct?'correct':'wrong');
+    $('wanQuizFeedback').textContent=(correct?'✓ Benar! ':'✕ Belum tepat. ')+q.e;
+    $('wanQuizNext').disabled=false;
+   });
+   $('wanQuizOptions').appendChild(btn);
+  });
+ }
+ $('wanQuizNext').addEventListener('click',()=>{
+  if(!answered)return;
+  if(qi<questions.length-1){
+   qi++;renderQuiz();
+  }else{
+   $('wanQuizQuestion').textContent='Evaluasi selesai!';
+   $('wanQuizOptions').innerHTML='';
+   $('wanQuizFeedback').className='feedback';
+   $('wanQuizNext').style.display='none';
+   $('wanQuizRestart').style.display='inline-block';
+   $('wanQuizFinal').className='result show';
+   $('wanQuizFinal').innerHTML='<h3>Skor Akhir: '+score+'/100</h3><p>'+(score>=80?'Hebat! Pemahamanmu sangat baik.':score>=60?'Bagus! Terus tingkatkan pemahamanmu.':'Ayo pelajari kembali materi dan coba lagi.')+'</p><p>Terus berlatih memilih teknologi WAN berdasarkan kebutuhan nyata.</p>';
+  }
+ });
+ $('wanQuizRestart').addEventListener('click',()=>{
+  qi=0;score=0;
+  $('wanQuizNext').style.display='inline-block';
+  $('wanQuizRestart').style.display='none';
+  $('wanQuizFinal').className='result';
+  renderQuiz();
+ });
+ renderQuiz();
+ showSlide(0);
+})();
+</script>
+</div>
