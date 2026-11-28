@@ -1,0 +1,738 @@
+
+<div id="wan-design-studio">
+<style>
+#wan-design-studio{
+ --bg:#071713;--panel:#10271f;--panel2:#18372c;
+ --green:#34d399;--lime:#bef264;--teal:#2dd4bf;
+ --text:#e7f8ef;--muted:#a5c2b3;--line:#285343;
+ --good:#4ade80;--bad:#fb7185;
+ background:var(--bg);color:var(--text);font-family:Arial,sans-serif;
+ line-height:1.6;border-radius:18px;overflow:hidden;
+}
+#wan-design-studio *{box-sizing:border-box}
+#wan-design-studio button,#wan-design-studio input,#wan-design-studio select{font:inherit}
+#wan-design-studio button{cursor:pointer}
+#wan-design-studio .hero{
+ padding:30px 22px;position:relative;overflow:hidden;
+ background:radial-gradient(circle at 85% 20%,#34d39930,transparent 32%),
+ linear-gradient(130deg,#0c3024,#10251f 60%,#153d32);
+}
+#wan-design-studio .hero:after{
+ content:"";position:absolute;width:200px;height:200px;
+ border:1px solid #bef26444;border-radius:50%;
+ right:-65px;top:-80px;
+ box-shadow:0 0 0 25px #bef2640c,0 0 0 55px #bef26408;
+}
+#wan-design-studio .eyebrow{
+ font-size:11px;letter-spacing:2px;color:var(--lime);
+ font-weight:bold;text-transform:uppercase;
+}
+#wan-design-studio h1{font-size:clamp(25px,5vw,38px);line-height:1.2;margin:10px 0}
+#wan-design-studio h2{font-size:22px;line-height:1.3;margin:0 0 9px}
+#wan-design-studio h3{font-size:16px;margin:0 0 7px}
+#wan-design-studio p{margin:7px 0;color:var(--muted)}
+#wan-design-studio .hero p{max-width:650px}
+#wan-design-studio .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px}
+#wan-design-studio .tag{
+ font-size:11px;border:1px solid #ffffff25;border-radius:20px;
+ padding:5px 10px;background:#ffffff09;color:#d1fae5;
+}
+#wan-design-studio .progress-wrap{
+ padding:13px 20px;background:#0b2019;border-bottom:1px solid var(--line);
+}
+#wan-design-studio .progress-top{
+ display:flex;justify-content:space-between;font-size:12px;
+ color:var(--muted);margin-bottom:8px;
+}
+#wan-design-studio .progress{
+ height:6px;background:#234235;border-radius:20px;overflow:hidden;
+}
+#wan-design-studio .progress span{
+ display:block;height:100%;width:0;
+ background:linear-gradient(90deg,var(--green),var(--lime));transition:.4s;
+}
+#wan-design-studio .stage{padding:24px 20px;min-height:400px}
+#wan-design-studio .slide{display:none;animation:wdFade .35s ease}
+#wan-design-studio .slide.active{display:block}
+@keyframes wdFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#wan-design-studio .kicker{
+ font-size:11px;color:var(--lime);font-weight:bold;
+ letter-spacing:1.5px;margin-bottom:6px;
+}
+#wan-design-studio .diagram{
+ background:linear-gradient(145deg,#102c22,#0c211b);
+ border:1px solid var(--line);border-radius:15px;
+ padding:15px;margin:15px 0;overflow:hidden;
+}
+#wan-design-studio svg{display:block;max-width:100%;height:auto;margin:auto}
+#wan-design-studio .cards{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;margin:14px 0;
+}
+#wan-design-studio .card{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:12px;padding:13px;color:var(--text);
+ text-align:left;width:100%;transition:.2s;
+}
+#wan-design-studio .card:hover{border-color:var(--green);transform:translateY(-2px)}
+#wan-design-studio .card.active{
+ border-color:var(--lime);background:#25452e;
+ box-shadow:0 0 0 2px #bef26418;
+}
+#wan-design-studio .card-icon{font-size:24px;margin-bottom:5px}
+#wan-design-studio .card small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+#wan-design-studio .detail{
+ padding:14px;background:#153528;border-left:3px solid var(--green);
+ border-radius:9px;margin:12px 0;min-height:75px;
+}
+#wan-design-studio .analogy{
+ background:#1c382b;border:1px dashed #bef26488;
+ border-radius:12px;padding:13px;margin:13px 0;color:#dff8df;
+}
+#wan-design-studio .analogy strong{color:var(--lime)}
+#wan-design-studio .nav{
+ display:flex;justify-content:space-between;gap:10px;
+ padding:15px 20px;background:#0b2019;border-top:1px solid var(--line);
+}
+#wan-design-studio .btn{
+ border:0;border-radius:9px;padding:10px 16px;
+ background:var(--green);color:#06251a;font-weight:bold;
+}
+#wan-design-studio .btn.secondary{
+ background:#1c382b;color:var(--text);border:1px solid var(--line);
+}
+#wan-design-studio .btn:disabled{opacity:.35;cursor:not-allowed}
+#wan-design-studio .muted{font-size:12px;color:var(--muted)}
+#wan-design-studio .steps{display:grid;gap:9px;margin:15px 0}
+#wan-design-studio .step{
+ display:flex;gap:12px;padding:12px;background:var(--panel);
+ border:1px solid var(--line);border-radius:11px;align-items:flex-start;
+}
+#wan-design-studio .step-no{
+ width:30px;height:30px;flex-shrink:0;border-radius:50%;
+ background:#285343;color:var(--lime);display:grid;place-items:center;font-weight:bold;
+}
+#wan-design-studio .step p{font-size:13px;margin:3px 0 0}
+#wan-design-studio .field-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0;
+}
+#wan-design-studio .field{background:var(--panel);padding:12px;border:1px solid var(--line);border-radius:10px}
+#wan-design-studio .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+#wan-design-studio input,#wan-design-studio select{
+ width:100%;padding:10px;background:#091e17;color:var(--text);
+ border:1px solid var(--line);border-radius:8px;outline:none;
+}
+#wan-design-studio input:focus,#wan-design-studio select:focus{border-color:var(--green)}
+#wan-design-studio .topology-svg{width:100%;min-height:190px}
+#wan-design-studio .device-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0;
+}
+#wan-design-studio .device{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:10px;padding:12px 5px;color:var(--text);text-align:center;
+}
+#wan-design-studio .device.active{border-color:var(--lime);background:#24412f}
+#wan-design-studio .device span{display:block;font-size:23px}
+#wan-design-studio .device b{font-size:12px}
+#wan-design-studio .table-wrap{overflow-x:auto;margin:12px 0;border-radius:10px}
+#wan-design-studio table{border-collapse:collapse;width:100%;min-width:560px;font-size:12px}
+#wan-design-studio th,#wan-design-studio td{
+ border:1px solid var(--line);padding:9px;text-align:left;
+}
+#wan-design-studio th{background:#214532;color:var(--lime)}
+#wan-design-studio td{background:#10271f;color:#d9eee2}
+#wan-design-studio .ip-output{
+ background:#10271f;border:1px solid var(--line);
+ border-radius:12px;padding:14px;margin-top:13px;
+}
+#wan-design-studio .ip-output h3{color:var(--lime)}
+#wan-design-studio .ip-row{
+ display:flex;justify-content:space-between;gap:8px;
+ padding:8px 0;border-bottom:1px solid #285343;
+ font-size:12px;
+}
+#wan-design-studio .ip-row:last-child{border-bottom:0}
+#wan-design-studio .ip-row span:last-child{
+ color:#d9f99d;font-family:monospace;text-align:right;
+}
+#wan-design-studio .feedback{
+ display:none;padding:12px;border-radius:9px;margin-top:10px;font-size:13px;
+}
+#wan-design-studio .feedback.show{display:block}
+#wan-design-studio .feedback.good{background:#14532d55;color:#bbf7d0;border:1px solid #4ade8066}
+#wan-design-studio .feedback.bad{background:#7f1d1d44;color:#fecaca;border:1px solid #fb718566}
+#wan-design-studio .quiz-option{
+ display:block;width:100%;text-align:left;margin:7px 0;
+ padding:12px;border-radius:9px;background:var(--panel);
+ border:1px solid var(--line);color:var(--text);
+}
+#wan-design-studio .quiz-option.correct{border-color:var(--good);background:#14532d55}
+#wan-design-studio .quiz-option.wrong{border-color:var(--bad);background:#7f1d1d55}
+#wan-design-studio .quiz-option:disabled{cursor:default}
+#wan-design-studio .footer{
+ text-align:center;padding:15px;color:var(--muted);
+ background:#0b2019;font-size:11px;
+}
+@media(max-width:520px){
+ #wan-design-studio .stage{padding:18px 13px}
+ #wan-design-studio .cards{grid-template-columns:1fr}
+ #wan-design-studio .device-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #wan-design-studio .field-grid{grid-template-columns:1fr}
+ #wan-design-studio .nav{padding:12px}
+ #wan-design-studio .btn{padding:9px 12px;font-size:13px}
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+ <div class="eyebrow">TKJ • KELAS XII • NETWORK DESIGN LAB</div>
+ <h1>WAN Design<br>Studio</h1>
+ <p>Jadilah seorang network designer! Analisis kebutuhan, pilih topologi, tentukan perangkat, bangun rancangan jaringan, dan susun pembagian IP Address untuk beberapa lokasi.</p>
+ <div class="tags">
+  <span class="tag">Network Planning</span>
+  <span class="tag">Topology Design</span>
+  <span class="tag">IP Addressing</span>
+  <span class="tag">Interactive Lab</span>
+ </div>
+</div>
+
+<div class="progress-wrap">
+ <div class="progress-top">
+  <span id="wdStepText">Materi 1 dari 7</span>
+  <span id="wdPercent">14%</span>
+ </div>
+ <div class="progress"><span id="wdProgress"></span></div>
+</div>
+
+<div class="stage">
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+ <div class="kicker">01 • PENGANTAR</div>
+ <h2>Sebelum Membangun, Kita Harus Merancang</h2>
+ <p>Bayangkan sebuah sekolah memiliki tiga lokasi: kantor pusat, laboratorium komputer, dan kantor cabang. Ketiganya membutuhkan komunikasi data.</p>
+
+ <div class="diagram">
+  <svg viewBox="0 0 620 230">
+   <defs>
+    <linearGradient id="wdLine" x1="0" x2="1">
+     <stop stop-color="#34d399"/><stop offset="1" stop-color="#bef264"/>
+    </linearGradient>
+   </defs>
+   <path d="M310 83L115 170M310 83L505 170" stroke="url(#wdLine)" stroke-width="4" stroke-dasharray="8 6" fill="none">
+    <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="2s" repeatCount="indefinite"/>
+   </path>
+   <g transform="translate(240 20)">
+    <rect width="140" height="75" rx="12" fill="#1c4935" stroke="#bef264" stroke-width="2"/>
+    <text x="70" y="31" fill="#bef264" text-anchor="middle" font-size="24">🏢</text>
+    <text x="70" y="55" fill="white" text-anchor="middle" font-size="12">KANTOR PUSAT</text>
+   </g>
+   <g transform="translate(35 150)">
+    <rect width="160" height="68" rx="12" fill="#164235" stroke="#34d399"/>
+    <text x="80" y="28" fill="#fff" text-anchor="middle" font-size="22">💻</text>
+    <text x="80" y="50" fill="#fff" text-anchor="middle" font-size="12">LABORATORIUM</text>
+   </g>
+   <g transform="translate(425 150)">
+    <rect width="160" height="68" rx="12" fill="#164235" stroke="#34d399"/>
+    <text x="80" y="28" fill="#fff" text-anchor="middle" font-size="22">🏫</text>
+    <text x="80" y="50" fill="#fff" text-anchor="middle" font-size="12">CABANG</text>
+   </g>
+   <circle cx="310" cy="112" r="7" fill="#bef264">
+    <animate attributeName="r" values="5;10;5" dur="1.5s" repeatCount="indefinite"/>
+   </circle>
+  </svg>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Merancang jaringan WAN seperti merencanakan pembangunan jalan antarkota. Kita harus mengetahui lokasi yang akan dihubungkan, jumlah kendaraan, jalur yang tersedia, biaya, dan aturan lalu lintas.
+ </div>
+
+ <h3>Apa yang harus direncanakan?</h3>
+ <div class="cards">
+  <div class="card"><div class="card-icon">📍</div><b>Lokasi</b><small>Di mana jaringan akan dibangun?</small></div>
+  <div class="card"><div class="card-icon">👥</div><b>Pengguna</b><small>Berapa perangkat yang terhubung?</small></div>
+  <div class="card"><div class="card-icon">🔗</div><b>Koneksi</b><small>Bagaimana setiap lokasi dihubungkan?</small></div>
+  <div class="card"><div class="card-icon">🔐</div><b>Keamanan</b><small>Bagaimana jaringan dilindungi?</small></div>
+ </div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+ <div class="kicker">02 • TAHAPAN PERENCANAAN</div>
+ <h2>Langkah-Langkah Merancang WAN</h2>
+ <p>Perancangan jaringan tidak dimulai dengan membeli router. Kita harus memahami kebutuhan terlebih dahulu.</p>
+
+ <div class="steps">
+  <div class="step"><div class="step-no">1</div><div><b>Identifikasi kebutuhan</b><p>Menentukan tujuan jaringan, lokasi, pengguna, aplikasi, dan layanan yang diperlukan.</p></div></div>
+  <div class="step"><div class="step-no">2</div><div><b>Analisis kondisi lokasi</b><p>Memeriksa jarak, kondisi geografis, infrastruktur, ketersediaan ISP, dan sumber listrik.</p></div></div>
+  <div class="step"><div class="step-no">3</div><div><b>Menentukan teknologi dan topologi</b><p>Memilih jenis koneksi, bentuk hubungan antarlokasi, serta jalur komunikasi.</p></div></div>
+  <div class="step"><div class="step-no">4</div><div><b>Menentukan perangkat</b><p>Memilih router, switch, modem/ONT, antena, firewall, dan perangkat pendukung.</p></div></div>
+  <div class="step"><div class="step-no">5</div><div><b>Merancang IP Address</b><p>Membagi alamat jaringan, subnet, gateway, dan alamat antarmuka WAN.</p></div></div>
+  <div class="step"><div class="step-no">6</div><div><b>Implementasi dan pengujian</b><p>Melakukan instalasi, konfigurasi, pengujian koneksi, keamanan, dan dokumentasi.</p></div></div>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Seperti membangun rumah. Kita membuat denah dan menghitung kebutuhan bahan sebelum membeli material dan mulai membangun.
+ </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+ <div class="kicker">03 • ANALISIS KEBUTUHAN</div>
+ <h2>Analisis Kebutuhan Jaringan</h2>
+ <p>Kita akan merancang jaringan untuk sebuah organisasi dengan tiga lokasi. Ubah jumlah pengguna untuk melihat kebutuhan jaringan.</p>
+
+ <div class="field-grid">
+  <div class="field">
+   <label>🏢 Kantor Pusat — jumlah pengguna</label>
+   <input type="number" id="wdUsersHQ" value="30" min="1" max="500">
+  </div>
+  <div class="field">
+   <label>🏫 Cabang A — jumlah pengguna</label>
+   <input type="number" id="wdUsersA" value="20" min="1" max="500">
+  </div>
+  <div class="field">
+   <label>🏫 Cabang B — jumlah pengguna</label>
+   <input type="number" id="wdUsersB" value="15" min="1" max="500">
+  </div>
+  <div class="field">
+   <label>📍 Jarak kantor pusat ke cabang</label>
+   <select id="wdDistance">
+    <option value="city">Dalam satu kota</option>
+    <option value="province" selected>Antarkota / kabupaten</option>
+    <option value="remote">Daerah terpencil</option>
+   </select>
+  </div>
+ </div>
+
+ <button class="btn" id="wdAnalyze">🔍 Analisis Kebutuhan</button>
+
+ <div class="detail" id="wdAnalysisResult">
+  <h3>Hasil analisis awal</h3>
+  <p>Masukkan atau sesuaikan jumlah pengguna, lalu tekan tombol analisis.</p>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Sebelum membangun jalan, pemerintah harus menghitung berapa banyak kendaraan yang akan melewatinya. Jaringan juga perlu disesuaikan dengan jumlah pengguna dan kebutuhan lalu lintas data.
+ </div>
+ <p class="muted">Jumlah pengguna hanya salah satu faktor. Kapasitas jaringan juga dipengaruhi aplikasi, pola pemakaian, trafik puncak, kebutuhan video, backup, dan pertumbuhan jaringan.</p>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide">
+ <div class="kicker">04 • TOPOLOGI WAN</div>
+ <h2>Menentukan Bentuk Hubungan Jaringan</h2>
+ <p>Pilih topologi untuk melihat bagaimana kantor pusat dan cabang saling terhubung.</p>
+
+ <div class="cards">
+  <button class="card active" data-topology="star">
+   <div class="card-icon">⭐</div><b>Hub and Spoke</b><small>Semua cabang terhubung ke pusat</small>
+  </button>
+  <button class="card" data-topology="mesh">
+   <div class="card-icon">🕸️</div><b>Full Mesh</b><small>Setiap lokasi terhubung langsung</small>
+  </button>
+  <button class="card" data-topology="point">
+   <div class="card-icon">↔️</div><b>Point-to-Point</b><small>Hubungan langsung dua lokasi</small>
+  </button>
+ </div>
+
+ <div class="diagram">
+  <div id="wdTopologyDrawing">
+   <svg viewBox="0 0 600 260">
+    <g stroke="#34d399" stroke-width="4" fill="none">
+     <path d="M300 90L120 205M300 90L480 205"/>
+    </g>
+    <g fill="#164235" stroke="#bef264" stroke-width="2">
+     <rect x="230" y="25" width="140" height="70" rx="12"/>
+     <rect x="45" y="190" width="150" height="60" rx="10"/>
+     <rect x="405" y="190" width="150" height="60" rx="10"/>
+    </g>
+    <g fill="white" font-size="13" text-anchor="middle">
+     <text x="300" y="65">KANTOR PUSAT</text>
+     <text x="120" y="225">CABANG A</text>
+     <text x="480" y="225">CABANG B</text>
+    </g>
+   </svg>
+  </div>
+ </div>
+ <div class="detail" id="wdTopologyInfo">
+  <h3>⭐ Hub and Spoke</h3>
+  <p>Setiap cabang terhubung ke kantor pusat sebagai titik utama. Mudah dikelola, tetapi kantor pusat menjadi titik penting komunikasi antarcabang.</p>
+ </div>
+ <div class="analogy">
+  <strong>Analogi:</strong> Hub and Spoke seperti terminal bus pusat. Semua perjalanan dari cabang menuju cabang lain dapat melewati terminal utama.
+ </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+ <div class="kicker">05 • PEMILIHAN PERANGKAT</div>
+ <h2>Perangkat yang Dibutuhkan</h2>
+ <p>Pilih perangkat untuk mengetahui peran dan alasan penggunaannya dalam rancangan WAN.</p>
+
+ <div class="device-grid">
+  <button class="device active" data-device="router"><span>🛣️</span><b>Router</b></button>
+  <button class="device" data-device="switch"><span>🔀</span><b>Switch</b></button>
+  <button class="device" data-device="ont"><span>📦</span><b>ONT / Modem</b></button>
+  <button class="device" data-device="firewall"><span>🛡️</span><b>Firewall</b></button>
+  <button class="device" data-device="ap"><span>📶</span><b>Access Point</b></button>
+  <button class="device" data-device="media"><span>🧵</span><b>Media WAN</b></button>
+ </div>
+
+ <div class="detail" id="wdDeviceInfo">
+  <h3>🛣️ Router</h3>
+  <p>Router menghubungkan jaringan yang berbeda dan meneruskan paket berdasarkan tabel routing. Perangkat ini menjadi penghubung utama LAN menuju jaringan WAN.</p>
+  <p><b>Contoh:</b> Router MikroTik di kantor pusat dan setiap cabang.</p>
+ </div>
+
+ <h3>Contoh kebutuhan perangkat untuk tiga lokasi</h3>
+ <div class="table-wrap">
+  <table>
+   <thead><tr><th>Perangkat</th><th>Kantor Pusat</th><th>Cabang A</th><th>Cabang B</th></tr></thead>
+   <tbody>
+    <tr><td>Router</td><td>1</td><td>1</td><td>1</td></tr>
+    <tr><td>Switch LAN</td><td>1 atau lebih</td><td>1</td><td>1</td></tr>
+    <tr><td>ONT / Modem</td><td>Sesuai ISP</td><td>Sesuai ISP</td><td>Sesuai ISP</td></tr>
+    <tr><td>Access Point</td><td>Sesuai kebutuhan</td><td>Sesuai kebutuhan</td><td>Sesuai kebutuhan</td></tr>
+   </tbody>
+  </table>
+ </div>
+ <p class="muted">Jumlah perangkat sebenarnya ditentukan oleh kapasitas port, jumlah pengguna, desain redundansi, dan teknologi koneksi dari ISP.</p>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+ <div class="kicker">06 • IP ADDRESSING LAB</div>
+ <h2>Menyusun Pembagian IP Address</h2>
+ <p>Sekarang kita membagi alamat IP untuk tiga lokasi. Setiap lokasi membutuhkan subnet LAN sendiri agar jaringan lebih terstruktur.</p>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> IP Address seperti alamat rumah. Subnet adalah wilayah perumahan, sedangkan alamat IP setiap perangkat adalah nomor rumah yang berbeda.
+ </div>
+
+ <div class="field">
+  <label>Network dasar (oktet ketiga)</label>
+  <input type="number" id="wdNetwork" min="0" max="255" value="10">
+  <p class="muted">Contoh: 192.168.<b>10</b>.0/24. Ubah angka untuk membuat rancangan jaringan lain.</p>
+ </div>
+
+ <div class="field-grid">
+  <div class="field">
+   <label>Prefix subnet LAN</label>
+   <select id="wdPrefix">
+    <option value="24">/24 — 254 host</option>
+    <option value="25">/25 — 126 host</option>
+    <option value="26" selected>/26 — 62 host</option>
+    <option value="27">/27 — 30 host</option>
+   </select>
+  </div>
+  <div class="field">
+   <label>Gateway setiap lokasi</label>
+   <select id="wdGateway">
+    <option value="first" selected>Alamat host pertama</option>
+    <option value="last">Alamat host terakhir</option>
+   </select>
+  </div>
+ </div>
+
+ <button class="btn" id="wdGenerateIP">⚙️ Buat Pembagian IP</button>
+ <div class="ip-output" id="wdIPOutput">
+  <h3>Hasil Perencanaan IP</h3>
+  <p>Tekan tombol untuk membuat tabel pembagian IP Address.</p>
+ </div>
+
+ <div class="detail">
+  <h3>Jangan lupakan jaringan WAN!</h3>
+  <p>Selain subnet LAN, setiap koneksi point-to-point antarruter membutuhkan alamat IP pada antarmuka WAN. Subnet /30 dapat digunakan pada rancangan IPv4 point-to-point sederhana karena menyediakan dua alamat host yang dapat digunakan.</p>
+  <p><b>Contoh:</b> 10.10.10.0/30 memiliki alamat host 10.10.10.1 dan 10.10.10.2.</p>
+ </div>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide">
+ <div class="kicker">07 • TANTANGAN PERANCANG</div>
+ <h2>Uji Kemampuanmu sebagai Network Designer</h2>
+ <p>Jawab pertanyaan berikut berdasarkan materi perencanaan dan perancangan WAN.</p>
+
+ <div class="progress-top">
+  <span id="wdQuizNumber">Pertanyaan 1 / 5</span>
+  <span id="wdQuizScore">Skor: 0</span>
+ </div>
+ <div class="progress"><span id="wdQuizProgress"></span></div>
+
+ <h3 id="wdQuizQuestion" style="margin-top:18px">Apa langkah pertama sebelum menentukan perangkat WAN?</h3>
+ <div id="wdQuizOptions"></div>
+ <div id="wdQuizFeedback" class="feedback"></div>
+ <button class="btn" id="wdQuizNext" disabled style="margin-top:12px">Pertanyaan Berikutnya →</button>
+ <button class="btn secondary" id="wdQuizRestart" style="display:none;margin-top:12px">↻ Ulangi Evaluasi</button>
+ <div id="wdQuizFinal" class="detail" style="display:none"></div>
+</section>
+
+</div>
+
+<div class="nav">
+ <button class="btn secondary" id="wdPrev" disabled>← Sebelumnya</button>
+ <button class="btn" id="wdNext">Berikutnya →</button>
+</div>
+
+<div class="footer">TKJ PERSIAPAN • NETWORK DESIGN STUDIO</div>
+
+<script>
+(function(){
+ const root=document.getElementById('wan-design-studio');
+ if(!root || root.dataset.ready==='1')return;
+ root.dataset.ready='1';
+ const $=id=>root.querySelector('#'+id);
+
+ // SLIDESHOW
+ const slides=[...root.querySelectorAll('.slide')];
+ let current=0;
+ function showSlide(n){
+  current=Math.max(0,Math.min(n,slides.length-1));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  $('wdStepText').textContent='Materi '+(current+1)+' dari '+slides.length;
+  $('wdPercent').textContent=Math.round((current+1)/slides.length*100)+'%';
+  $('wdProgress').style.width=((current+1)/slides.length*100)+'%';
+  $('wdPrev').disabled=current===0;
+  $('wdNext').style.display=current===slides.length-1?'none':'inline-block';
+  root.scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ $('wdPrev').addEventListener('click',()=>showSlide(current-1));
+ $('wdNext').addEventListener('click',()=>showSlide(current+1));
+
+ // ANALISIS KEBUTUHAN
+ function analyze(){
+  const values=[
+   Math.max(1,Math.min(500,Number($('wdUsersHQ').value)||1)),
+   Math.max(1,Math.min(500,Number($('wdUsersA').value)||1)),
+   Math.max(1,Math.min(500,Number($('wdUsersB').value)||1))
+  ];
+  const total=values.reduce((a,b)=>a+b,0);
+  const distance=$('wdDistance').value;
+  let suggestion='';
+  if(distance==='remote'){
+   suggestion='Pertimbangkan VSAT atau koneksi radio point-to-point jika tersedia jalur dan infrastruktur yang sesuai.';
+  }else if(distance==='city'){
+   suggestion='Fiber optik atau wireless point-to-point dapat dipertimbangkan berdasarkan jarak, jalur, biaya, dan ketersediaan layanan.';
+  }else{
+   suggestion='Fiber optik, leased line, atau wireless point-to-point dapat dipertimbangkan sesuai ketersediaan layanan dan kebutuhan.';
+  }
+  $('wdAnalysisResult').innerHTML=
+   '<h3>✓ Hasil Analisis Kebutuhan</h3>'+
+   '<p>Total pengguna yang direncanakan: <b style="color:#bef264">'+total+' pengguna</b>.</p>'+
+   '<p>Kantor pusat: '+values[0]+' pengguna. Cabang A: '+values[1]+' pengguna. Cabang B: '+values[2]+' pengguna.</p>'+
+   '<p><b>Rekomendasi awal:</b> '+suggestion+'</p>'+
+   '<p class="muted">Analisis awal ini belum menghitung kebutuhan bandwidth secara rinci. Perlu diketahui aplikasi, trafik bersamaan, pertumbuhan pengguna, dan kebutuhan layanan.</p>';
+ }
+ $('wdAnalyze').addEventListener('click',analyze);
+
+ // TOPOLOGY
+ const topology={
+  star:{
+   title:'⭐ Hub and Spoke',
+   text:'Semua cabang terhubung ke kantor pusat. Topologi ini mudah dikelola dan cocok ketika komunikasi banyak dipusatkan di kantor pusat. Namun, kantor pusat menjadi titik penting dan berpotensi menjadi single point of failure jika tidak ada redundansi.',
+   analogy:'Seperti terminal bus pusat yang menghubungkan semua wilayah.',
+   svg:`<svg viewBox="0 0 600 260">
+    <g stroke="#34d399" stroke-width="4" fill="none">
+     <path d="M300 90L120 205M300 90L480 205"/>
+    </g>
+    <g fill="#164235" stroke="#bef264" stroke-width="2">
+     <rect x="230" y="25" width="140" height="70" rx="12"/>
+     <rect x="45" y="190" width="150" height="60" rx="10"/>
+     <rect x="405" y="190" width="150" height="60" rx="10"/>
+    </g>
+    <g fill="white" font-size="13" text-anchor="middle">
+     <text x="300" y="65">KANTOR PUSAT</text>
+     <text x="120" y="225">CABANG A</text>
+     <text x="480" y="225">CABANG B</text>
+    </g>
+    <circle cx="300" cy="105" r="6" fill="#bef264"><animate attributeName="r" values="5;10;5" dur="1.5s" repeatCount="indefinite"/></circle>
+   </svg>`
+  },
+  mesh:{
+   title:'🕸️ Full Mesh',
+   text:'Setiap lokasi memiliki hubungan langsung dengan lokasi lainnya. Topologi ini dapat menyediakan banyak jalur komunikasi, tetapi membutuhkan lebih banyak koneksi, konfigurasi, dan biaya.',
+   analogy:'Seperti setiap kota memiliki jalan langsung menuju semua kota lainnya.',
+   svg:`<svg viewBox="0 0 600 260">
+    <g stroke="#34d399" stroke-width="4" fill="none">
+     <path d="M300 55L120 205M300 55L480 205M120 205L480 205"/>
+    </g>
+    <g fill="#164235" stroke="#bef264" stroke-width="2">
+     <circle cx="300" cy="55" r="42"/><circle cx="120" cy="205" r="42"/><circle cx="480" cy="205" r="42"/>
+    </g>
+    <g fill="white" font-size="12" text-anchor="middle">
+     <text x="300" y="59">PUSAT</text><text x="120" y="209">A</text><text x="480" y="209">B</text>
+    </g>
+   </svg>`
+  },
+  point:{
+   title:'↔️ Point-to-Point',
+   text:'Menghubungkan dua lokasi secara langsung. Cocok untuk hubungan antara kantor pusat dengan satu cabang atau dua titik jaringan yang membutuhkan koneksi khusus.',
+   analogy:'Seperti membangun satu jalan langsung antara dua kota.',
+   svg:`<svg viewBox="0 0 600 230">
+    <path d="M165 110H435" stroke="#34d399" stroke-width="6" stroke-dasharray="12 7"/>
+    <g fill="#164235" stroke="#bef264" stroke-width="2">
+     <rect x="45" y="65" width="120" height="90" rx="12"/>
+     <rect x="435" y="65" width="120" height="90" rx="12"/>
+    </g>
+    <g fill="white" text-anchor="middle" font-size="13">
+     <text x="105" y="115">LOKASI A</text><text x="495" y="115">LOKASI B</text>
+    </g>
+    <circle cx="300" cy="110" r="8" fill="#bef264"><animate attributeName="cx" values="170;430;170" dur="2.5s" repeatCount="indefinite"/></circle>
+   </svg>`
+  }
+ };
+ root.querySelectorAll('[data-topology]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('[data-topology]').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   const t=topology[btn.dataset.topology];
+   $('wdTopologyDrawing').innerHTML=t.svg;
+   $('wdTopologyInfo').innerHTML='<h3>'+t.title+'</h3><p>'+t.text+'</p><p><b>Analogi:</b> '+t.analogy+'</p>';
+  });
+ });
+
+ // DEVICES
+ const deviceData={
+  router:['🛣️ Router','Router menghubungkan jaringan yang berbeda dan meneruskan paket data berdasarkan tabel routing.','Contoh: router utama di kantor pusat dan router di setiap cabang.'],
+  switch:['🔀 Switch','Switch menghubungkan perangkat dalam jaringan lokal dan meneruskan frame berdasarkan alamat MAC.','Contoh: menghubungkan PC, printer, dan access point dalam LAN.'],
+  ont:['📦 ONT / Modem','ONT mengubah sinyal optik menjadi antarmuka jaringan pelanggan. Modem melakukan fungsi modulasi dan demodulasi sesuai teknologi aksesnya.','Contoh: ONT pada layanan fiber optik.'],
+  firewall:['🛡️ Firewall','Firewall mengatur lalu lintas jaringan berdasarkan aturan keamanan untuk membatasi akses yang tidak diizinkan.','Contoh: melindungi jaringan kantor dari akses luar yang tidak sesuai kebijakan.'],
+  ap:['📶 Access Point','Access point menyediakan koneksi nirkabel bagi perangkat pengguna dan menghubungkannya ke jaringan lokal.','Contoh: menyediakan Wi-Fi bagi laptop dan ponsel di kantor.'],
+  media:['🧵 Media WAN','Media WAN membawa data antarlokasi, misalnya fiber optik, radio microwave, atau satelit.','Contoh: fiber optik dari ISP sebagai jalur koneksi kantor pusat.']
+ };
+ root.querySelectorAll('[data-device]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('[data-device]').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   const d=deviceData[btn.dataset.device];
+   $('wdDeviceInfo').innerHTML='<h3>'+d[0]+'</h3><p>'+d[1]+'</p><p><b>Contoh:</b> '+d[2]+'</p>';
+  });
+ });
+
+ // IP ADDRESS CALCULATOR
+ function makeIP(){
+  const third=Number($('wdNetwork').value);
+  const prefix=Number($('wdPrefix').value);
+  const gatewayMode=$('wdGateway').value;
+  const output=$('wdIPOutput');
+
+  if(!Number.isInteger(third)||third<0||third>255){
+   output.innerHTML='<h3>Input tidak valid</h3><p>Oktet ketiga harus berupa angka 0 sampai 255.</p>';
+   return;
+  }
+
+  const block=Math.pow(2,32-prefix);
+  const base=third*256;
+  const locations=[
+   {name:'Kantor Pusat',users:Math.max(1,Number($('wdUsersHQ').value)||30)},
+   {name:'Cabang A',users:Math.max(1,Number($('wdUsersA').value)||20)},
+   {name:'Cabang B',users:Math.max(1,Number($('wdUsersB').value)||15)}
+  ];
+
+  let html='<h3>✓ Hasil Pembagian IP Address</h3>';
+  html+='<p>Network dasar: <b>192.168.'+third+'.0/24</b> | Prefix setiap lokasi: <b>/'+prefix+'</b></p>';
+  html+='<div class="table-wrap"><table><thead><tr><th>Lokasi</th><th>Network ID</th><th>Gateway</th><th>Host tersedia</th><th>Broadcast</th></tr></thead><tbody>';
+
+  locations.forEach((loc,i)=>{
+   const start=base+(i*block);
+   const end=start+block-1;
+   const network='192.168.'+Math.floor(start/256)+'.'+(start%256);
+   const first=start+1;
+   const last=end-1;
+   const gateway=gatewayMode==='first'?first:last;
+   const gatewayIP='192.168.'+Math.floor(gateway/256)+'.'+(gateway%256);
+   const networkIP='192.168.'+Math.floor(start/256)+'.'+(start%256);
+   const broadcastIP='192.168.'+Math.floor(end/256)+'.'+(end%256);
+   const usable=Math.max(0,block-2);
+   const enough=usable>=loc.users;
+   html+='<tr><td><b>'+loc.name+'</b><br>'+loc.users+' pengguna</td>';
+   html+='<td>'+networkIP+'/'+prefix+'</td>';
+   html+='<td>'+gatewayIP+'</td>';
+   html+='<td>'+usable+' host<br><span style="color:'+(enough?'#4ade80':'#fb7185')+'">'+(enough?'Mencukupi':'Tidak mencukupi')+'</span></td>';
+   html+='<td>'+broadcastIP+'</td></tr>';
+  });
+  html+='</tbody></table></div>';
+
+  html+='<p class="muted">Perhitungan menggunakan subnet berukuran sama dan dialokasikan berurutan dari 192.168.'+third+'.0/24. Pastikan semua subnet masih berada dalam network dasar /24.</p>';
+
+  const required=block*3;
+  if(required>256){
+   html+='<p style="color:#fb7185">Peringatan: tiga subnet tidak dapat ditampung dalam satu network /24 dengan prefix ini. Gunakan network yang lebih besar atau prefix yang lebih kecil.</p>';
+  }else{
+   html+='<p style="color:#bef264">Tiga subnet telah dibuat. Periksa kapasitas host setiap lokasi sebelum menerapkan rancangan.</p>';
+  }
+
+  html+='<div class="detail"><h3>Contoh alamat WAN Point-to-Point</h3><p>Hubungan Pusat ↔ Cabang A: <b>10.10.10.0/30</b><br>Router Pusat: 10.10.10.1<br>Router Cabang A: 10.10.10.2</p><p>Hubungan Pusat ↔ Cabang B: <b>10.10.10.4/30</b><br>Router Pusat: 10.10.10.5<br>Router Cabang B: 10.10.10.6</p></div>';
+  output.innerHTML=html;
+ }
+ $('wdGenerateIP').addEventListener('click',makeIP);
+
+ // QUIZ
+ const questions=[
+  {q:'Apa langkah pertama dalam perencanaan jaringan WAN?',o:['Membeli router','Mengidentifikasi kebutuhan jaringan','Mengatur warna kabel','Menginstal aplikasi'],a:1,e:'Kebutuhan harus diketahui sebelum menentukan teknologi, perangkat, dan biaya.'},
+  {q:'Topologi yang menghubungkan seluruh cabang ke satu kantor pusat disebut...',o:['Full Mesh','Ring','Hub and Spoke','Bus'],a:2,e:'Hub and Spoke memiliki satu titik pusat yang menghubungkan beberapa cabang.'},
+  {q:'Perangkat yang menghubungkan jaringan berbeda dan meneruskan paket data adalah...',o:['Switch','Router','Access Point','Printer'],a:1,e:'Router melakukan routing paket ant jaringan.'},
+  {q:'Apa fungsi subnetting dalam perancangan IP Address?',o:['Membagi jaringan menjadi beberapa subnet','Mempercepat prosesor','Mengganti kabel','Menghapus gateway'],a:0,e:'Subnetting membagi jaringan menjadi beberapa jaringan yang lebih kecil dan terstruktur.'},
+  {q:'Sebuah kantor memiliki 50 perangkat yang membutuhkan alamat IP. Prefix /26 menyediakan berapa alamat host IPv4 yang dapat digunakan?',o:['30 host','62 host','126 host','254 host'],a:1,e:'Subnet /26 memiliki 64 alamat total. Dua alamat digunakan sebagai network ID dan broadcast, sehingga tersedia 62 alamat host.'}
+ ];
+ let qi=0,score=0,answered=false;
+ function renderQuiz(){
+  const q=questions[qi];
+  $('wdQuizNumber').textContent='Pertanyaan '+(qi+1)+' / '+questions.length;
+  $('wdQuizScore').textContent='Skor: '+score;
+  $('wdQuizProgress').style.width=((qi+1)/questions.length*100)+'%';
+  $('wdQuizQuestion').textContent=q.q;
+  $('wdQuizOptions').innerHTML='';
+  $('wdQuizFeedback').className='feedback';
+  $('wdQuizNext').disabled=true;
+  $('wdQuizNext').textContent=qi===questions.length-1?'Lihat Hasil':'Pertanyaan Berikutnya →';
+  answered=false;
+  q.o.forEach((option,index)=>{
+   const btn=document.createElement('button');
+   btn.className='quiz-option';
+   btn.textContent=String.fromCharCode(65+index)+'. '+option;
+   btn.addEventListener('click',()=>{
+    if(answered)return;
+    answered=true;
+    const correct=index===q.a;
+    if(correct)score+=20;
+    [...$('wdQuizOptions').children].forEach((b,i)=>{
+     b.disabled=true;
+     if(i===q.a)b.classList.add('correct');
+     if(i===index&&!correct)b.classList.add('wrong');
+    });
+    $('wdQuizScore').textContent='Skor: '+score;
+    $('wdQuizFeedback').className='feedback show '+(correct?'good':'bad');
+    $('wdQuizFeedback').textContent=(correct?'✓ Benar! ':'✕ Belum tepat. ')+q.e;
+    $('wdQuizNext').disabled=false;
+   });
+   $('wdQuizOptions').appendChild(btn);
+  });
+ }
+ $('wdQuizNext').addEventListener('click',()=>{
+  if(!answered)return;
+  if(qi<questions.length-1){
+   qi++;renderQuiz();
+  }else{
+   $('wdQuizQuestion').textContent='Evaluasi selesai!';
+   $('wdQuizOptions').innerHTML='';
+   $('wdQuizFeedback').className='feedback';
+   $('wdQuizNext').style.display='none';
+   $('wdQuizRestart').style.display='inline-block';
+   $('wdQuizFinal').style.display='block';
+   $('wdQuizFinal').innerHTML='<h3>Skor Akhir: '+score+'/100</h3><p>'+(score>=80?'Luar biasa! Kamu siap menjadi perancang jaringan.':score>=60?'Bagus! Pelajari kembali bagian yang masih belum dikuasai.':'Terus berlatih dan pelajari kembali materi perancangan WAN.')+'</p>';
+  }
+ });
+ $('wdQuizRestart').addEventListener('click',()=>{
+  qi=0;score=0;
+  $('wdQuizNext').style.display='inline-block';
+  $('wdQuizRestart').style.display='none';
+  $('wdQuizFinal').style.display='none';
+  renderQuiz();
+ });
+
+ showSlide(0);
+})();
+</script>
+</div>
