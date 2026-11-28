@@ -1,0 +1,830 @@
+
+<div id="wan-routing-lab">
+<style>
+#wan-routing-lab{
+ --bg:#0b1220;--panel:#151f32;--panel2:#1c2b42;
+ --blue:#38bdf8;--cyan:#67e8f9;--coral:#fb7185;
+ --text:#e8f2ff;--muted:#9fb1c9;--line:#30435d;
+ --good:#4ade80;--bad:#fb7185;--yellow:#facc15;
+ background:var(--bg);color:var(--text);font-family:Arial,sans-serif;
+ line-height:1.6;border-radius:18px;overflow:hidden;
+}
+#wan-routing-lab *{box-sizing:border-box}
+#wan-routing-lab button,#wan-routing-lab input,#wan-routing-lab select{font:inherit}
+#wan-routing-lab button{cursor:pointer}
+#wan-routing-lab .hero{
+ padding:30px 22px;position:relative;overflow:hidden;
+ background:radial-gradient(circle at 85% 20%,#38bdf833,transparent 33%),
+ linear-gradient(130deg,#102b48,#101b30 60%,#352039);
+}
+#wan-routing-lab .hero:after{
+ content:"";position:absolute;width:210px;height:210px;
+ border:1px solid #fb718544;border-radius:50%;
+ right:-70px;top:-85px;
+ box-shadow:0 0 0 25px #fb71850c,0 0 0 55px #fb718508;
+}
+#wan-routing-lab .eyebrow{
+ color:var(--cyan);font-size:11px;letter-spacing:2px;
+ font-weight:bold;text-transform:uppercase;
+}
+#wan-routing-lab h1{font-size:clamp(25px,5vw,38px);line-height:1.2;margin:10px 0}
+#wan-routing-lab h2{font-size:22px;line-height:1.3;margin:0 0 9px}
+#wan-routing-lab h3{font-size:16px;margin:0 0 7px}
+#wan-routing-lab p{margin:7px 0;color:var(--muted)}
+#wan-routing-lab .hero p{max-width:650px}
+#wan-routing-lab .tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}
+#wan-routing-lab .tag{
+ font-size:11px;border:1px solid #ffffff25;border-radius:20px;
+ padding:5px 10px;background:#ffffff09;color:#dbeafe;
+}
+#wan-routing-lab .progress-wrap{
+ padding:13px 20px;background:#0e1a2b;border-bottom:1px solid var(--line);
+}
+#wan-routing-lab .progress-top{
+ display:flex;justify-content:space-between;font-size:12px;
+ color:var(--muted);margin-bottom:8px;
+}
+#wan-routing-lab .progress{
+ height:6px;background:#263750;border-radius:20px;overflow:hidden;
+}
+#wan-routing-lab .progress span{
+ display:block;height:100%;width:0;
+ background:linear-gradient(90deg,var(--blue),var(--coral));transition:.4s;
+}
+#wan-routing-lab .stage{padding:24px 20px;min-height:410px}
+#wan-routing-lab .slide{display:none;animation:wrFade .35s ease}
+#wan-routing-lab .slide.active{display:block}
+@keyframes wrFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#wan-routing-lab .kicker{
+ color:var(--cyan);font-size:11px;font-weight:bold;
+ letter-spacing:1.5px;margin-bottom:6px;
+}
+#wan-routing-lab .diagram{
+ background:linear-gradient(145deg,#14243a,#101a2b);
+ border:1px solid var(--line);border-radius:15px;
+ padding:15px;margin:15px 0;overflow:hidden;
+}
+#wan-routing-lab svg{display:block;max-width:100%;height:auto;margin:auto}
+#wan-routing-lab .cards{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;margin:14px 0;
+}
+#wan-routing-lab .card{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:12px;padding:13px;color:var(--text);
+ text-align:left;width:100%;transition:.2s;
+}
+#wan-routing-lab .card:hover{border-color:var(--blue);transform:translateY(-2px)}
+#wan-routing-lab .card.active{
+ border-color:var(--cyan);background:#17344a;
+ box-shadow:0 0 0 2px #67e8f918;
+}
+#wan-routing-lab .card-icon{font-size:24px;margin-bottom:5px}
+#wan-routing-lab .card small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+#wan-routing-lab .detail{
+ background:#172c43;border-left:3px solid var(--blue);
+ border-radius:9px;padding:14px;margin:12px 0;min-height:75px;
+}
+#wan-routing-lab .analogy{
+ background:#1b2d42;border:1px dashed #38bdf888;
+ border-radius:12px;padding:13px;margin:13px 0;color:#dbeafe;
+}
+#wan-routing-lab .analogy strong{color:var(--cyan)}
+#wan-routing-lab .nav{
+ display:flex;justify-content:space-between;gap:10px;
+ padding:15px 20px;background:#0e1a2b;border-top:1px solid var(--line);
+}
+#wan-routing-lab .btn{
+ border:0;border-radius:9px;padding:10px 16px;
+ background:var(--blue);color:#082238;font-weight:bold;
+}
+#wan-routing-lab .btn.secondary{
+ background:#20334c;color:var(--text);border:1px solid var(--line);
+}
+#wan-routing-lab .btn.coral{background:var(--coral);color:#310b17}
+#wan-routing-lab .btn:disabled{opacity:.35;cursor:not-allowed}
+#wan-routing-lab .muted{font-size:12px;color:var(--muted)}
+#wan-routing-lab .field-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;margin:12px 0;
+}
+#wan-routing-lab .field{
+ background:var(--panel);padding:12px;border:1px solid var(--line);
+ border-radius:10px;
+}
+#wan-routing-lab .field label{
+ display:block;font-size:12px;color:var(--muted);margin-bottom:6px;
+}
+#wan-routing-lab input,#wan-routing-lab select{
+ width:100%;padding:10px;background:#0c1929;color:var(--text);
+ border:1px solid var(--line);border-radius:8px;outline:none;
+}
+#wan-routing-lab input:focus,#wan-routing-lab select:focus{border-color:var(--blue)}
+#wan-routing-lab .table-wrap{overflow-x:auto;margin:12px 0;border-radius:10px}
+#wan-routing-lab table{border-collapse:collapse;width:100%;min-width:550px;font-size:12px}
+#wan-routing-lab th,#wan-routing-lab td{
+ border:1px solid var(--line);padding:9px;text-align:left;
+}
+#wan-routing-lab th{background:#1b3852;color:var(--cyan)}
+#wan-routing-lab td{background:#14243a;color:#dcecff}
+#wan-routing-lab .route-code{
+ background:#071321;border:1px solid #30435d;border-radius:10px;
+ padding:13px;margin:12px 0;overflow-x:auto;
+ color:#a5f3fc;font-family:Consolas,monospace;font-size:12px;
+ white-space:pre-wrap;word-break:break-word;
+}
+#wan-routing-lab .route-row{
+ display:flex;gap:9px;align-items:flex-start;
+ background:var(--panel);border:1px solid var(--line);
+ padding:11px;border-radius:10px;margin:8px 0;
+}
+#wan-routing-lab .route-row input{width:18px;height:18px;margin-top:3px;flex-shrink:0}
+#wan-routing-lab .route-row b{font-size:13px}
+#wan-routing-lab .route-row small{display:block;color:var(--muted);font-size:11px}
+#wan-routing-lab .status{
+ display:inline-block;padding:3px 8px;border-radius:20px;
+ font-size:10px;font-weight:bold;
+}
+#wan-routing-lab .status.on{background:#14532d;color:#bbf7d0}
+#wan-routing-lab .status.off{background:#7f1d1d;color:#fecaca}
+#wan-routing-lab .feedback{
+ display:none;padding:12px;border-radius:9px;margin-top:10px;font-size:13px;
+}
+#wan-routing-lab .feedback.show{display:block}
+#wan-routing-lab .feedback.good{background:#14532d55;color:#bbf7d0;border:1px solid #4ade8066}
+#wan-routing-lab .feedback.bad{background:#7f1d1d44;color:#fecaca;border:1px solid #fb718566}
+#wan-routing-lab .quiz-option{
+ display:block;width:100%;text-align:left;margin:7px 0;
+ padding:12px;border-radius:9px;background:var(--panel);
+ border:1px solid var(--line);color:var(--text);
+}
+#wan-routing-lab .quiz-option.correct{border-color:var(--good);background:#14532d55}
+#wan-routing-lab .quiz-option.wrong{border-color:var(--bad);background:#7f1d1d55}
+#wan-routing-lab .quiz-option:disabled{cursor:default}
+#wan-routing-lab .footer{
+ text-align:center;padding:15px;color:var(--muted);
+ background:#0e1a2b;font-size:11px;
+}
+@media(max-width:520px){
+ #wan-routing-lab .stage{padding:18px 13px}
+ #wan-routing-lab .cards{grid-template-columns:1fr}
+ #wan-routing-lab .field-grid{grid-template-columns:1fr}
+ #wan-routing-lab .nav{padding:12px}
+ #wan-routing-lab .btn{padding:9px 12px;font-size:13px}
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+ <div class="eyebrow">TKJ • KELAS XII • NETWORK OPERATION LAB</div>
+ <h1>WAN Routing<br>Lab</h1>
+ <p>Bagaimana router menentukan jalur terbaik untuk mengirimkan paket data? Pelajari routing statis, routing dinamis, tabel routing, next hop, dan praktik konfigurasi sederhana.</p>
+ <div class="tags">
+  <span class="tag">Static Routing</span>
+  <span class="tag">Dynamic Routing</span>
+  <span class="tag">Routing Table</span>
+  <span class="tag">Network Simulation</span>
+ </div>
+</div>
+
+<div class="progress-wrap">
+ <div class="progress-top">
+  <span id="wrStepText">Materi 1 dari 8</span>
+  <span id="wrPercent">13%</span>
+ </div>
+ <div class="progress"><span id="wrProgress"></span></div>
+</div>
+
+<div class="stage">
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+ <div class="kicker">01 • PENGANTAR ROUTING</div>
+ <h2>Bagaimana Data Menemukan Jalan?</h2>
+ <p>Bayangkan sebuah komputer di kantor pusat ingin mengirim data ke komputer di kantor cabang. Kedua komputer berada pada jaringan yang berbeda. Router harus menentukan ke mana paket data diteruskan.</p>
+
+ <div class="diagram">
+  <svg viewBox="0 0 620 245">
+   <g stroke="#38bdf8" stroke-width="4" fill="none">
+    <path d="M130 120H260M360 120H490"/>
+   </g>
+   <g fill="#173b57" stroke="#67e8f9" stroke-width="2">
+    <rect x="20" y="75" width="110" height="90" rx="12"/>
+    <rect x="260" y="75" width="100" height="90" rx="12"/>
+    <rect x="490" y="75" width="110" height="90" rx="12"/>
+   </g>
+   <g fill="white" text-anchor="middle" font-size="12">
+    <text x="75" y="112">LAN PUSAT</text><text x="75" y="132">192.168.1.0</text>
+    <text x="310" y="112">ROUTER</text><text x="310" y="132">ROUTING</text>
+    <text x="545" y="112">LAN CABANG</text><text x="545" y="132">192.168.2.0</text>
+   </g>
+   <circle cx="130" cy="120" r="6" fill="#fb7185">
+    <animate attributeName="cx" values="130;260;360;490" dur="3s" repeatCount="indefinite"/>
+   </circle>
+   <text x="310" y="205" fill="#67e8f9" text-anchor="middle" font-size="13">PAKET DATA MENCARI JALAN</text>
+  </svg>
+ </div>
+
+ <div class="detail">
+  <h3>Pengertian Routing</h3>
+  <p>Routing adalah proses menentukan jalur dan meneruskan paket data dari satu jaringan ke jaringan lain melalui perangkat router berdasarkan informasi routing.</p>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Routing seperti seorang pengemudi yang mencari jalan menuju kota tujuan. Router adalah petunjuk arah, network destination adalah kota tujuan, sedangkan next hop adalah persimpangan atau router berikutnya yang harus dilewati.
+ </div>
+
+ <h3>Fungsi routing</h3>
+ <div class="cards">
+  <div class="card"><div class="card-icon">🧭</div><b>Menentukan jalur</b><small>Memilih rute menuju jaringan tujuan.</small></div>
+  <div class="card"><div class="card-icon">📦</div><b>Meneruskan paket</b><small>Mengirim paket ke router atau antarmuka berikutnya.</small></div>
+  <div class="card"><div class="card-icon">🌐</div><b>Menghubungkan jaringan</b><small>Memungkinkan komunikasi antar-subnet.</small></div>
+  <div class="card"><div class="card-icon">⚖️</div><b>Mengelola rute</b><small>Menyimpan dan memilih informasi jalur.</small></div>
+ </div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+ <div class="kicker">02 • JENIS ROUTING</div>
+ <h2>Static Routing vs Dynamic Routing</h2>
+ <p>Pilih salah satu kartu untuk melihat cara kerja dan perbedaannya.</p>
+
+ <div class="cards">
+  <button class="card active" data-routing="static">
+   <div class="card-icon">🧑‍💻</div><b>Static Routing</b>
+   <small>Rute diatur manual oleh administrator.</small>
+  </button>
+  <button class="card" data-routing="dynamic">
+   <div class="card-icon">🤖</div><b>Dynamic Routing</b>
+   <small>Rute dipelajari melalui protokol routing.</small>
+  </button>
+ </div>
+
+ <div class="diagram" id="wrRoutingDiagram">
+  <svg viewBox="0 0 600 200">
+   <g fill="#173b57" stroke="#38bdf8" stroke-width="2">
+    <rect x="30" y="65" width="120" height="75" rx="10"/>
+    <rect x="240" y="65" width="120" height="75" rx="10"/>
+    <rect x="450" y="65" width="120" height="75" rx="10"/>
+   </g>
+   <g fill="white" text-anchor="middle" font-size="12">
+    <text x="90" y="108">ROUTER A</text>
+    <text x="300" y="108">ROUTER B</text>
+    <text x="510" y="108">ROUTER C</text>
+   </g>
+   <path d="M150 102H240M360 102H450" stroke="#fb7185" stroke-width="4"/>
+   <text x="300" y="170" text-anchor="middle" fill="#67e8f9" font-size="12">RUTE DIATUR MANUAL</text>
+  </svg>
+ </div>
+
+ <div class="detail" id="wrRoutingDetail">
+  <h3>Static Routing</h3>
+  <p>Administrator memasukkan rute secara manual ke router. Rute tidak otomatis berubah hanya karena kondisi jaringan berubah. Administrator perlu memperbarui konfigurasi jika jalur berubah.</p>
+  <p><b>Kelebihan:</b> sederhana dan mudah dikontrol pada jaringan kecil.</p>
+  <p><b>Kekurangan:</b> konfigurasi dan pemeliharaan bertambah ketika jaringan semakin besar.</p>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Static routing seperti kita menulis sendiri petunjuk perjalanan. Dynamic routing seperti menggunakan aplikasi navigasi yang mempelajari rute dari informasi jaringan dan memperbarui jalur sesuai kondisi.
+ </div>
+ <p class="muted">Contoh protokol routing dinamis: OSPF, RIP, dan BGP. Masing-masing memiliki cara kerja dan skala penggunaan berbeda.</p>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+ <div class="kicker">03 • ROUTING TABLE</div>
+ <h2>Membaca Tabel Routing</h2>
+ <p>Routing table adalah tabel yang berisi informasi jaringan tujuan dan cara router mencapai jaringan tersebut.</p>
+
+ <div class="table-wrap">
+  <table>
+   <thead>
+    <tr><th>Destination</th><th>Next Hop</th><th>Interface</th><th>Jenis</th></tr>
+   </thead>
+   <tbody>
+    <tr><td>192.168.1.0/24</td><td>Connected</td><td>ether2</td><td>Connected</td></tr>
+    <tr><td>192.168.2.0/24</td><td>10.0.12.2</td><td>ether1</td><td>Static</td></tr>
+    <tr><td>192.168.3.0/24</td><td>10.0.12.2</td><td>ether1</td><td>Static</td></tr>
+    <tr><td>0.0.0.0/0</td><td>10.0.12.2</td><td>ether1</td><td>Default</td></tr>
+   </tbody>
+  </table>
+ </div>
+
+ <div class="cards">
+  <button class="card active" data-route-part="destination">
+   <div class="card-icon">🎯</div><b>Network Destination</b><small>Jaringan yang ingin dituju.</small>
+  </button>
+  <button class="card" data-route-part="next">
+   <div class="card-icon">➡️</div><b>Next Hop</b><small>Router berikutnya yang dituju.</small>
+  </button>
+  <button class="card" data-route-part="interface">
+   <div class="card-icon">🔌</div><b>Interface</b><small>Antarmuka untuk meneruskan paket.</small>
+  </button>
+  <button class="card" data-route-part="default">
+   <div class="card-icon">🌍</div><b>Default Route</b><small>Rute ketika tidak ada rute yang lebih spesifik.</small>
+  </button>
+ </div>
+
+ <div class="detail" id="wrRoutePartDetail">
+  <h3>🎯 Network Destination</h3>
+  <p>Network destination adalah alamat jaringan tujuan yang dicari oleh router. Contohnya 192.168.2.0/24 berarti jaringan dengan prefix /24 tersebut.</p>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Routing table seperti buku alamat dan peta perjalanan. Router membaca alamat tujuan, mencari rute yang sesuai, lalu meneruskan paket ke jalur berikutnya.
+ </div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide">
+ <div class="kicker">04 • DEFAULT ROUTE</div>
+ <h2>Memahami Default Route</h2>
+ <p>Bagaimana jika router menerima paket menuju jaringan yang belum tercantum secara spesifik dalam routing table?</p>
+
+ <div class="diagram">
+  <svg viewBox="0 0 600 240">
+   <g fill="#173b57" stroke="#38bdf8" stroke-width="2">
+    <rect x="15" y="75" width="130" height="90" rx="10"/>
+    <rect x="230" y="75" width="130" height="90" rx="10"/>
+    <rect x="455" y="75" width="130" height="90" rx="10"/>
+   </g>
+   <g fill="white" text-anchor="middle" font-size="12">
+    <text x="80" y="112">LAN</text><text x="80" y="132">PENGIRIM</text>
+    <text x="295" y="112">ROUTER</text><text x="295" y="132">GATEWAY</text>
+    <text x="520" y="112">JARINGAN</text><text x="520" y="132">LUAR</text>
+   </g>
+   <path d="M145 120H230M360 120H455" stroke="#67e8f9" stroke-width="4" stroke-dasharray="8 6"/>
+   <path d="M295 55V25H520V75" fill="none" stroke="#fb7185" stroke-width="3" stroke-dasharray="5 5"/>
+   <text x="410" y="17" fill="#fb7185" text-anchor="middle" font-size="12">DEFAULT ROUTE</text>
+  </svg>
+ </div>
+
+ <div class="detail">
+  <h3>Default Route: 0.0.0.0/0</h3>
+  <p>Default route digunakan sebagai rute pilihan ketika tidak ditemukan rute yang lebih spesifik untuk tujuan paket. Pada IPv4, default route ditulis sebagai <b>0.0.0.0/0</b>.</p>
+  <p>Biasanya digunakan untuk meneruskan trafik menuju jaringan luar atau internet melalui gateway ISP.</p>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Ketika kita tidak mengetahui alamat sebuah tempat, kita bertanya kepada petugas informasi. Petugas tersebut memberi petunjuk umum. Default route berperan seperti petunjuk umum tersebut.
+ </div>
+
+ <h3>Coba tentukan jalurnya!</h3>
+ <div class="field">
+  <label>Tujuan paket dari router</label>
+  <select id="wrDestinationTest">
+   <option value="192.168.2.10">192.168.2.10 — Jaringan Cabang</option>
+   <option value="8.8.8.8">8.8.8.8 — Jaringan Internet</option>
+   <option value="192.168.1.20">192.168.1.20 — LAN Lokal</option>
+  </select>
+  <button class="btn" id="wrFindRoute" style="margin-top:10px">🧭 Cari Rute</button>
+ </div>
+ <div class="detail" id="wrFindResult">Pilih alamat tujuan lalu tekan Cari Rute.</div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+ <div class="kicker">05 • SIMULASI TOPOLOGI</div>
+ <h2>Jaringan WAN Tiga Router</h2>
+ <p>Kita akan menggunakan tiga router yang menghubungkan tiga jaringan lokal.</p>
+
+ <div class="diagram">
+  <svg viewBox="0 0 650 300">
+   <g stroke="#38bdf8" stroke-width="4" fill="none">
+    <path d="M120 130H265M385 130H530"/>
+    <path d="M120 130V220M325 130V220M530 130V220"/>
+   </g>
+   <g fill="#173b57" stroke="#67e8f9" stroke-width="2">
+    <rect x="65" y="85" width="110" height="85" rx="12"/>
+    <rect x="270" y="85" width="110" height="85" rx="12"/>
+    <rect x="475" y="85" width="110" height="85" rx="12"/>
+   </g>
+   <g fill="white" text-anchor="middle" font-size="13">
+    <text x="120" y="120">ROUTER 1</text><text x="120" y="143">R1</text>
+    <text x="325" y="120">ROUTER 2</text><text x="325" y="143">R2</text>
+    <text x="530" y="120">ROUTER 3</text><text x="530" y="143">R3</text>
+   </g>
+   <g fill="#1a3b4d" stroke="#fb7185">
+    <rect x="40" y="220" width="160" height="58" rx="9"/>
+    <rect x="245" y="220" width="160" height="58" rx="9"/>
+    <rect x="450" y="220" width="160" height="58" rx="9"/>
+   </g>
+   <g fill="#fff" text-anchor="middle" font-size="11">
+    <text x="120" y="244">LAN 1</text><text x="120" y="261">192.168.1.0/24</text>
+    <text x="325" y="244">LAN 2</text><text x="325" y="261">192.168.2.0/24</text>
+    <text x="530" y="244">LAN 3</text><text x="530" y="261">192.168.3.0/24</text>
+   </g>
+   <g fill="#67e8f9" font-size="10" text-anchor="middle">
+    <text x="195" y="112">10.0.12.0/30</text>
+    <text x="455" y="112">10.0.23.0/30</text>
+   </g>
+   <circle cx="120" cy="130" r="5" fill="#fb7185">
+    <animate attributeName="cx" values="120;325;530" dur="4s" repeatCount="indefinite"/>
+   </circle>
+  </svg>
+ </div>
+
+ <div class="table-wrap">
+  <table>
+   <thead><tr><th>Perangkat</th><th>Interface</th><th>IP Address</th></tr></thead>
+   <tbody>
+    <tr><td>R1</td><td>LAN</td><td>192.168.1.1/24</td></tr>
+    <tr><td>R1</td><td>WAN ke R2</td><td>10.0.12.1/30</td></tr>
+    <tr><td>R2</td><td>WAN ke R1</td><td>10.0.12.2/30</td></tr>
+    <tr><td>R2</td><td>LAN</td><td>192.168.2.1/24</td></tr>
+    <tr><td>R2</td><td>WAN ke R3</td><td>10.0.23.1/30</td></tr>
+    <tr><td>R3</td><td>WAN ke R2</td><td>10.0.23.2/30</td></tr>
+    <tr><td>R3</td><td>LAN</td><td>192.168.3.1/24</td></tr>
+   </tbody>
+  </table>
+ </div>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Tiga router seperti tiga kantor pos di tiga kota. Setiap kantor pos mengetahui jaringan lokalnya, tetapi membutuhkan informasi rute untuk mengirim paket ke kota lain.
+ </div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+ <div class="kicker">06 • PRAKTIK STATIC ROUTING</div>
+ <h2>Konfigurasi Routing Sederhana</h2>
+ <p>Pilih router untuk melihat contoh perintah konfigurasi static route menggunakan MikroTik RouterOS v7.</p>
+
+ <div class="field">
+  <label>Pilih router</label>
+  <select id="wrRouterSelect">
+   <option value="R1">Router 1 — Kantor Pusat</option>
+   <option value="R2">Router 2 — Lokasi Tengah</option>
+   <option value="R3">Router 3 — Kantor Cabang</option>
+  </select>
+ </div>
+
+ <div class="detail" id="wrRouterDescription">
+  <h3>Router 1</h3>
+  <p>R1 memiliki jaringan lokal 192.168.1.0/24 dan terhubung ke R2 melalui 10.0.12.0/30. R1 perlu mengetahui jalur menuju LAN 2 dan LAN 3.</p>
+ </div>
+
+ <h3>Perintah konfigurasi</h3>
+ <div class="route-code" id="wrCommandOutput">/ip route add dst-address=192.168.2.0/24 gateway=10.0.12.2
+/ip route add dst-address=192.168.3.0/24 gateway=10.0.12.2</div>
+ <button class="btn" id="wrCopyCommand">📋 Salin Perintah</button>
+ <span id="wrCopyStatus" class="muted"></span>
+
+ <div class="analogy">
+  <strong>Analogi:</strong> Kita sedang memberi tahu petugas kantor pos: "Jika ada paket untuk kota B atau C, kirim melalui kantor pos berikutnya."
+ </div>
+
+ <h3>Aktifkan jalur routing simulasi</h3>
+ <p class="muted">Centang semua rute berikut untuk membuat komunikasi antarjaringan berhasil. Ini adalah latihan simulasi, bukan konfigurasi router sungguhan.</p>
+ <div id="wrRouteChecklist">
+  <label class="route-row"><input type="checkbox" data-route="r1b"><span><b>R1 → LAN 2</b><small>192.168.2.0/24 melalui 10.0.12.2</small></span></label>
+  <label class="route-row"><input type="checkbox" data-route="r1c"><span><b>R1 → LAN 3</b><small>192.168.3.0/24 melalui 10.0.12.2</small></span></label>
+  <label class="route-row"><input type="checkbox" data-route="r2a"><span><b>R2 → LAN 1</b><small>192.168.1.0/24 melalui 10.0.12.1</small></span></label>
+  <label class="route-row"><input type="checkbox" data-route="r2c"><span><b>R2 → LAN 3</b><small>192.168.3.0/24 melalui 10.0.23.2</small></span></label>
+  <label class="route-row"><input type="checkbox" data-route="r3a"><span><b>R3 → LAN 1</b><small>192.168.1.0/24 melalui 10.0.23.1</small></span></label>
+  <label class="route-row"><input type="checkbox" data-route="r3b"><span><b>R3 → LAN 2</b><small>192.168.2.0/24 melalui 10.0.23.1</small></span></label>
+ </div>
+ <button class="btn secondary" id="wrResetRoutes">↻ Reset Semua Rute</button>
+ <div class="detail" id="wrRouteStatus">Belum semua rute dikonfigurasi. Silakan centang rute yang dibutuhkan.</div>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide">
+ <div class="kicker">07 • UJI KONEKTIVITAS</div>
+ <h2>Apakah Jaringan Sudah Terhubung?</h2>
+ <p>Setelah routing dikonfigurasi, teknisi perlu menguji komunikasi antarjaringan. Kita gunakan simulasi perintah ping.</p>
+
+ <div class="field-grid">
+  <div class="field">
+   <label>Komputer sumber</label>
+   <select id="wrPingSource">
+    <option value="1">PC LAN 1 — 192.168.1.10</option>
+    <option value="2">PC LAN 2 — 192.168.2.10</option>
+    <option value="3">PC LAN 3 — 192.168.3.10</option>
+   </select>
+  </div>
+  <div class="field">
+   <label>Komputer tujuan</label>
+   <select id="wrPingTarget">
+    <option value="3">PC LAN 3 — 192.168.3.10</option>
+    <option value="2">PC LAN 2 — 192.168.2.10</option>
+    <option value="1">PC LAN 1 — 192.168.1.10</option>
+   </select>
+  </div>
+ </div>
+
+ <button class="btn" id="wrPingButton">▶ Jalankan Ping</button>
+ <button class="btn secondary" id="wrPingReset">↻ Bersihkan Hasil</button>
+
+ <div class="route-code" id="wrPingCommand">ping 192.168.3.10</div>
+ <div class="detail" id="wrPingResult">
+  <h3>Siap melakukan pengujian</h3>
+  <p>Pilih komputer sumber dan tujuan, lalu jalankan ping.</p>
+ </div>
+
+ <div class="diagram">
+  <svg viewBox="0 0 600 185" id="wrPingSvg">
+   <g fill="#173b57" stroke="#38bdf8" stroke-width="2">
+    <rect x="20" y="55" width="115" height="70" rx="10"/>
+    <rect x="242" y="55" width="115" height="70" rx="10"/>
+    <rect x="465" y="55" width="115" height="70" rx="10"/>
+   </g>
+   <g fill="white" font-size="12" text-anchor="middle">
+    <text x="77" y="95">LAN 1</text><text x="299" y="95">LAN 2</text><text x="522" y="95">LAN 3</text>
+   </g>
+   <path d="M135 90H242M357 90H465" stroke="#30435d" stroke-width="5"/>
+   <circle id="wrPingPacket" cx="77" cy="90" r="7" fill="#fb7185" opacity="0"/>
+  </svg>
+ </div>
+ <p class="muted">Ping menggunakan ICMP untuk menguji keterjangkauan alamat IP. Keberhasilan ping tidak selalu menjamin seluruh layanan aplikasi berjalan normal; firewall dapat memblokir ICMP.</p>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide">
+ <div class="kicker">08 • EVALUASI</div>
+ <h2>Uji Pemahaman Routing</h2>
+ <p>Jawablah lima pertanyaan berikut untuk mengukur pemahamanmu.</p>
+
+ <div class="progress-top">
+  <span id="wrQuizNumber">Pertanyaan 1 / 5</span>
+  <span id="wrQuizScore">Skor: 0</span>
+ </div>
+ <div class="progress"><span id="wrQuizProgress"></span></div>
+
+ <h3 id="wrQuizQuestion" style="margin-top:18px">Apa yang dimaksud dengan routing?</h3>
+ <div id="wrQuizOptions"></div>
+ <div id="wrQuizFeedback" class="feedback"></div>
+ <button class="btn" id="wrQuizNext" disabled style="margin-top:12px">Pertanyaan Berikutnya →</button>
+ <button class="btn secondary" id="wrQuizRestart" style="display:none;margin-top:12px">↻ Ulangi Evaluasi</button>
+ <div class="detail" id="wrQuizFinal" style="display:none"></div>
+</section>
+
+</div>
+
+<div class="nav">
+ <button class="btn secondary" id="wrPrev" disabled>← Sebelumnya</button>
+ <button class="btn" id="wrNext">Berikutnya →</button>
+</div>
+
+<div class="footer">TKJ PERSIAPAN • WAN ROUTING LAB</div>
+
+<script>
+(function(){
+ const root=document.getElementById('wan-routing-lab');
+ if(!root || root.dataset.ready==='1')return;
+ root.dataset.ready='1';
+ const $=id=>root.querySelector('#'+id);
+
+ // SLIDESHOW
+ const slides=[...root.querySelectorAll('.slide')];
+ let current=0;
+ function showSlide(n){
+  current=Math.max(0,Math.min(n,slides.length-1));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  $('wrStepText').textContent='Materi '+(current+1)+' dari '+slides.length;
+  $('wrPercent').textContent=Math.round((current+1)/slides.length*100)+'%';
+  $('wrProgress').style.width=((current+1)/slides.length*100)+'%';
+  $('wrPrev').disabled=current===0;
+  $('wrNext').style.display=current===slides.length-1?'none':'inline-block';
+  root.scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ $('wrPrev').addEventListener('click',()=>showSlide(current-1));
+ $('wrNext').addEventListener('click',()=>showSlide(current+1));
+
+ // STATIC VS DYNAMIC
+ const routingInfo={
+  static:{
+   title:'Static Routing',
+   text:'Administrator memasukkan rute secara manual ke router. Rute tidak otomatis berubah hanya karena kondisi jaringan berubah. Administrator perlu memperbarui konfigurasi jika jalur berubah.',
+   extra:'Kelebihan: sederhana dan mudah dikontrol pada jaringan kecil. Kekurangan: pemeliharaan menjadi lebih sulit ketika jaringan bertambah besar.',
+   label:'RUTE DIATUR MANUAL',
+   color:'#fb7185'
+  },
+  dynamic:{
+   title:'Dynamic Routing',
+   text:'Router menggunakan protokol routing untuk bertukar informasi jaringan dengan router lain. Router dapat mempelajari rute dan memperbarui informasi ketika terjadi perubahan topologi.',
+   extra:'Kelebihan: lebih mudah dikembangkan pada jaringan besar. Kekurangan: membutuhkan konfigurasi protokol, sumber daya, dan pemahaman yang lebih kompleks.',
+   label:'RUTE DIPELAJARI OTOMATIS',
+   color:'#38bdf8'
+  }
+ };
+ root.querySelectorAll('[data-routing]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('[data-routing]').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   const d=routingInfo[btn.dataset.routing];
+   $('wrRoutingDetail').innerHTML='<h3>'+d.title+'</h3><p>'+d.text+'</p><p>'+d.extra+'</p>';
+   $('wrRoutingDiagram').querySelectorAll('path').forEach(p=>p.setAttribute('stroke',d.color));
+   $('wrRoutingDiagram').querySelector('text').textContent=d.label;
+  });
+ });
+
+ // ROUTING TABLE PARTS
+ const routeParts={
+  destination:['🎯 Network Destination','Network destination adalah alamat jaringan tujuan yang dicari oleh router. Contohnya 192.168.2.0/24 berarti jaringan dengan prefix /24 tersebut.'],
+  next:['➡️ Next Hop','Next hop adalah alamat IP router berikutnya yang menjadi tujuan penerusan paket. Contohnya 10.0.12.2 adalah alamat antarmuka R2 yang dapat dicapai langsung oleh R1.'],
+  interface:['🔌 Interface','Interface adalah antarmuka router yang digunakan untuk meneruskan paket ke jaringan atau next hop. Contohnya ether1 atau ether2.'],
+  default:['🌍 Default Route','Default route 0.0.0.0/0 digunakan ketika tidak ada rute yang lebih spesifik untuk alamat tujuan. Biasanya diarahkan ke gateway ISP.']
+ };
+ root.querySelectorAll('[data-route-part]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   root.querySelectorAll('[data-route-part]').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   const d=routeParts[btn.dataset.routePart];
+   $('wrRoutePartDetail').innerHTML='<h3>'+d[0]+'</h3><p>'+d[1]+'</p>';
+  });
+ });
+
+ // ROUTE LOOKUP
+ $('wrFindRoute').addEventListener('click',()=>{
+  const ip=$('wrDestinationTest').value;
+  let result='';
+  if(ip==='192.168.2.10'){
+   result='<h3>✓ Rute ditemukan</h3><p>Tujuan 192.168.2.10 termasuk jaringan 192.168.2.0/24. Router menggunakan rute menuju jaringan cabang melalui next hop 10.0.12.2.</p>';
+  }else if(ip==='8.8.8.8'){
+   result='<h3>🌍 Menggunakan Default Route</h3><p>Alamat 8.8.8.8 tidak termasuk jaringan lokal atau rute spesifik pada contoh. Router menggunakan default route 0.0.0.0/0 menuju gateway berikutnya.</p>';
+  }else{
+   result='<h3>✓ Jaringan Terhubung Langsung</h3><p>Tujuan 192.168.1.20 berada pada jaringan lokal 192.168.1.0/24. Router dapat meneruskannya melalui interface LAN yang sesuai.</p>';
+  }
+  $('wrFindResult').innerHTML=result;
+ });
+
+ // ROUTER COMMAND GENERATOR
+ const routerConfig={
+  R1:{
+   desc:'R1 memiliki LAN 192.168.1.0/24 dan terhubung ke R2 melalui 10.0.12.0/30. R1 perlu mengetahui jalur menuju LAN 2 dan LAN 3.',
+   commands:'/ip route add dst-address=192.168.2.0/24 gateway=10.0.12.2\n/ip route add dst-address=192.168.3.0/24 gateway=10.0.12.2'
+  },
+  R2:{
+   desc:'R2 berada di tengah. R2 perlu mengetahui jalur menuju LAN 1 melalui R1 dan LAN 3 melalui R3.',
+   commands:'/ip route add dst-address=192.168.1.0/24 gateway=10.0.12.1\n/ip route add dst-address=192.168.3.0/24 gateway=10.0.23.2'
+  },
+  R3:{
+   desc:'R3 memiliki LAN 192.168.3.0/24 dan terhubung ke R2 melalui 10.0.23.0/30. R3 perlu mengetahui jalur menuju LAN 1 dan LAN 2.',
+   commands:'/ip route add dst-address=192.168.1.0/24 gateway=10.0.23.1\n/ip route add dst-address=192.168.2.0/24 gateway=10.0.23.1'
+  }
+ };
+ function updateRouter(){
+  const d=routerConfig[$('wrRouterSelect').value];
+  $('wrRouterDescription').innerHTML='<h3>'+$('wrRouterSelect').value+'</h3><p>'+d.desc+'</p>';
+  $('wrCommandOutput').textContent=d.commands;
+  $('wrCopyStatus').textContent='';
+ }
+ $('wrRouterSelect').addEventListener('change',updateRouter);
+ $('wrCopyCommand').addEventListener('click',()=>{
+  const command=$('wrCommandOutput').textContent;
+  const status=$('wrCopyStatus');
+  if(navigator.clipboard && navigator.clipboard.writeText){
+   navigator.clipboard.writeText(command).then(()=>{
+    status.textContent='✓ Perintah berhasil disalin.';
+   }).catch(()=>{status.textContent='Salin teks perintah secara manual.';});
+  }else{
+   status.textContent='Pilih dan salin teks perintah secara manual.';
+  }
+ });
+
+ // STATIC ROUTE CHECKLIST
+ const routeChecks=[...root.querySelectorAll('[data-route]')];
+ function updateRouteStatus(){
+  const count=routeChecks.filter(c=>c.checked).length;
+  if(count===6){
+   $('wrRouteStatus').innerHTML='<h3>✓ Semua rute telah dikonfigurasi</h3><p>Enam rute statis pada tiga router telah aktif dalam simulasi. Selanjutnya lakukan pengujian ping.</p>';
+  }else{
+   $('wrRouteStatus').innerHTML='<h3>Rute terpasang: '+count+'/6</h3><p>Masih ada '+(6-count)+' rute yang belum dikonfigurasi. Komunikasi antarjaringan mungkin belum berhasil.</p>';
+  }
+ }
+ routeChecks.forEach(c=>c.addEventListener('change',updateRouteStatus));
+ $('wrResetRoutes').addEventListener('click',()=>{
+  routeChecks.forEach(c=>c.checked=false);
+  updateRouteStatus();
+ });
+
+ // PING SIMULATION
+ let pingTimer=null;
+ const routeRequirements={
+  '1-2':['r1b','r2a'],
+  '1-3':['r1c','r3a'],
+  '2-1':['r2a','r1b'],
+  '2-3':['r2c','r3b'],
+  '3-1':['r3a','r1c'],
+  '3-2':['r3b','r2c']
+ };
+ function pingAddress(n){return '192.168.'+n+'.10';}
+ function updatePingCommand(){
+  $('wrPingCommand').textContent='ping '+pingAddress($('wrPingTarget').value);
+ }
+ $('wrPingSource').addEventListener('change',updatePingCommand);
+ $('wrPingTarget').addEventListener('change',updatePingCommand);
+ $('wrPingReset').addEventListener('click',()=>{
+  clearInterval(pingTimer);
+  $('wrPingPacket').setAttribute('opacity','0');
+  $('wrPingResult').innerHTML='<h3>Hasil dibersihkan</h3><p>Silakan jalankan pengujian kembali.</p>';
+ });
+ $('wrPingButton').addEventListener('click',()=>{
+  clearInterval(pingTimer);
+  const source=$('wrPingSource').value;
+  const target=$('wrPingTarget').value;
+  updatePingCommand();
+  if(source===target){
+   $('wrPingResult').innerHTML='<h3>✓ Tujuan berada pada LAN yang sama</h3><p>Komunikasi dapat dilakukan melalui jaringan lokal. Routing antarrouter tidak diperlukan untuk contoh ini.</p>';
+   return;
+  }
+  const key=source+'-'+target;
+  const needed=routeRequirements[key]||[];
+  const active=routeChecks.filter(c=>c.checked).map(c=>c.dataset.route);
+  const success=needed.every(r=>active.includes(r));
+  const packet=$('wrPingPacket');
+  packet.setAttribute('opacity','1');
+  const positions={1:77,2:299,3:522};
+  const start=positions[source],end=positions[target];
+  packet.setAttribute('cx',start);
+  $('wrPingResult').innerHTML='<h3>⌛ Mengirim paket ICMP...</h3><p>Memeriksa jalur dari LAN '+source+' menuju LAN '+target+'.</p>';
+  let frame=0;
+  const frames=12;
+  pingTimer=setInterval(()=>{
+   frame++;
+   packet.setAttribute('cx',start+(end-start)*frame/frames);
+   if(frame>=frames){
+    clearInterval(pingTimer);
+    packet.setAttribute('opacity','0');
+    if(success){
+     $('wrPingResult').innerHTML='<h3 style="color:#4ade80">✓ Ping berhasil!</h3><p>Reply from '+pingAddress(target)+': bytes=32 time=12ms TTL=62</p><p>Reply from '+pingAddress(target)+': bytes=32 time=10ms TTL=62</p><p>Reply from '+pingAddress(target)+': bytes=32 time=11ms TTL=62</p><p>Reply from '+pingAddress(target)+': bytes=32 time=13ms TTL=62</p><p><b>Packets:</b> Sent = 4, Received = 4, Lost = 0 (0% loss)</p><p class="muted">Angka waktu dan TTL hanya contoh hasil simulasi, bukan pengukuran jaringan nyata.</p>';
+    }else{
+     $('wrPingResult').innerHTML='<h3 style="color:#fb7185">✕ Request timed out</h3><p>Paket tidak berhasil mencapai tujuan. Periksa rute pada router sumber dan router tujuan.</p><p><b>Rute yang perlu diperiksa:</b> '+needed.join(', ')+'</p><p class="muted">Pada jaringan nyata, periksa juga alamat IP, subnet mask, gateway, interface, firewall, dan status link.</p>';
+    }
+   }
+  },130);
+ });
+
+ // QUIZ
+ const questions=[
+  {q:'Apa yang dimaksud dengan routing?',o:['Menghubungkan kabel jaringan','Menentukan jalur dan meneruskan paket antarjaringan','Mengganti alamat MAC','Membuat akun pengguna'],a:1,e:'Routing menentukan jalur dan meneruskan paket data menuju jaringan tujuan.'},
+  {q:'Jenis routing yang dikonfigurasi secara manual oleh administrator adalah...',o:['Dynamic routing','Static routing','Default gateway','Broadcast routing'],a:1,e:'Static routing dibuat secara manual oleh administrator jaringan.'},
+  {q:'Apa fungsi next hop dalam routing table?',o:['Alamat komputer pengirim','Alamat router berikutnya yang dituju','Alamat DNS','Alamat broadcast'],a:1,e:'Next hop adalah alamat router berikutnya yang menjadi tujuan penerusan paket.'},
+  {q:'Apa penulisan default route IPv4?',o:['255.255.255.255/32','192.168.1.1/24','0.0.0.0/0','127.0.0.1/8'],a:2,e:'Default route IPv4 ditulis 0.0.0.0/0.'},
+  {q:'Perintah yang digunakan untuk menguji keterjangkauan alamat IP adalah...',o:['ipconfig','tracert saja','ping','format'],a:2,e:'Ping menggunakan ICMP untuk menguji keterjangkauan alamat IP.'}
+ ];
+ let qi=0,score=0,answered=false;
+ function renderQuiz(){
+  const q=questions[qi];
+  $('wrQuizNumber').textContent='Pertanyaan '+(qi+1)+' / '+questions.length;
+  $('wrQuizScore').textContent='Skor: '+score;
+  $('wrQuizProgress').style.width=((qi+1)/questions.length*100)+'%';
+  $('wrQuizQuestion').textContent=q.q;
+  $('wrQuizOptions').innerHTML='';
+  $('wrQuizFeedback').className='feedback';
+  $('wrQuizNext').disabled=true;
+  $('wrQuizNext').textContent=qi===questions.length-1?'Lihat Hasil':'Pertanyaan Berikutnya →';
+  answered=false;
+  q.o.forEach((option,index)=>{
+   const btn=document.createElement('button');
+   btn.className='quiz-option';
+   btn.textContent=String.fromCharCode(65+index)+'. '+option;
+   btn.addEventListener('click',()=>{
+    if(answered)return;
+    answered=true;
+    const correct=index===q.a;
+    if(correct)score+=20;
+    [...$('wrQuizOptions').children].forEach((b,i)=>{
+     b.disabled=true;
+     if(i===q.a)b.classList.add('correct');
+     if(i===index&&!correct)b.classList.add('wrong');
+    });
+    $('wrQuizScore').textContent='Skor: '+score;
+    $('wrQuizFeedback').className='feedback show '+(correct?'good':'bad');
+    $('wrQuizFeedback').textContent=(correct?'✓ Benar! ':'✕ Belum tepat. ')+q.e;
+    $('wrQuizNext').disabled=false;
+   });
+   $('wrQuizOptions').appendChild(btn);
+  });
+ }
+ $('wrQuizNext').addEventListener('click',()=>{
+  if(!answered)return;
+  if(qi<questions.length-1){
+   qi++;renderQuiz();
+  }else{
+   $('wrQuizQuestion').textContent='Evaluasi selesai!';
+   $('wrQuizOptions').innerHTML='';
+   $('wrQuizFeedback').className='feedback';
+   $('wrQuizNext').style.display='none';
+   $('wrQuizRestart').style.display='inline-block';
+   $('wrQuizFinal').style.display='block';
+   $('wrQuizFinal').innerHTML='<h3>Skor Akhir: '+score+'/100</h3><p>'+(score>=80?'Hebat! Kamu memahami dasar routing WAN.':score>=60?'Bagus! Pelajari kembali bagian yang belum dikuasai.':'Terus berlatih membaca routing table dan konfigurasi routing.')+'</p>';
+  }
+ });
+ $('wrQuizRestart').addEventListener('click',()=>{
+  qi=0;score=0;
+  $('wrQuizNext').style.display='inline-block';
+  $('wrQuizRestart').style.display='none';
+  $('wrQuizFinal').style.display='none';
+  renderQuiz();
+ });
+
+ updateRouter();
+ updateRouteStatus();
+ updatePingCommand();
+ renderQuiz();
+ showSlide(0);
+})();
+</script>
+</div>
