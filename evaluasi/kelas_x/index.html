@@ -1,1 +1,750 @@
 
+
+<div id="tkj-assessment">
+  <style>
+    #tkj-assessment {
+      --bg: #080f20;
+      --panel: #111d35;
+      --panel2: #172642;
+      --line: rgba(148, 180, 225, .15);
+      --text: #edf5ff;
+      --muted: #9aacc8;
+      --cyan: #38bdf8;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 5%, rgba(37,99,235,.16), transparent 38%),
+        radial-gradient(ellipse at 90% 35%, rgba(139,92,246,.12), transparent 35%),
+        var(--bg);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      min-height: 700px;
+      padding-bottom: 25px;
+    }
+
+    #tkj-assessment * { box-sizing: border-box; }
+    #tkj-assessment a { text-decoration: none; color: inherit; }
+
+    #tkj-assessment .ea-container {
+      width: min(1120px, 92%);
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    #tkj-assessment .ea-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 23px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    #tkj-assessment .ea-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      font-size: 15px;
+    }
+
+    #tkj-assessment .ea-brand-icon {
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg,#2563eb,#06b6d4);
+      box-shadow: 0 5px 22px rgba(37,99,235,.3);
+    }
+
+    #tkj-assessment .ea-brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 2px;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    #tkj-assessment .ea-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #86efac;
+      background: rgba(34,197,94,.09);
+      border: 1px solid rgba(34,197,94,.2);
+      border-radius: 30px;
+      padding: 7px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    #tkj-assessment .ea-dot {
+      width: 7px;
+      height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #4ade80;
+      animation: eaPulse 1.6s infinite;
+    }
+
+    #tkj-assessment .ea-hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 30px;
+      padding: 65px 0 60px;
+    }
+
+    #tkj-assessment .ea-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56,189,248,.09);
+      border: 1px solid rgba(56,189,248,.2);
+      color: #7dd3fc;
+      border-radius: 30px;
+      padding: 8px 13px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    #tkj-assessment .ea-hero h1 {
+      font-size: clamp(34px,5vw,55px);
+      line-height: 1.12;
+      letter-spacing: -1.8px;
+      margin: 20px 0 15px;
+      color: #f8fbff;
+    }
+
+    #tkj-assessment .ea-gradient {
+      background: linear-gradient(90deg,#38bdf8,#818cf8,#c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    #tkj-assessment .ea-description {
+      color: #a9bad4;
+      font-size: 14px;
+      line-height: 1.9;
+      max-width: 510px;
+      margin: 0 0 23px;
+    }
+
+    #tkj-assessment .ea-main-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 0;
+      border-radius: 11px;
+      padding: 13px 19px;
+      color: white !important;
+      background: linear-gradient(110deg,#2563eb,#0891b2);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(37,99,235,.25);
+      transition: .25s;
+    }
+
+    #tkj-assessment .ea-main-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(37,99,235,.4);
+    }
+
+    #tkj-assessment .ea-illustration {
+      width: 100%;
+      max-width: 490px;
+      margin: auto;
+      filter: drop-shadow(0 20px 35px rgba(0,0,0,.2));
+      animation: eaFloat 5s ease-in-out infinite;
+    }
+
+    #tkj-assessment .ea-section-head {
+      margin: 0 0 24px;
+    }
+
+    #tkj-assessment .ea-section-head h2 {
+      color: #f1f6ff;
+      font-size: 23px;
+      margin: 0 0 8px;
+    }
+
+    #tkj-assessment .ea-section-head p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    #tkj-assessment .ea-class-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 17px;
+    }
+
+    #tkj-assessment .ea-class-card {
+      --accent: #38bdf8;
+      background: linear-gradient(145deg,rgba(23,38,66,.95),rgba(14,26,47,.95));
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 23px;
+      position: relative;
+      overflow: hidden;
+      transition: .3s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 225px;
+    }
+
+    #tkj-assessment .ea-class-card::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -65px;
+      top: -65px;
+      background: var(--accent);
+      opacity: .09;
+      filter: blur(40px);
+      border-radius: 50%;
+      transition: .3s;
+    }
+
+    #tkj-assessment .ea-class-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 35px rgba(0,0,0,.2);
+    }
+
+    #tkj-assessment .ea-class-card:hover::before {
+      opacity: .22;
+    }
+
+    #tkj-assessment .ea-class-card.x { --accent: #4ade80; }
+    #tkj-assessment .ea-class-card.xi { --accent: #38bdf8; }
+    #tkj-assessment .ea-class-card.xii { --accent: #c084fc; }
+
+    #tkj-assessment .ea-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    #tkj-assessment .ea-class-icon {
+      width: 47px;
+      height: 47px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    }
+
+    #tkj-assessment .ea-class-label {
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+    }
+
+    #tkj-assessment .ea-class-card h3 {
+      color: #f2f7ff;
+      font-size: 21px;
+      margin: 0 0 8px;
+    }
+
+    #tkj-assessment .ea-class-card p {
+      color: #9eafc9;
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 0 0 20px;
+      flex-grow: 1;
+    }
+
+    #tkj-assessment .ea-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent) !important;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    #tkj-assessment .ea-card-link span {
+      transition: transform .2s;
+    }
+
+    #tkj-assessment .ea-class-card:hover .ea-card-link span {
+      transform: translateX(5px);
+    }
+
+    #tkj-assessment .ea-steps {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 14px;
+      margin-top: 55px;
+    }
+
+    #tkj-assessment .ea-step {
+      padding: 19px;
+      background: rgba(17,29,53,.72);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    #tkj-assessment .ea-step-icon {
+      color: #67e8f9;
+      margin-bottom: 12px;
+    }
+
+    #tkj-assessment .ea-step h4 {
+      color: #e9f2ff;
+      font-size: 14px;
+      margin: 0 0 7px;
+    }
+
+    #tkj-assessment .ea-step p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    #tkj-assessment .ea-motivation {
+      margin-top: 48px;
+      padding: 28px;
+      border-radius: 17px;
+      border: 1px solid rgba(129,140,248,.2);
+      background:
+        radial-gradient(circle at 90% 20%,rgba(139,92,246,.14),transparent 35%),
+        linear-gradient(110deg,#142440,#151c39);
+      text-align: center;
+    }
+
+    #tkj-assessment .ea-motivation svg {
+      color: #c4b5fd;
+      margin-bottom: 9px;
+    }
+
+    #tkj-assessment .ea-motivation h3 {
+      color: #c4b5fd;
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin: 0 0 13px;
+    }
+
+    #tkj-assessment .ea-quote {
+      color: #f1f5ff;
+      font-size: clamp(15px,2vw,19px);
+      line-height: 1.7;
+      font-weight: 600;
+      margin: 0 auto 15px;
+      max-width: 700px;
+      transition: opacity .25s, transform .25s;
+    }
+
+    #tkj-assessment .ea-quote.fade {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    #tkj-assessment .ea-quote-btn {
+      border: 1px solid rgba(196,181,253,.3);
+      background: rgba(139,92,246,.1);
+      color: #ddd6fe;
+      border-radius: 25px;
+      padding: 8px 13px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    #tkj-assessment .ea-quote-btn:hover {
+      background: rgba(139,92,246,.23);
+    }
+
+    #tkj-assessment .ea-footer {
+      border-top: 1px solid var(--line);
+      margin-top: 45px;
+      padding-top: 22px;
+      text-align: center;
+      color: #71839f;
+      font-size: 10px;
+      letter-spacing: .5px;
+    }
+
+    #tkj-assessment .ea-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    #tkj-assessment .ea-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #tkj-assessment .ea-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #38bdf8;
+      opacity: .45;
+      pointer-events: none;
+      animation: eaParticle 8s linear infinite;
+    }
+
+    @keyframes eaFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes eaPulse {
+      50% { opacity: .45; box-shadow: 0 0 3px #4ade80; }
+    }
+
+    @keyframes eaParticle {
+      0% { transform: translateY(30px); opacity: 0; }
+      20% { opacity: .5; }
+      80% { opacity: .3; }
+      100% { transform: translateY(-150px); opacity: 0; }
+    }
+
+    @media(max-width:700px) {
+      #tkj-assessment { border-radius: 12px; }
+      #tkj-assessment .ea-hero {
+        grid-template-columns: 1fr;
+        padding: 43px 0 35px;
+        gap: 20px;
+      }
+      #tkj-assessment .ea-illustration { max-width: 340px; }
+      #tkj-assessment .ea-class-grid { grid-template-columns: 1fr; }
+      #tkj-assessment .ea-class-card { min-height: 195px; }
+      #tkj-assessment .ea-steps { grid-template-columns: 1fr; margin-top: 38px; }
+      #tkj-assessment .ea-section-head h2 { font-size: 20px; }
+      #tkj-assessment .ea-motivation { padding: 23px 16px; }
+      #tkj-assessment .ea-nav { padding: 17px 0; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      #tkj-assessment *, #tkj-assessment *::before {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+
+  <div class="ea-container">
+    <header class="ea-nav">
+      <div class="ea-brand">
+        <div class="ea-brand-icon">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+            <path d="M5 3.5h10l4 4V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"/>
+            <path d="M14 3.5V8h5M8 12h8M8 16h6"/>
+          </svg>
+        </div>
+        <div>
+          TKJ PERSIAPAN
+          <small>ASSESSMENT CENTER</small>
+        </div>
+      </div>
+      <div class="ea-status"><span class="ea-dot"></span> LEARNING PORTAL</div>
+    </header>
+
+    <section class="ea-hero">
+      <div>
+        <div class="ea-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m12 3 2.3 5.7L20 11l-5.7 2.3L12 19l-2.3-5.7L4 11l5.7-2.3L12 3Z"/>
+          </svg>
+          EVALUASI PEMBELAJARAN
+        </div>
+
+        <h1>Uji Kemampuanmu.<br><span class="ea-gradient">Raih Prestasimu!</span></h1>
+
+        <p class="ea-description">
+          Setiap materi yang kamu pelajari adalah langkah menuju kemampuan yang lebih baik.
+          Uji pemahamanmu, temukan hal baru, dan buktikan bahwa kamu mampu berkembang di dunia teknologi.
+        </p>
+
+        <a href="#ea-choose-class" class="ea-main-btn">
+          Mulai Evaluasi
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14m-6-6 6 6-6 6"/>
+          </svg>
+        </a>
+      </div>
+
+      <div>
+        <svg class="ea-illustration" viewBox="0 0 500 390" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="eaPaper" x1="120" y1="40" x2="350" y2="330" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#263F68"/>
+              <stop offset="1" stop-color="#142641"/>
+            </linearGradient>
+            <linearGradient id="eaBlue" x1="120" y1="80" x2="370" y2="300" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#38BDF8"/>
+              <stop offset="1" stop-color="#6366F1"/>
+            </linearGradient>
+          </defs>
+
+          <circle cx="252" cy="190" r="155" fill="#2563EB" opacity=".07"/>
+          <circle cx="252" cy="190" r="125" stroke="#38BDF8" stroke-opacity=".13" stroke-dasharray="5 8"/>
+
+          <path d="M80 294H422" stroke="#345078" stroke-width="2" stroke-linecap="round"/>
+          <path d="M110 306H390" stroke="#345078" stroke-opacity=".5" stroke-width="2"/>
+
+          <!-- Main exam sheet -->
+          <rect x="139" y="43" width="226" height="269" rx="19" fill="url(#eaPaper)" stroke="#54729E" stroke-opacity=".65" stroke-width="1.5"/>
+          <rect x="158" y="63" width="188" height="41" rx="9" fill="#1C3760"/>
+          <circle cx="178" cy="83" r="9" fill="#38BDF8"/>
+          <path d="M174 83h8M178 79v8" stroke="#08213B" stroke-width="1.8" stroke-linecap="round"/>
+          <rect x="195" y="77" width="105" height="5" rx="2.5" fill="#C4E7FF"/>
+          <rect x="195" y="87" width="69" height="3" rx="1.5" fill="#7192B8"/>
+
+          <rect x="160" y="121" width="184" height="43" rx="8" fill="#192E4E"/>
+          <circle cx="177" cy="142" r="7" stroke="#38BDF8" stroke-width="2"/>
+          <path d="m174 142 2 2 4-5" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="192" y="136" width="115" height="4" rx="2" fill="#B7CCE7"/>
+          <rect x="192" y="146" width="85" height="3" rx="1.5" fill="#627F9F"/>
+
+          <rect x="160" y="174" width="184" height="43" rx="8" fill="#192E4E"/>
+          <circle cx="177" cy="195" r="7" stroke="#38BDF8" stroke-width="2"/>
+          <path d="m174 195 2 2 4-5" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="192" y="189" width="128" height="4" rx="2" fill="#B7CCE7"/>
+          <rect x="192" y="199" width="73" height="3" rx="1.5" fill="#627F9F"/>
+
+          <rect x="160" y="227" width="184" height="43" rx="8" fill="#192E4E"/>
+          <circle cx="177" cy="248" r="7" stroke="#38BDF8" stroke-width="2"/>
+          <rect x="192" y="242" width="108" height="4" rx="2" fill="#B7CCE7"/>
+          <rect x="192" y="252" width="88" height="3" rx="1.5" fill="#627F9F"/>
+
+          <!-- Pencil -->
+          <g transform="rotate(35 370 225)">
+            <rect x="356" y="145" width="17" height="126" rx="5" fill="#FBBF24"/>
+            <path d="M356 145Q364.5 126 373 145" fill="#FDE68A"/>
+            <path d="M356 271 364.5 290 373 271" fill="#E5B47A"/>
+            <path d="M361 280 364.5 290 368 280" fill="#334155"/>
+            <rect x="356" y="151" width="17" height="10" fill="#F97316"/>
+          </g>
+
+          <!-- Floating score badge -->
+          <rect x="48" y="115" width="90" height="76" rx="14" fill="#172D4D" stroke="#3B82F6" stroke-opacity=".5"/>
+          <path d="m93 129 4 8 9 1-6.5 6 1.5 9-8-4.5-8 4.5 1.5-9-6.5-6 9-1 4-8Z" fill="#FBBF24"/>
+          <text x="93" y="177" text-anchor="middle" fill="#DCEBFF" font-size="10" font-weight="700">YOUR BEST!</text>
+
+          <!-- Check badge -->
+          <circle cx="390" cy="91" r="31" fill="#153C43" stroke="#34D399" stroke-opacity=".65"/>
+          <path d="m376 91 9 9 19-20" stroke="#6EE7B7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Small sparkles -->
+          <path d="m93 239 5 11 11 5-11 5-5 11-5-11-11-5 11-5 5-11Z" fill="#38BDF8" opacity=".8"/>
+          <path d="m413 185 4 8 8 4-8 4-4 8-4-8-8-4 8-4 4-8Z" fill="#A78BFA"/>
+          <circle cx="120" cy="68" r="4" fill="#818CF8"/>
+          <circle cx="420" cy="268" r="5" fill="#38BDF8"/>
+          <circle cx="70" cy="205" r="3" fill="#A78BFA"/>
+        </svg>
+      </div>
+    </section>
+
+    <section id="ea-choose-class" class="ea-reveal">
+      <div class="ea-section-head">
+        <h2>Pilih Kelasmu</h2>
+        <p>Pilih jenjang kelas untuk melihat evaluasi pembelajaran yang tersedia.</p>
+      </div>
+
+      <div class="ea-class-grid">
+        <article class="ea-class-card x">
+          <div class="ea-card-top">
+            <div class="ea-class-icon">
+              <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="4" width="18" height="13" rx="2"/>
+                <path d="M8 21h8m-4-4v4M7 9h10M7 13h6"/>
+              </svg>
+            </div>
+            <span class="ea-class-label">FOUNDATION</span>
+          </div>
+          <h3>Kelas X TKJ</h3>
+          <p>Bangun fondasi pengetahuan komputer, perangkat keras, sistem operasi, dan dasar teknologi.</p>
+          <a class="ea-card-link" href="/p/evaluasi-kelas-x.html">
+            Masuk Evaluasi <span>→</span>
+          </a>
+        </article>
+
+        <article class="ea-class-card xi">
+          <div class="ea-card-top">
+            <div class="ea-class-icon">
+              <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="18" height="7" rx="2"/>
+                <rect x="3" y="14" width="18" height="7" rx="2"/>
+                <path d="M7 6.5h.01M7 17.5h.01M11 6.5h6M11 17.5h6"/>
+              </svg>
+            </div>
+            <span class="ea-class-label">INTERMEDIATE</span>
+          </div>
+          <h3>Kelas XI TKJ</h3>
+          <p>Uji kemampuan dalam jaringan komputer, administrasi server, konfigurasi, dan manajemen jaringan.</p>
+          <a class="ea-card-link" href="/p/evaluasi-kelas-xi.html">
+            Masuk Evaluasi <span>→</span>
+          </a>
+        </article>
+
+        <article class="ea-class-card xii">
+          <div class="ea-card-top">
+            <div class="ea-class-icon">
+              <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="3"/>
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3v2m9 7h-2m-7 9v-2m-9-7h2m10.4-6.4-1.4 1.4m-6 12-1.4 1.4m12-1.4-1.4-1.4m-12-12 1.4 1.4"/>
+              </svg>
+            </div>
+            <span class="ea-class-label">ADVANCED</span>
+          </div>
+          <h3>Kelas XII TKJ</h3>
+          <p>Asah pemahaman infrastruktur, teknologi WAN, dan penerapan keterampilan jaringan tingkat lanjut.</p>
+          <a class="ea-card-link" href="/p/evaluasi-kelas-xii.html">
+            Masuk Evaluasi <span>→</span>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="ea-steps ea-reveal">
+      <div class="ea-step">
+        <div class="ea-step-icon">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 5h16M4 10h16M4 15h10M4 20h7"/>
+            <circle cx="19" cy="18" r="3"/>
+            <path d="m18 18 1 1 2-2"/>
+          </svg>
+        </div>
+        <h4>Pelajari Materi</h4>
+        <p>Pahami konsep dan pelajari setiap materi sebelum mengikuti evaluasi.</p>
+      </div>
+
+      <div class="ea-step">
+        <div class="ea-step-icon">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 11 12 14 22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <h4>Kerjakan Evaluasi</h4>
+        <p>Jawab setiap soal dengan teliti dan tunjukkan pemahaman terbaikmu.</p>
+      </div>
+
+      <div class="ea-step">
+        <div class="ea-step-icon">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/>
+            <path d="M16 3h5v5M21 3l-9 9"/>
+            <path d="M7 16h10M7 12h4"/>
+          </svg>
+        </div>
+        <h4>Lihat Hasilmu</h4>
+        <p>Ketahui pencapaianmu dan cetak hasil evaluasi sebagai dokumentasi.</p>
+      </div>
+    </section>
+
+    <section class="ea-motivation ea-reveal">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M12 3 14.5 9.5 21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/>
+      </svg>
+      <h3>YOUR MOTIVATION TODAY</h3>
+      <p class="ea-quote" id="ea-quote">"Jangan takut salah dalam belajar. Kesalahan adalah bagian dari proses untuk menjadi lebih baik."</p>
+      <button class="ea-quote-btn" id="ea-new-quote" type="button">
+        ✦ Beri saya motivasi lain
+      </button>
+    </section>
+
+    <footer class="ea-footer">
+      TKJ PERSIAPAN · LEARN TODAY, BUILD TOMORROW
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    const root = document.getElementById("tkj-assessment");
+    if (!root || root.dataset.initialized) return;
+    root.dataset.initialized = "true";
+
+    // Motivational quotes
+    const quotes = [
+      "Jangan takut salah dalam belajar. Kesalahan adalah bagian dari proses untuk menjadi lebih baik.",
+      "Tidak harus menjadi yang paling pintar, cukup menjadi lebih baik dari dirimu yang kemarin.",
+      "Teknologi terus berkembang. Jangan berhenti belajar jika ingin terus berkembang.",
+      "Setiap ahli pernah menjadi pemula. Teruslah mencoba dan jangan mudah menyerah.",
+      "Nilai bukan satu-satunya ukuran kemampuan. Proses belajar dan keberanian mencoba juga berarti.",
+      "Masa depan dibangun dari usaha kecil yang kamu lakukan hari ini.",
+      "Jangan hanya menjadi pengguna teknologi. Belajarlah untuk memahami, membangun, dan mengembangkannya.",
+      "Satu soal yang kamu pahami hari ini adalah satu langkah menuju kemampuan yang lebih besar."
+    ];
+
+    const quote = root.querySelector("#ea-quote");
+    const quoteButton = root.querySelector("#ea-new-quote");
+    let previous = -1;
+
+    quoteButton.addEventListener("click", function () {
+      let next;
+      do {
+        next = Math.floor(Math.random() * quotes.length);
+      } while (next === previous && quotes.length > 1);
+
+      previous = next;
+      quote.classList.add("fade");
+
+      setTimeout(function () {
+        quote.textContent = '"' + quotes[next] + '"';
+        quote.classList.remove("fade");
+      }, 250);
+    });
+
+    // Reveal elements on scroll
+    const revealItems = root.querySelectorAll(".ea-reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealItems.forEach(function (item) {
+        observer.observe(item);
+      });
+    } else {
+      revealItems.forEach(function (item) {
+        item.classList.add("visible");
+      });
+    }
+
+    // Floating decorative particles
+    const colors = ["#38bdf8", "#818cf8", "#c084fc"];
+    for (let i = 0; i < 15; i++) {
+      const particle = document.createElement("span");
+      particle.className = "ea-particle";
+      particle.style.left = (Math.random() * 96 + 2) + "%";
+      particle.style.top = (Math.random() * 90 + 5) + "%";
+      particle.style.animationDelay = (Math.random() * 8) + "s";
+      particle.style.animationDuration = (6 + Math.random() * 7) + "s";
+      particle.style.background = colors[i % colors.length];
+      root.appendChild(particle);
+    }
+  })();
+  </script>
+</div>
