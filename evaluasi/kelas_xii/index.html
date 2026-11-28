@@ -1,1 +1,535 @@
 
+<div id="tkj-eval-xii">
+<style>
+#tkj-eval-xii{
+ --bg:#10091c;--panel:#1d1230;--panel2:#291943;
+ --purple:#c084fc;--purple2:#a855f7;--light:#f3e8ff;
+ --text:#f5edff;--muted:#b9a6ce;--line:#493361;
+ font-family:Arial,sans-serif;color:var(--text);
+ background:var(--bg);padding:22px;border-radius:18px;
+ box-sizing:border-box;line-height:1.6;
+}
+#tkj-eval-xii *{box-sizing:border-box}
+#tkj-eval-xii .hidden{display:none!important}
+#tkj-eval-xii .panel{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:16px;padding:22px;margin-bottom:18px;
+}
+#tkj-eval-xii .hero{
+ display:grid;grid-template-columns:1.5fr 1fr;gap:20px;
+ align-items:center;background:linear-gradient(135deg,#291943,#160d25);
+ border:1px solid #69438e;border-radius:20px;padding:28px;
+ margin-bottom:20px;overflow:hidden;
+}
+#tkj-eval-xii .eyebrow{
+ color:var(--purple);font-size:12px;font-weight:bold;
+ letter-spacing:2px;text-transform:uppercase;
+}
+#tkj-eval-xii h1{font-size:clamp(27px,5vw,42px);line-height:1.15;margin:10px 0}
+#tkj-eval-xii h2{font-size:21px;margin:0 0 14px}
+#tkj-eval-xii p{color:var(--muted);margin:8px 0}
+#tkj-eval-xii .hero-art{width:100%;max-width:270px;margin:auto;display:block}
+#tkj-eval-xii .stats{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;
+}
+#tkj-eval-xii .stat{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:13px;padding:15px;text-align:center;
+}
+#tkj-eval-xii .stat b{display:block;color:var(--purple);font-size:25px}
+#tkj-eval-xii .stat span{font-size:12px;color:var(--muted)}
+#tkj-eval-xii label{display:block;font-size:13px;color:var(--light);margin:12px 0 6px}
+#tkj-eval-xii input{
+ width:100%;background:#120b1d;border:1px solid var(--line);
+ color:white;padding:13px;border-radius:9px;outline:none;font-size:14px;
+}
+#tkj-eval-xii input:focus{border-color:var(--purple)}
+#tkj-eval-xii button{
+ border:0;border-radius:9px;padding:12px 18px;
+ font-weight:bold;cursor:pointer;font-size:14px;transition:.2s;
+}
+#tkj-eval-xii button:hover{filter:brightness(1.12);transform:translateY(-1px)}
+#tkj-eval-xii button:disabled{opacity:.4;cursor:not-allowed;transform:none}
+#tkj-eval-xii .primary{background:var(--purple2);color:white}
+#tkj-eval-xii .secondary{background:#38244e;color:var(--light);border:1px solid #62447d}
+#tkj-eval-xii .danger{background:#9f315f;color:white}
+#tkj-eval-xii .muted-btn{background:#30213e;color:#d9c7eb}
+#tkj-eval-xii .quiz-top{
+ display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;
+ margin-bottom:15px;
+}
+#tkj-eval-xii .progress-wrap{
+ height:9px;background:#352445;border-radius:20px;overflow:hidden;margin:12px 0 20px;
+}
+#tkj-eval-xii .progress{
+ height:100%;width:0;background:linear-gradient(90deg,#9333ea,#d8b4fe);
+ transition:width .3s;
+}
+#tkj-eval-xii .timer{
+ background:#38244e;color:#e9d5ff;border:1px solid #76519a;
+ border-radius:10px;padding:8px 14px;font-weight:bold;font-size:17px;
+ font-variant-numeric:tabular-nums;
+}
+#tkj-eval-xii .timer.urgent{background:#681c3a;border-color:#f472b6;color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+#tkj-eval-xii .question-number{color:var(--purple);font-size:13px;font-weight:bold}
+#tkj-eval-xii .topic{
+ display:inline-block;background:#352047;color:#e9d5ff;
+ padding:5px 10px;border-radius:20px;font-size:11px;margin:8px 0 12px;
+}
+#tkj-eval-xii .question-text{font-size:17px;font-weight:bold;color:#fff;margin:8px 0 20px}
+#tkj-eval-xii .option{
+ display:flex;gap:12px;align-items:flex-start;
+ padding:13px;border:1px solid var(--line);border-radius:10px;
+ margin:9px 0;background:#211532;cursor:pointer;transition:.2s;
+}
+#tkj-eval-xii .option:hover{border-color:var(--purple);background:#302044}
+#tkj-eval-xii .option.selected{border-color:var(--purple);background:#392351}
+#tkj-eval-xii .option .letter{
+ flex:0 0 28px;height:28px;border-radius:8px;
+ display:grid;place-items:center;background:#49315f;color:#e9d5ff;
+ font-weight:bold;font-size:13px;
+}
+#tkj-eval-xii .option.selected .letter{background:var(--purple2);color:white}
+#tkj-eval-xii .option-text{font-size:14px;color:#eee3fa}
+#tkj-eval-xii .nav-buttons{
+ display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap;
+}
+#tkj-eval-xii .dots{
+ display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:18px;
+}
+#tkj-eval-xii .dot{
+ padding:8px 2px!important;background:#30213e;color:#cbb9dc;
+ border:1px solid #493361!important;font-size:12px!important;
+}
+#tkj-eval-xii .dot.answered{background:#59347a;color:white}
+#tkj-eval-xii .dot.active{outline:2px solid var(--purple);background:#8b45bd;color:white}
+#tkj-eval-xii .dot.expired{background:#672b45;color:#ffc5d9}
+#tkj-eval-xii .result-header{text-align:center;padding:15px 0}
+#tkj-eval-xii .result-score{font-size:60px;font-weight:bold;color:var(--purple);line-height:1.2}
+#tkj-eval-xii .result-grid{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;
+}
+#tkj-eval-xii .result-grid div{
+ text-align:center;background:#281a39;padding:14px;border-radius:11px;border:1px solid var(--line);
+}
+#tkj-eval-xii .result-grid b{display:block;font-size:23px;color:var(--purple)}
+#tkj-eval-xii .result-grid span{font-size:12px;color:var(--muted)}
+#tkj-eval-xii .review-item{
+ border:1px solid var(--line);background:#211532;
+ border-radius:12px;padding:16px;margin:12px 0;
+}
+#tkj-eval-xii .review-item h3{font-size:14px;margin:0 0 9px}
+#tkj-eval-xii .review-answer{font-size:13px;margin:5px 0}
+#tkj-eval-xii .correct-text{color:#86efac}
+#tkj-eval-xii .wrong-text{color:#f9a8d4}
+#tkj-eval-xii .explain{
+ border-left:3px solid var(--purple);padding:9px 12px;
+ margin-top:10px;background:#2b1d3b;color:#ddcbeF;font-size:13px;
+}
+#tkj-eval-xii .footer-note{text-align:center;font-size:11px;color:var(--muted);margin-top:20px}
+@media(max-width:650px){
+ #tkj-eval-xii{padding:12px}
+ #tkj-eval-xii .hero{grid-template-columns:1fr;padding:20px}
+ #tkj-eval-xii .hero-art{max-width:150px}
+ #tkj-eval-xii .stats{gap:7px}
+ #tkj-eval-xii .stat{padding:10px 5px}
+ #tkj-eval-xii .stat b{font-size:20px}
+ #tkj-eval-xii .panel{padding:15px}
+ #tkj-eval-xii .dots{grid-template-columns:repeat(8,1fr)}
+ #tkj-eval-xii .result-grid{gap:6px}
+ #tkj-eval-xii .result-grid div{padding:10px 4px}
+}
+@page{size:A4;margin:12mm}
+@media print{
+ body *{visibility:hidden!important}
+ #tkj-eval-xii #result,
+ #tkj-eval-xii #result *{visibility:visible!important}
+ #tkj-eval-xii #result{
+  display:block!important;position:absolute!important;left:0!important;top:0!important;
+  width:100%!important;margin:0!important;padding:0!important;
+  background:white!important;color:#111!important;
+ }
+ #tkj-eval-xii #result .panel,
+ #tkj-eval-xii #result .review-item,
+ #tkj-eval-xii #result .result-grid div{
+  background:white!important;color:#111!important;
+  border:1px solid #bbb!important;box-shadow:none!important;
+ }
+ #tkj-eval-xii #result h2,
+ #tkj-eval-xii #result h3,
+ #tkj-eval-xii #result p,
+ #tkj-eval-xii #result span,
+ #tkj-eval-xii #result .review-answer,
+ #tkj-eval-xii #result .explain{color:#222!important}
+ #tkj-eval-xii #result .result-score,
+ #tkj-eval-xii #result .result-grid b{color:#7132a5!important}
+ #tkj-eval-xii #result .explain{background:#f7f2fa!important;border-left-color:#7132a5!important}
+ #tkj-eval-xii #result .no-print{display:none!important}
+ #tkj-eval-xii #result .review-item{break-inside:avoid}
+ #tkj-eval-xii #result .result-header{text-align:center}
+ #tkj-eval-xii #result .correct-text{color:#176b36!important}
+ #tkj-eval-xii #result .wrong-text{color:#a11d55!important}
+}
+</style>
+
+<div class="hero">
+ <div>
+  <div class="eyebrow">TKJ • Evaluasi Pembelajaran</div>
+  <h1>Evaluasi Kelas XII TKJ</h1>
+  <p>Uji kemampuan analisis, pemecahan masalah, dan penerapan teknologi jaringan komputer melalui berbagai studi kasus.</p>
+  <p style="color:#e9d5ff;font-size:12px">NETWORK ENGINEERING • SYSTEM ADMINISTRATION • TROUBLESHOOTING</p>
+ </div>
+ <svg class="hero-art" viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="75" y="12" width="130" height="72" rx="12" fill="#3B2454" stroke="#C084FC" stroke-width="2"/>
+  <rect x="87" y="24" width="106" height="47" rx="5" fill="#160D25"/>
+  <path d="M100 48H122L132 37L146 57L158 43H180" stroke="#C084FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M140 84V102M112 102H168M112 102V119M168 102V119" stroke="#C084FC" stroke-width="3" stroke-linecap="round"/>
+  <rect x="82" y="119" width="60" height="38" rx="7" fill="#59347A" stroke="#D8B4FE" stroke-width="2"/>
+  <rect x="138" y="119" width="60" height="38" rx="7" fill="#59347A" stroke="#D8B4FE" stroke-width="2"/>
+  <circle cx="94" cy="132" r="3" fill="#86EFAC"/><circle cx="106" cy="132" r="3" fill="#C084FC"/>
+  <circle cx="150" cy="132" r="3" fill="#86EFAC"/><circle cx="162" cy="132" r="3" fill="#C084FC"/>
+  <path d="M112 157V177H168V157" stroke="#C084FC" stroke-width="2" stroke-dasharray="4 4"/>
+  <rect x="103" y="177" width="74" height="27" rx="7" fill="#281A39" stroke="#C084FC" stroke-width="2"/>
+  <path d="M116 190H164" stroke="#D8B4FE" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="44" cy="48" r="17" fill="#3B2454" stroke="#C084FC" stroke-width="2"/>
+  <path d="M35 48H53M44 39V57" stroke="#D8B4FE" stroke-width="2" stroke-linecap="round"/>
+  <path d="M61 48H75" stroke="#C084FC" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="236" cy="65" r="17" fill="#3B2454" stroke="#C084FC" stroke-width="2"/>
+  <path d="M227 65H245M236 56V74" stroke="#D8B4FE" stroke-width="2" stroke-linecap="round"/>
+  <path d="M205 65H219" stroke="#C084FC" stroke-width="2" stroke-dasharray="4 3"/>
+ </svg>
+</div>
+
+<div class="stats">
+ <div class="stat"><b>40</b><span>Jumlah Soal</span></div>
+ <div class="stat"><b>5</b><span>Pilihan Jawaban</span></div>
+ <div class="stat"><b>100</b><span>Skor Maksimal</span></div>
+</div>
+
+<div id="intro" class="panel">
+ <h2>Identitas Peserta</h2>
+ <p>Lengkapi data berikut sebelum memulai evaluasi.</p>
+ <label for="studentName">Nama lengkap</label>
+ <input id="studentName" type="text" placeholder="Masukkan nama lengkap">
+ <label for="studentClass">Kelas</label>
+ <input id="studentClass" type="text" placeholder="Contoh: XII TKJ">
+ <label for="studentNumber">Nomor absen</label>
+ <input id="studentNumber" type="number" min="1" placeholder="Masukkan nomor absen">
+ <div style="margin-top:20px;padding:14px;background:#281a39;border-radius:10px">
+  <b style="color:#e9d5ff">Petunjuk pengerjaan</b>
+  <p style="font-size:13px">• Setiap soal memiliki waktu 2 menit.</p>
+  <p style="font-size:13px">• Pilih satu jawaban paling tepat dari A sampai E.</p>
+  <p style="font-size:13px">• Waktu setiap soal tetap tersimpan ketika berpindah soal.</p>
+  <p style="font-size:13px">• Jika waktu habis, sistem otomatis melanjutkan ke soal berikutnya.</p>
+  <p style="font-size:13px">• Jawaban dapat diubah selama soal masih memiliki waktu.</p>
+ </div>
+ <button class="primary" id="startBtn" style="width:100%;margin-top:18px">Mulai Evaluasi →</button>
+</div>
+
+<div id="quiz" class="hidden">
+ <div class="panel">
+  <div class="quiz-top">
+   <div>
+    <div class="question-number" id="questionNumber">SOAL 1 DARI 40</div>
+    <div style="font-size:12px;color:var(--muted)" id="answeredCount">0 soal dijawab</div>
+   </div>
+   <div class="timer" id="timerDisplay">02:00</div>
+  </div>
+  <div class="progress-wrap"><div class="progress" id="progressBar"></div></div>
+  <div class="topic" id="topicTag">Jaringan Komputer</div>
+  <div class="question-text" id="questionText"></div>
+  <div id="options"></div>
+  <div class="nav-buttons">
+   <button class="secondary" id="prevBtn">← Sebelumnya</button>
+   <button class="primary" id="nextBtn">Berikutnya →</button>
+  </div>
+ </div>
+ <div class="panel">
+  <h2 style="font-size:16px">Navigasi Soal</h2>
+  <p style="font-size:12px">Ungu menandakan soal sudah dijawab. Merah menandakan waktu soal telah habis.</p>
+  <div class="dots" id="questionDots"></div>
+  <button class="danger" id="submitBtn" style="width:100%;margin-top:20px">Selesaikan Evaluasi</button>
+ </div>
+</div>
+
+<div id="result" class="hidden">
+ <div class="panel">
+  <div class="result-header">
+   <div class="eyebrow">HASIL EVALUASI</div>
+   <h2 style="font-size:25px;margin:8px 0">Evaluasi Kelas XII TKJ</h2>
+   <div class="result-score" id="finalScore">0</div>
+   <p id="resultMessage">Evaluasi telah selesai.</p>
+  </div>
+  <div id="identityResult" style="text-align:center;font-size:13px;color:var(--muted)"></div>
+  <div class="result-grid">
+   <div><b id="correctCount">0</b><span>Benar</span></div>
+   <div><b id="wrongCount">0</b><span>Salah</span></div>
+   <div><b id="emptyCount">0</b><span>Kosong</span></div>
+  </div>
+  <div style="border-top:1px solid var(--line);padding-top:15px">
+   <h2 style="font-size:17px">Rekap Pembahasan</h2>
+   <p style="font-size:12px">Periksa jawaban dan pelajari penjelasan setiap soal.</p>
+  </div>
+  <div id="reviewList"></div>
+  <div class="no-print" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+   <button class="primary" id="printBtn" style="flex:1">Cetak / Simpan PDF</button>
+   <button class="secondary" id="retryBtn" style="flex:1">Ulangi Evaluasi</button>
+  </div>
+  <div class="footer-note">Evaluasi Pembelajaran • Teknik Komputer dan Jaringan</div>
+ </div>
+</div>
+</div>
+
+<script>
+(function(){
+const root=document.getElementById('tkj-eval-xii');
+if(!root || root.dataset.initialized==='yes') return;
+root.dataset.initialized='yes';
+
+const $=id=>root.querySelector('#'+id);
+const TIME_PER_QUESTION=120;
+const letters=['A','B','C','D','E'];
+
+const questions=[
+{t:'Jaringan WAN',q:'Sebuah sekolah memiliki dua gedung yang berjarak 3 kilometer. Kedua gedung harus terhubung ke jaringan utama dengan koneksi stabil dan kapasitas tinggi. Media transmisi yang paling tepat untuk menghubungkan kedua gedung adalah ...',o:['Kabel UTP Cat5e yang dibentangkan langsung tanpa perlindungan','Kabel fiber optik dengan perangkat konversi yang sesuai','Kabel telepon analog yang digunakan untuk jaringan lokal','Kabel coaxial televisi tanpa perangkat jaringan tambahan','Koneksi Bluetooth antarkomputer di setiap gedung'],a:1,e:'Fiber optik cocok untuk jarak antargedung karena memiliki kapasitas tinggi, redaman rendah, dan tidak mudah terganggu interferensi elektromagnetik.'},
+{t:'Topologi WAN',q:'Perusahaan memiliki kantor pusat dan empat kantor cabang. Seluruh cabang harus mengakses server di kantor pusat, tetapi antar-cabang tidak harus saling terhubung langsung. Desain WAN yang paling efisien adalah ...',o:['Full mesh antara semua perangkat di setiap kantor','Ring yang menghubungkan seluruh komputer kantor','Hub-and-spoke dengan kantor pusat sebagai hub','Bus yang menggunakan satu kabel utama antarkota','Peer-to-peer tanpa router pusat'],a:2,e:'Model hub-and-spoke memusatkan koneksi cabang ke kantor pusat sehingga lebih sederhana dan hemat biaya dibandingkan full mesh.'},
+{t:'Routing',q:'Router memiliki tabel routing berisi jaringan lokal 192.168.10.0/24 dan jaringan tujuan lain yang belum dikenal. Agar paket menuju jaringan yang tidak tercantum tetap memiliki jalur keluar, administrator perlu menambahkan ...',o:['Default route menuju next-hop atau gateway ISP','Static ARP untuk seluruh alamat internet','DHCP pool untuk jaringan eksternal','VLAN baru pada setiap port router','DNS record untuk setiap alamat tujuan'],a:0,e:'Default route 0.0.0.0/0 digunakan sebagai jalur pilihan terakhir untuk tujuan yang tidak memiliki rute lebih spesifik.'},
+{t:'Routing',q:'Dua router sudah saling terhubung secara fisik. Router pertama dapat melakukan ping ke alamat interface router kedua, tetapi komputer di belakang router kedua tidak dapat diakses. Pemeriksaan awal yang paling tepat adalah ...',o:['Mengganti seluruh kabel LAN dengan kabel fiber','Menghapus semua alamat IP pada komputer','Menonaktifkan seluruh layanan DHCP','Memeriksa rute jaringan balik dan forward pada kedua router','Mengganti nama host seluruh komputer'],a:3,e:'Koneksi antar-interface belum menjamin jaringan di belakang router dapat berkomunikasi. Periksa routing menuju jaringan tujuan dan rute baliknya.'},
+{t:'Subnetting WAN',q:'Sebuah koneksi point-to-point IPv4 membutuhkan dua alamat host yang dapat digunakan. Administrator ingin menggunakan subnet kecil yang umum untuk kebutuhan tersebut. Prefix yang tepat adalah ...',o:['/24','/16','/30','/8','/20'],a:2,e:'Subnet /30 menyediakan empat alamat total: network, broadcast, dan dua alamat host yang dapat digunakan.'},
+{t:'Troubleshooting WAN',q:'Kantor cabang tidak dapat mengakses server pusat. Router cabang dapat melakukan ping ke gateway ISP, tetapi tidak dapat melakukan ping ke IP publik kantor pusat. Langkah analisis berikutnya yang paling tepat adalah ...',o:['Mengganti monitor komputer klien','Memeriksa routing, VPN atau jalur WAN menuju kantor pusat','Menghapus seluruh akun pengguna Windows','Mengubah resolusi layar komputer server','Mengganti nama jaringan Wi-Fi'],a:1,e:'Gateway ISP yang dapat dijangkau menunjukkan koneksi lokal ke ISP berjalan. Pemeriksaan berikutnya diarahkan pada jalur WAN, routing, dan tunnel VPN jika digunakan.'},
+{t:'VPN',q:'Pegawai harus mengakses aplikasi internal kantor dari rumah melalui internet. Data harus melewati jaringan publik secara aman. Solusi yang paling sesuai adalah ...',o:['Membuka seluruh port server ke internet','Menggunakan FTP tanpa enkripsi','Menghubungkan komputer melalui Bluetooth','Menggunakan VPN dengan autentikasi dan enkripsi','Mematikan firewall pada router kantor'],a:3,e:'VPN membentuk koneksi privat melalui jaringan publik dengan perlindungan enkripsi dan autentikasi.'},
+{t:'Keamanan Jaringan',q:'Administrator menemukan banyak percobaan login dari alamat IP asing pada router kantor. Tindakan yang paling tepat adalah ...',o:['Membuat akun administrator tanpa kata sandi','Membuka akses manajemen router untuk semua alamat','Menghapus konfigurasi jaringan lokal','Menonaktifkan pencatatan log agar router ringan','Membatasi akses manajemen dan memperkuat autentikasi'],a:4,e:'Batasi akses manajemen hanya dari jaringan tepercaya, gunakan kata sandi kuat, dan aktifkan pencatatan log untuk memantau aktivitas.'},
+{t:'Firewall',q:'Sebuah server web harus dapat diakses pengguna dari internet melalui HTTPS, tetapi layanan administrasi SSH hanya boleh diakses dari IP administrator. Aturan firewall yang tepat adalah ...',o:['Mengizinkan semua port dari seluruh alamat IP','Mengizinkan HTTPS secara publik dan membatasi SSH ke IP administrator','Memblokir seluruh koneksi masuk tanpa pengecualian','Mengizinkan SSH dan HTTPS hanya untuk jaringan Wi-Fi tamu','Menonaktifkan firewall agar layanan berjalan'],a:1,e:'Layanan HTTPS dapat dibuka untuk publik, sedangkan SSH merupakan layanan administrasi yang sebaiknya dibatasi ke alamat IP tepercaya.'},
+{t:'Keamanan WAN',q:'Sebuah perusahaan ingin memastikan koneksi antarkantor tidak dapat dibaca pihak lain ketika melewati internet. Penggunaan enkripsi pada tunnel VPN bertujuan untuk ...',o:['Meningkatkan resolusi monitor pengguna','Menghapus kebutuhan alamat IP','Menjaga kerahasiaan data yang dikirim melalui jaringan publik','Mengubah semua alamat IP menjadi alamat MAC','Mempercepat kapasitas hard disk server'],a:2,e:'Enkripsi VPN melindungi kerahasiaan data sehingga pihak yang menyadap lalu lintas tidak mudah membaca isi komunikasi.'},
+{t:'MikroTik',q:'Jaringan LAN menggunakan alamat privat 192.168.20.0/24. Router MikroTik telah memiliki koneksi internet pada ether1, tetapi klien LAN belum dapat mengakses internet. Konfigurasi yang perlu diperiksa atau ditambahkan adalah ...',o:['NAT masquerade pada trafik keluar melalui interface WAN','Menghapus alamat IP pada interface LAN','Mengubah seluruh alamat klien menjadi alamat publik','Menonaktifkan routing pada router','Mengganti nama interface ether1'],a:0,e:'NAT masquerade menerjemahkan alamat privat klien menjadi alamat sumber yang dapat digunakan pada koneksi keluar melalui WAN.'},
+{t:'MikroTik',q:'Setelah router MikroTik direstart, klien LAN dapat mengakses router tetapi tidak dapat mengakses internet. Administrator menemukan default route tidak tersedia. Kemungkinan konfigurasi yang perlu diperiksa adalah ...',o:['Warna tema Winbox','Nama perangkat pada identity','Ukuran font terminal','Gateway dari DHCP client WAN atau konfigurasi default route','Urutan ikon pada menu'],a:3,e:'Tanpa default route yang valid, router tidak mengetahui jalur menuju jaringan di luar tabel routing lokal.'},
+{t:'MikroTik',q:'Administrator ingin membagi jaringan menjadi dua segmen: jaringan guru dan jaringan siswa. Kedua kelompok harus memiliki broadcast domain terpisah meskipun menggunakan switch yang mendukung VLAN. Teknologi yang digunakan adalah ...',o:['NAT','VLAN','FTP','DNS','NTP'],a:1,e:'VLAN memisahkan jaringan secara logis menjadi broadcast domain berbeda pada infrastruktur switch yang mendukung VLAN.'},
+{t:'MikroTik',q:'Sebuah aturan firewall MikroTik dimaksudkan untuk memblokir paket yang melewati router dari jaringan LAN menuju internet. Chain yang paling sesuai adalah ...',o:['input','output','forward','prerouting','postrouting'],a:2,e:'Chain forward digunakan untuk memproses paket yang melewati router, misalnya trafik dari LAN menuju internet.'},
+{t:'MikroTik',q:'Administrator ingin agar router MikroTik memperoleh alamat IP WAN secara otomatis dari modem ISP. Fitur yang paling tepat digunakan adalah ...',o:['DHCP Server pada interface LAN','Hotspot Server','IP Pool untuk klien lokal','Static DNS','DHCP Client pada interface WAN'],a:4,e:'DHCP Client pada interface WAN meminta konfigurasi IP secara otomatis dari perangkat ISP atau modem.'},
+{t:'MikroTik',q:'Setelah konfigurasi MikroTik berhasil, administrator ingin menyimpan cadangan konfigurasi yang mudah dipindahkan dan dibaca sebagai perintah konfigurasi. Pilihan yang tepat adalah ...',o:['Membuat export konfigurasi ke file teks','Menghapus seluruh konfigurasi aktif','Mengambil screenshot desktop saja','Menghapus log router','Mengganti alamat MAC semua interface'],a:0,e:'Perintah export menghasilkan konfigurasi berbentuk teks yang dapat dibaca dan digunakan sebagai referensi pemulihan atau migrasi.'},
+{t:'MikroTik',q:'Sebuah jaringan mengalami penggunaan bandwidth berlebihan oleh beberapa klien sehingga layanan penting menjadi lambat. Solusi pengelolaan yang sesuai adalah ...',o:['Menambah jumlah akun pengguna tanpa batas','Mematikan semua interface LAN','Menghapus seluruh alamat IP klien','Menerapkan pengaturan bandwidth dan prioritas trafik','Mengganti nama SSID setiap hari'],a:3,e:'Manajemen bandwidth dan prioritas trafik membantu membagi kapasitas jaringan secara terukur dan menjaga layanan penting tetap mendapatkan sumber daya.'},
+{t:'Virtualisasi Server',q:'Server Debian dijalankan di VirtualBox. Komputer lain pada LAN sekolah harus dapat mengakses layanan server menggunakan alamat IP yang berada pada jaringan LAN yang sama. Mode jaringan VirtualBox yang paling sesuai adalah ...',o:['Internal Network tanpa koneksi ke LAN','Bridged Adapter','Host-only tanpa interface tambahan','Not Attached','NAT Network yang hanya digunakan untuk host lokal'],a:1,e:'Bridged Adapter menghubungkan adapter virtual ke jaringan fisik sehingga mesin virtual dapat memperoleh alamat pada jaringan LAN yang sama.'},
+{t:'Debian Server',q:'Server Debian digunakan sebagai web server sekolah. Administrator ingin alamat server tetap sama agar pengguna tidak perlu mencari alamat baru setelah server dinyalakan ulang. Konfigurasi yang paling tepat adalah ...',o:['Menggunakan IP dinamis yang berubah setiap saat','Menghapus konfigurasi interface jaringan','Menggunakan alamat IP statis yang sesuai dengan jaringan','Mengganti alamat IP setiap kali server hidup','Menonaktifkan seluruh konfigurasi jaringan'],a:2,e:'Alamat IP statis membuat alamat server tetap sehingga layanan lebih mudah diakses melalui alamat yang konsisten.'},
+{t:'Debian Server',q:'Setelah menambahkan repository pada Debian, administrator ingin memperbarui daftar paket yang tersedia sebelum melakukan instalasi. Perintah yang tepat adalah ...',o:['systemctl restart networking','ip addr flush','chmod -R 777 /','apt update','reboot now'],a:3,e:'apt update memperbarui indeks daftar paket dari repository. Perintah ini tidak sama dengan apt upgrade yang memperbarui paket terpasang.'},
+{t:'Debian Server',q:'Administrator ingin mengetahui alamat IP yang sedang digunakan oleh interface jaringan pada Debian. Perintah modern yang tepat adalah ...',o:['ip addr','mkdir network','nano /etc/passwd','systemctl poweroff','apt remove iproute2'],a:0,e:'Perintah ip addr menampilkan informasi alamat IP dan interface jaringan pada sistem Linux.'},
+{t:'Debian Server',q:'Sebuah layanan web pada Debian tidak dapat diakses setelah server selesai dinyalakan. Administrator ingin mengetahui apakah layanan web sedang aktif atau mengalami kegagalan. Perintah yang paling tepat adalah ...',o:['ls -la /home','systemctl status nama-layanan','clear history','touch webserver.txt','passwd root'],a:1,e:'systemctl status digunakan untuk melihat status layanan, termasuk apakah layanan aktif, berhenti, atau mengalami kegagalan.'},
+{t:'Debian Server',q:'Administrator telah berhasil menjalankan layanan web secara manual. Agar layanan tersebut otomatis berjalan setiap kali Debian melakukan booting, perintah yang digunakan adalah ...',o:['systemctl disable nama-layanan','systemctl mask nama-layanan','systemctl enable nama-layanan','systemctl stop nama-layanan','systemctl isolate rescue.target'],a:2,e:'systemctl enable mengatur layanan agar diaktifkan otomatis pada proses boot sesuai konfigurasi unit layanan.'},
+{t:'Debian Server',q:'Komputer klien tidak dapat terhubung ke server Debian melalui SSH. Administrator ingin menguji apakah port standar SSH sedang menerima koneksi. Port yang perlu diperiksa adalah ...',o:['21','25','53','80','22'],a:4,e:'SSH secara default menggunakan TCP port 22 untuk koneksi administrasi jarak jauh yang terenkripsi.'},
+{t:'Debian Server',q:'Server Debian dapat diakses menggunakan alamat IP, tetapi pengguna tidak dapat membukanya menggunakan nama domain internal. Masalah yang paling mungkin perlu diperiksa adalah ...',o:['Konfigurasi DNS dan resolusi nama domain','Kapasitas RAM komputer klien saja','Resolusi layar server','Kecepatan kipas prosesor','Nama folder home pengguna'],a:0,e:'Jika akses menggunakan IP berhasil tetapi nama domain gagal, pemeriksaan diarahkan pada DNS, record domain, dan konfigurasi resolver klien.'},
+{t:'Debian Server',q:'Administrator ingin mengetahui apakah server dapat menjangkau gateway jaringan. Utilitas yang paling tepat untuk menguji konektivitas dasar adalah ...',o:['chmod','tar','ping','useradd','fdisk'],a:2,e:'ping mengirimkan paket ICMP Echo Request untuk menguji keterjangkauan alamat tujuan dan membantu analisis konektivitas.'},
+{t:'FTP Server',q:'Sebuah sekolah menggunakan FileZilla Server pada Windows untuk berbagi file dengan komputer laboratorium. Pengguna berhasil terhubung ke server, tetapi tidak dapat mengunduh file dari folder yang dibagikan. Pengaturan yang perlu diperiksa adalah ...',o:['Resolusi monitor server','Izin akses pengguna terhadap direktori dan file','Nama wallpaper Windows','Ukuran ikon desktop','Bahasa keyboard klien'],a:1,e:'Koneksi berhasil belum tentu berarti pengguna memiliki hak akses. Periksa shared directory dan permission baca atau unduh pada akun tersebut.'},
+{t:'FTP Server',q:'Klien dapat login ke FTP Server, tetapi proses melihat daftar file atau transfer data gagal. Salah satu penyebab yang paling mungkin adalah ...',o:['Warna tema FileZilla berbeda','Nama komputer klien terlalu pendek','Monitor server belum dikalibrasi','Firewall memblokir koneksi data atau rentang port passive FTP','Keyboard server tidak terdeteksi'],a:3,e:'FTP menggunakan koneksi kontrol dan koneksi data. Firewall yang memblokir port data atau rentang passive mode dapat menyebabkan login berhasil tetapi transfer gagal.'},
+{t:'FTP Server',q:'Administrator ingin menyediakan transfer file yang terenkripsi agar kredensial pengguna tidak dikirim dalam bentuk teks biasa. Pilihan layanan yang lebih aman adalah ...',o:['FTP biasa tanpa enkripsi','Telnet','TFTP tanpa autentikasi','HTTP biasa','SFTP melalui SSH'],a:4,e:'SFTP berjalan melalui SSH dan mengenkripsi komunikasi, termasuk proses autentikasi serta transfer file.'},
+{t:'FTP Server',q:'Sebuah komputer klien tidak dapat terhubung ke FileZilla Server menggunakan alamat IP server. Komputer server sendiri dapat membuka layanan tersebut secara lokal. Pemeriksaan pertama yang paling masuk akal adalah ...',o:['Memeriksa firewall Windows, alamat IP, dan jalur jaringan dari klien','Menghapus semua file pada direktori server','Mengganti nama seluruh file menjadi angka','Mengubah resolusi layar komputer klien','Menghapus akun pengguna Windows'],a:0,e:'Layanan yang berfungsi secara lokal tetapi tidak dapat diakses dari klien dapat disebabkan firewall, alamat IP, binding interface, atau konektivitas jaringan.'},
+{t:'FTP Server',q:'Dalam pengelolaan FileZilla Server, administrator membuat akun untuk setiap kelompok pengguna dan membatasi folder yang dapat diakses. Tujuan utama pengaturan tersebut adalah ...',o:['Membuat semua pengguna memiliki akses administrator','Menghilangkan kebutuhan autentikasi','Mengatur hak akses berdasarkan pengguna dan kebutuhan','Membuat alamat IP server berubah otomatis','Mengganti fungsi router menjadi server FTP'],a:2,e:'Akun dan permission digunakan untuk mengendalikan siapa yang dapat mengakses direktori tertentu dan tindakan apa yang boleh dilakukan.'},
+{t:'Layanan Jaringan',q:'Sebuah perusahaan memiliki server web internal yang harus dapat dibuka melalui nama seperti aplikasi.intra, bukan alamat IP. Layanan yang bertugas menerjemahkan nama tersebut menjadi alamat IP adalah ...',o:['DHCP','DNS','FTP','NTP','SMTP'],a:1,e:'DNS menerjemahkan nama domain atau hostname menjadi alamat IP sehingga pengguna tidak perlu menghafal alamat numerik.'},
+{t:'Keamanan Jaringan',q:'Administrator menemukan komputer pengguna terinfeksi malware yang mencoba menghubungi server asing secara terus-menerus. Langkah awal yang paling tepat untuk membatasi penyebaran dampak adalah ...',o:['Membiarkan komputer tetap terhubung agar aktivitas terlihat','Menghapus seluruh konfigurasi router','Membagikan file terinfeksi ke komputer lain','Mengisolasi perangkat terdampak dari jaringan dan melakukan pemeriksaan','Menonaktifkan seluruh kata sandi pengguna'],a:3,e:'Isolasi perangkat terdampak membantu mencegah komunikasi berbahaya dan penyebaran infeksi ke perangkat lain sebelum proses analisis dan pembersihan.'},
+{t:'Monitoring Jaringan',q:'Pengguna mengeluhkan jaringan lambat pada jam tertentu. Administrator ingin mengetahui apakah terjadi lonjakan penggunaan bandwidth dan perangkat mana yang menjadi sumbernya. Tindakan terbaik adalah ...',o:['Melakukan monitoring trafik jaringan dan penggunaan bandwidth per perangkat','Mengganti seluruh komputer tanpa pemeriksaan','Menghapus semua akun pengguna','Mematikan DNS server','Mengganti kabel power monitor'],a:0,e:'Monitoring trafik memberikan data penggunaan bandwidth sehingga administrator dapat mengidentifikasi pola lonjakan dan perangkat penyebabnya.'},
+{t:'Troubleshooting',q:'Dalam sebuah jaringan, komputer A dapat melakukan ping ke gateway, tetapi tidak dapat mengakses server internal. Komputer B pada jaringan yang sama dapat mengakses server tersebut. Analisis yang paling tepat adalah ...',o:['Seluruh jaringan pasti mengalami kerusakan','ISP pasti memutus koneksi internet','Server pasti mati total','Router utama pasti rusak','Masalah kemungkinan berada pada konfigurasi atau perangkat komputer A'],a:4,e:'Karena komputer B dapat mengakses server, layanan dan jalur umum kemungkinan masih berjalan. Pemeriksaan difokuskan pada IP, firewall, route, atau konfigurasi komputer A.'},
+{t:'Desain Jaringan',q:'Sebuah sekolah akan membangun jaringan untuk ruang guru, laboratorium, dan ruang administrasi. Setiap bagian memerlukan akses yang terkontrol, tetapi tetap menggunakan infrastruktur switch yang sama. Rancangan yang paling tepat adalah ...',o:['Menggabungkan semua perangkat dalam satu broadcast domain tanpa aturan','Menggunakan VLAN terpisah dan mengatur komunikasi antarsemen melalui routing serta firewall','Menghubungkan semua komputer menggunakan kabel crossover langsung','Menonaktifkan seluruh switch dan menggunakan Bluetooth','Memberikan alamat IP yang sama untuk semua komputer'],a:1,e:'VLAN memisahkan segmen secara logis, sedangkan routing dan firewall dapat mengatur komunikasi antarsemen sesuai kebijakan.'},
+{t:'Backup dan Pemulihan',q:'Server sekolah menyimpan data penting dan konfigurasi layanan. Administrator ingin mengurangi risiko kehilangan data akibat kerusakan perangkat. Strategi yang paling tepat adalah ...',o:['Menyimpan satu salinan data pada disk server yang sama','Menghapus backup lama tanpa membuat salinan baru','Melakukan backup berkala ke media atau lokasi terpisah dan menguji pemulihannya','Menyimpan semua kata sandi dalam file publik','Menonaktifkan log dan monitoring server'],a:2,e:'Backup berkala ke lokasi terpisah mengurangi risiko kehilangan data ketika perangkat utama rusak. Pengujian restore memastikan cadangan benar-benar dapat digunakan.'},
+{t:'Perencanaan WAN',q:'Perusahaan akan menghubungkan kantor pusat dan cabang yang berjauhan. Sebelum menentukan perangkat dan media koneksi, administrator harus mengumpulkan informasi kebutuhan. Hal paling penting adalah ...',o:['Warna casing router yang diinginkan pegawai','Merek keyboard di setiap kantor','Jumlah wallpaper komputer','Jarak, kebutuhan bandwidth, ketersediaan layanan ISP, biaya, dan tingkat keandalan','Ukuran meja kerja administrator'],a:3,e:'Perencanaan WAN harus mempertimbangkan jarak, kapasitas, biaya, ketersediaan infrastruktur ISP, keamanan, dan kebutuhan keandalan layanan.'},
+{t:'Troubleshooting Terpadu',q:'Setelah listrik padam, server Debian kembali menyala. Komputer klien memperoleh IP dari DHCP dan dapat melakukan ping ke server, tetapi website internal tidak dapat dibuka. Langkah pemeriksaan yang paling tepat adalah ...',o:['Memeriksa status layanan web, port listening, firewall, dan log layanan','Mengganti semua alamat IP klien menjadi publik','Menghapus seluruh akun DHCP','Mengganti kabel monitor server','Menonaktifkan switch utama'],a:0,e:'Ping hanya membuktikan konektivitas IP dasar. Layanan web perlu diperiksa secara terpisah, termasuk status service, port, firewall, dan log kesalahan.'}
+];
+
+let current=0;
+let answers=Array(questions.length).fill(null);
+let timeLeft=Array(questions.length).fill(TIME_PER_QUESTION);
+let timerInterval=null;
+let finished=false;
+let student={name:'',className:'',number:''};
+
+function formatTime(seconds){
+ const m=Math.floor(seconds/60);
+ const s=seconds%60;
+ return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function stopTimer(){
+ if(timerInterval){clearInterval(timerInterval);timerInterval=null;}
+}
+function updateTimer(){
+ const el=$('timerDisplay');
+ el.textContent=formatTime(timeLeft[current]);
+ el.classList.toggle('urgent',timeLeft[current]<=15);
+}
+function startTimer(){
+ stopTimer();
+ if(finished)return;
+ if(timeLeft[current]<=0){
+  if(current<questions.length-1){current++;render();}
+  else finish();
+  return;
+ }
+ updateTimer();
+ timerInterval=setInterval(()=>{
+  if(finished){stopTimer();return;}
+  timeLeft[current]=Math.max(0,timeLeft[current]-1);
+  updateTimer();
+  if(timeLeft[current]===0){
+   stopTimer();
+   if(current<questions.length-1){
+    current++;
+    render();
+   }else{
+    finish();
+   }
+  }
+ },1000);
+}
+function renderDots(){
+ const wrap=$('questionDots');
+ wrap.replaceChildren();
+ questions.forEach((q,i)=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.className='dot';
+  b.textContent=i+1;
+  if(answers[i]!==null)b.classList.add('answered');
+  if(timeLeft[i]===0)b.classList.add('expired');
+  if(i===current)b.classList.add('active');
+  b.addEventListener('click',()=>{
+   if(finished||timeLeft[i]<=0)return;
+   current=i;
+   render();
+  });
+  wrap.appendChild(b);
+ });
+}
+function render(){
+ if(finished)return;
+ stopTimer();
+ const q=questions[current];
+ $('questionNumber').textContent='SOAL '+(current+1)+' DARI '+questions.length;
+ $('answeredCount').textContent=answers.filter(v=>v!==null).length+' soal dijawab';
+ $('progressBar').style.width=((current+1)/questions.length*100)+'%';
+ $('topicTag').textContent=q.t;
+ $('questionText').textContent=q.q;
+ $('options').replaceChildren();
+
+ q.o.forEach((option,index)=>{
+  const label=document.createElement('div');
+  label.className='option'+(answers[current]===index?' selected':'');
+  const letter=document.createElement('span');
+  letter.className='letter';
+  letter.textContent=letters[index];
+  const content=document.createElement('span');
+  content.className='option-text';
+  content.textContent=option;
+  label.append(letter,content);
+  label.addEventListener('click',()=>{
+   if(timeLeft[current]<=0||finished)return;
+   answers[current]=index;
+   render();
+  });
+  $('options').appendChild(label);
+ });
+ $('prevBtn').disabled=current===0;
+ $('nextBtn').textContent=current===questions.length-1?'Soal Terakhir':'Berikutnya →';
+ renderDots();
+ startTimer();
+}
+function finish(){
+ if(finished)return;
+ finished=true;
+ stopTimer();
+ const correct=answers.reduce((n,a,i)=>n+(a===questions[i].a?1:0),0);
+ const wrong=answers.reduce((n,a,i)=>n+(a!==null&&a!==questions[i].a?1:0),0);
+ const empty=questions.length-correct-wrong;
+ const score=Math.round(correct/questions.length*100);
+ $('finalScore').textContent=score;
+ $('correctCount').textContent=correct;
+ $('wrongCount').textContent=wrong;
+ $('emptyCount').textContent=empty;
+ $('resultMessage').textContent=score>=85?'Sangat baik! Pertahankan kemampuanmu.':score>=70?'Bagus! Terus tingkatkan pemahamanmu.':score>=55?'Cukup baik. Pelajari kembali materi yang belum dikuasai.':'Tetap semangat. Pelajari pembahasan dan tingkatkan latihanmu.';
+ $('identityResult').textContent='Nama: '+student.name+' | Kelas: '+student.className+' | Absen: '+student.number+' | Tanggal: '+new Date().toLocaleDateString('id-ID');
+
+ const list=$('reviewList');
+ list.replaceChildren();
+ questions.forEach((q,i)=>{
+  const item=document.createElement('div');
+  item.className='review-item';
+  const heading=document.createElement('h3');
+  heading.textContent='Soal '+(i+1)+' — '+q.t;
+  const question=document.createElement('p');
+  question.style.color='#eee3fa';
+  question.style.fontSize='13px';
+  question.textContent=q.q;
+  const your=document.createElement('div');
+  your.className='review-answer '+(answers[i]===q.a?'correct-text':'wrong-text');
+  your.textContent='Jawaban kamu: '+(answers[i]===null?'Tidak dijawab':letters[answers[i]]+'. '+q.o[answers[i]]);
+  const key=document.createElement('div');
+  key.className='review-answer correct-text';
+  key.textContent='Kunci jawaban: '+letters[q.a]+'. '+q.o[q.a];
+  const explain=document.createElement('div');
+  explain.className='explain';
+  explain.textContent='Pembahasan: '+q.e;
+  item.append(heading,question,your,key,explain);
+  list.appendChild(item);
+ });
+ $('quiz').classList.add('hidden');
+ $('intro').classList.add('hidden');
+ $('result').classList.remove('hidden');
+ $('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('startBtn').addEventListener('click',()=>{
+ const name=$('studentName').value.trim();
+ const cls=$('studentClass').value.trim();
+ const number=$('studentNumber').value.trim();
+ if(!name||!cls||!number){
+  alert('Lengkapi nama, kelas, dan nomor absen terlebih dahulu.');
+  return;
+ }
+ student={name,className:cls,number};
+ current=0;
+ answers=Array(questions.length).fill(null);
+ timeLeft=Array(questions.length).fill(TIME_PER_QUESTION);
+ finished=false;
+ $('intro').classList.add('hidden');
+ $('quiz').classList.remove('hidden');
+ render();
+ $('quiz').scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('prevBtn').addEventListener('click',()=>{
+ if(current>0&&!finished){
+  current--;
+  if(timeLeft[current]>0)render();
+  else{
+   while(current>0&&timeLeft[current]<=0)current--;
+   render();
+  }
+ }
+});
+$('nextBtn').addEventListener('click',()=>{
+ if(current<questions.length-1&&!finished){
+  let next=current+1;
+  while(next<questions.length&&timeLeft[next]<=0)next++;
+  if(next<questions.length){current=next;render();}
+  else finish();
+ }
+});
+$('submitBtn').addEventListener('click',()=>{
+ const unanswered=answers.filter(v=>v===null).length;
+ const message=unanswered>0
+  ?'Masih ada '+unanswered+' soal yang belum dijawab. Apakah kamu yakin ingin menyelesaikan evaluasi?'
+  :'Apakah kamu yakin ingin menyelesaikan evaluasi?';
+ if(confirm(message))finish();
+});
+$('printBtn').addEventListener('click',()=>window.print());
+$('retryBtn').addEventListener('click',()=>{
+ stopTimer();
+ current=0;
+ answers=Array(questions.length).fill(null);
+ timeLeft=Array(questions.length).fill(TIME_PER_QUESTION);
+ finished=false;
+ $('result').classList.add('hidden');
+ $('intro').classList.remove('hidden');
+ $('studentName').value='';
+ $('studentClass').value='';
+ $('studentNumber').value='';
+ $('intro').scrollIntoView({behavior:'smooth',block:'start'});
+});
+})();
+</script>
+</div>
+
